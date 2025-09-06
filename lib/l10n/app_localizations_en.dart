@@ -1440,4 +1440,49 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pageNotFoundMessage =>
       'The page you are looking for does not exist.';
+
+  @override
+  String get chatAssistantName => 'Wonderous AI Assistant';
+
+  @override
+  String get chatAssistantStatus => 'Online';
+
+  @override
+  String get chatDefaultMessage =>
+      'Thank you for your message! I\'m here to help you explore the wonders of the world.';
+
+  @override
+  String get chatStartConversation => 'Start a conversation...';
+
+  @override
+  String get chatTypeMessage => 'Type a message...';
+
+  @override
+  String get chatWelcomeMessage =>
+      'Hello! I\'m your AI assistant powered by Google Gemini. How can I help you explore the wonders of the world today?';
+
+  @override
+  String get chatImageReady => 'Image ready to send';
+
+  @override
+  String get chatImageUploaded => 'Image uploaded';
+
+  @override
+  String get chatPermissionRequired => 'Permission is required to pick images';
+
+  @override
+  String get chatErrorPickingImage => 'Error picking image';
+
+  @override
+  String get chatErrorProcessingImage => 'Error processing image';
+
+  @override
+  String get chatErrorProcessingRequest =>
+      'Sorry, there was an error processing your request';
+
+  @override
+  String get chatNoResponse => 'I\'m not sure how to respond to that.';
+
+  @override
+  String get chatTypingMessage => 'Type your message...';
 }

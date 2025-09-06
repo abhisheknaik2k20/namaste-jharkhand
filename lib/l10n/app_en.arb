@@ -429,5 +429,19 @@
 	"privacyStatement": "As explained in our {privacyUrl} we do not collect any personal information.",
 	"@privacyStatement": {"placeholders": {"privacyUrl": {}}},
 	"pageNotFoundBackButton": "Back to civilization",
-	"pageNotFoundMessage": "The page you are looking for does not exist."
+	"pageNotFoundMessage": "The page you are looking for does not exist.",
+	"chatAssistantName": "Wonderous AI Assistant",
+	"chatAssistantStatus": "Online",
+	"chatDefaultMessage": "Thank you for your message! I'm here to help you explore the wonders of the world.",
+	"chatStartConversation": "Start a conversation...",
+	"chatTypeMessage": "Type a message...",
+	"chatWelcomeMessage": "Hello! I'm your AI assistant powered by Google Gemini. How can I help you explore the wonders of the world today?",
+	"chatImageReady": "Image ready to send",
+	"chatImageUploaded": "Image uploaded",
+	"chatPermissionRequired": "Permission is required to pick images",
+	"chatErrorPickingImage": "Error picking image",
+	"chatErrorProcessingImage": "Error processing image",
+	"chatErrorProcessingRequest": "Sorry, there was an error processing your request",
+	"chatNoResponse": "I'm not sure how to respond to that.",
+	"chatTypingMessage": "Type your message..."
 }

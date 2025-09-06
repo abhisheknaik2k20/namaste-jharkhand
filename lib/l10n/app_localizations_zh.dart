@@ -1356,4 +1356,47 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pageNotFoundMessage => '您正在寻找的页面不存在';
+
+  @override
+  String get chatAssistantName => '奇迹AI助手';
+
+  @override
+  String get chatAssistantStatus => '在线';
+
+  @override
+  String get chatDefaultMessage => '感谢您的消息！我来帮助您探索世界奇迹。';
+
+  @override
+  String get chatStartConversation => '开始对话...';
+
+  @override
+  String get chatTypeMessage => '输入消息...';
+
+  @override
+  String get chatWelcomeMessage =>
+      '您好！我是由Google Gemini提供支持的AI助手。今天我如何帮助您探索世界奇迹？';
+
+  @override
+  String get chatImageReady => '图片准备发送';
+
+  @override
+  String get chatImageUploaded => '图片已上传';
+
+  @override
+  String get chatPermissionRequired => '需要权限才能选择图片';
+
+  @override
+  String get chatErrorPickingImage => '选择图片时出错';
+
+  @override
+  String get chatErrorProcessingImage => '处理图片时出错';
+
+  @override
+  String get chatErrorProcessingRequest => '抱歉，处理您的请求时出现错误';
+
+  @override
+  String get chatNoResponse => '我不确定如何回应。';
+
+  @override
+  String get chatTypingMessage => '输入您的消息...';
 }

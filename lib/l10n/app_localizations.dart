@@ -2551,6 +2551,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The page you are looking for does not exist.'**
   String get pageNotFoundMessage;
+
+  /// No description provided for @chatAssistantName.
+  ///
+  /// In en, this message translates to:
+  /// **'Wonderous AI Assistant'**
+  String get chatAssistantName;
+
+  /// No description provided for @chatAssistantStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get chatAssistantStatus;
+
+  /// No description provided for @chatDefaultMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your message! I\'m here to help you explore the wonders of the world.'**
+  String get chatDefaultMessage;
+
+  /// No description provided for @chatStartConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a conversation...'**
+  String get chatStartConversation;
+
+  /// No description provided for @chatTypeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a message...'**
+  String get chatTypeMessage;
+
+  /// No description provided for @chatWelcomeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello! I\'m your AI assistant powered by Google Gemini. How can I help you explore the wonders of the world today?'**
+  String get chatWelcomeMessage;
+
+  /// No description provided for @chatImageReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Image ready to send'**
+  String get chatImageReady;
+
+  /// No description provided for @chatImageUploaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Image uploaded'**
+  String get chatImageUploaded;
+
+  /// No description provided for @chatPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission is required to pick images'**
+  String get chatPermissionRequired;
+
+  /// No description provided for @chatErrorPickingImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Error picking image'**
+  String get chatErrorPickingImage;
+
+  /// No description provided for @chatErrorProcessingImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Error processing image'**
+  String get chatErrorProcessingImage;
+
+  /// No description provided for @chatErrorProcessingRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, there was an error processing your request'**
+  String get chatErrorProcessingRequest;
+
+  /// No description provided for @chatNoResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m not sure how to respond to that.'**
+  String get chatNoResponse;
+
+  /// No description provided for @chatTypingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your message...'**
+  String get chatTypingMessage;
 }
 
 class _AppLocalizationsDelegate
