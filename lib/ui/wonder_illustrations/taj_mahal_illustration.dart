@@ -82,27 +82,26 @@ class TajMahalIllustration extends StatelessWidget {
   }
 
   List<Widget> _buildFg(BuildContext context, Animation<double> anim) {
-    /// Let the mangos scale up as the width of the screen grows
-    final mangoScale = max(context.widthPx - 400, 0) / 1000;
     return [
       IllustrationPiece(
-        fileName: 'foreground-right.png',
-        alignment: Alignment.bottomRight,
-        initialOffset: Offset(20, 40),
-        initialScale: .85,
-        heightFactor: .5 + .4 * mangoScale,
-        fractionalOffset: Offset(.3, 0),
-        zoomAmt: .25,
-      ),
-      IllustrationPiece(
         fileName: 'foreground-left.png',
-        alignment: Alignment.bottomLeft,
+        alignment: Alignment.bottomCenter,
         initialScale: .9,
         initialOffset: Offset(-40, 60),
-        heightFactor: .6 + .3 * mangoScale,
-        fractionalOffset: Offset(-.3, 0),
+        heightFactor: .85,
+        fractionalOffset: Offset(-.4, .45),
         zoomAmt: .25,
-        dynamicHzOffset: 0,
+        dynamicHzOffset: -150,
+      ),
+      IllustrationPiece(
+        fileName: 'foreground-right.png',
+        alignment: Alignment.bottomCenter,
+        initialOffset: Offset(20, 40),
+        initialScale: .95,
+        heightFactor: 1,
+        fractionalOffset: Offset(.4, .3),
+        zoomAmt: .1,
+        dynamicHzOffset: 150,
       ),
     ];
   }

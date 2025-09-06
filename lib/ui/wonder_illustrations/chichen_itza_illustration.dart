@@ -30,7 +30,7 @@ class ChichenItzaIllustration extends StatelessWidget {
           color: Color(0xffDC762A),
           opacity: anim.drive(Tween(begin: 0, end: .5)),
           flipY: true,
-          scale: config.shortMode ? 4 : 1.15,
+          scale: config.shortMode ? 8 : 1.15,
         ),
       ),
       IllustrationPiece(
@@ -45,15 +45,14 @@ class ChichenItzaIllustration extends StatelessWidget {
   }
 
   List<Widget> _buildMg(BuildContext context, Animation<double> anim) {
-    // We want to size to the shortest side
     return [
       Transform.translate(
         offset: Offset(0, config.shortMode ? 70 : -30),
         child: IllustrationPiece(
           fileName: 'chichen.png',
-          heightFactor: .4,
-          minHeight: 180,
-          zoomAmt: -.1,
+          heightFactor: .7,
+          minHeight: 250,
+          zoomAmt: 1,
           enableHero: true,
         ),
       ),
@@ -65,10 +64,10 @@ class ChichenItzaIllustration extends StatelessWidget {
       IllustrationPiece(
         fileName: 'foreground-right.png',
         alignment: Alignment.bottomCenter,
-        initialOffset: Offset(20, 40),
+        initialOffset: Offset(20, 60),
         initialScale: .95,
-        heightFactor: .4,
-        fractionalOffset: Offset(.5, -.1),
+        heightFactor: .6,
+        fractionalOffset: Offset(.5, .1),
         zoomAmt: .1,
         dynamicHzOffset: 250,
       ),
@@ -77,7 +76,7 @@ class ChichenItzaIllustration extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         initialScale: .9,
         initialOffset: Offset(-40, 60),
-        heightFactor: .65,
+        heightFactor: .4,
         fractionalOffset: Offset(-.4, .2),
         zoomAmt: .25,
         dynamicHzOffset: -250,

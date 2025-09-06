@@ -56,11 +56,8 @@ class _ArtifactScreenState extends State<ArtifactCarouselScreen> {
   Widget build(BuildContext context) {
     bool shortMode = context.heightPx <= 800;
     final double bottomHeight = context.heightPx / 2.75; // Prev 340, dynamic seems to work better
-    // Allow objects to become wider as the screen becomes tall, this allows
-    // them to grow taller as well, filling the available space better.
     double itemHeight = (context.heightPx - 200 - bottomHeight).clamp(250, 400);
     double itemWidth = itemHeight * .666;
-    // TODO: This could be optimized to only run if the size has changed...is it worth it?
     _pageController?.dispose();
     _pageController = PageController(
       viewportFraction: itemWidth / context.widthPx,

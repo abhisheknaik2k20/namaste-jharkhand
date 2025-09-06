@@ -260,12 +260,6 @@ abstract class AppLocalizations {
   /// **'{pageTitle} {current} of {total}.'**
   String appPageSemanticSwipe(Object pageTitle, Object current, Object total);
 
-  /// No description provided for @artifactsTitleArtifacts.
-  ///
-  /// In en, this message translates to:
-  /// **'ARTIFACTS'**
-  String get artifactsTitleArtifacts;
-
   /// No description provided for @semanticsPrevious.
   ///
   /// In en, this message translates to:
@@ -278,28 +272,34 @@ abstract class AppLocalizations {
   /// **'Next {title}'**
   String semanticsNext(Object title);
 
+  /// No description provided for @artifactsTitleArtifacts.
+  ///
+  /// In en, this message translates to:
+  /// **'MARKETPLACE'**
+  String get artifactsTitleArtifacts;
+
   /// No description provided for @artifactsSemanticsPrevious.
   ///
   /// In en, this message translates to:
-  /// **'Previous artifact'**
+  /// **'Previous marketplace'**
   String get artifactsSemanticsPrevious;
 
   /// No description provided for @artifactsSemanticsNext.
   ///
   /// In en, this message translates to:
-  /// **'Next artifact'**
+  /// **'Next marketplace'**
   String get artifactsSemanticsNext;
 
   /// No description provided for @artifactsSemanticArtifact.
   ///
   /// In en, this message translates to:
-  /// **'Artifact'**
+  /// **'Marketplace'**
   String get artifactsSemanticArtifact;
 
   /// No description provided for @artifactsButtonBrowse.
   ///
   /// In en, this message translates to:
-  /// **'Browse all artifacts'**
+  /// **'Browse all marketplace'**
   String get artifactsButtonBrowse;
 
   /// No description provided for @artifactDetailsLabelDate.
@@ -347,19 +347,19 @@ abstract class AppLocalizations {
   /// No description provided for @artifactDetailsErrorNotFound.
   ///
   /// In en, this message translates to:
-  /// **'Unable to find info for artifact {artifactId} '**
+  /// **'Unable to find info for marketplace {artifactId} '**
   String artifactDetailsErrorNotFound(Object artifactId);
 
   /// No description provided for @artifactsSearchTitleBrowse.
   ///
   /// In en, this message translates to:
-  /// **'Browse Artifacts'**
+  /// **'Browse Marketplace'**
   String get artifactsSearchTitleBrowse;
 
   /// No description provided for @artifactsSearchLabelNotFound.
   ///
   /// In en, this message translates to:
-  /// **'No artifacts found'**
+  /// **'No marketplace found'**
   String get artifactsSearchLabelNotFound;
 
   /// No description provided for @artifactsSearchButtonToggle.
@@ -377,7 +377,7 @@ abstract class AppLocalizations {
   /// No description provided for @artifactsSearchLabelFound.
   ///
   /// In en, this message translates to:
-  /// **'{numFound} artifacts found, {numResults} in '**
+  /// **'{numFound} marketplace found, {numResults} in '**
   String artifactsSearchLabelFound(Object numFound, Object numResults);
 
   /// No description provided for @artifactsSearchLabelAdjust.
@@ -773,157 +773,157 @@ abstract class AppLocalizations {
   /// No description provided for @chichenItzaTitle.
   ///
   /// In en, this message translates to:
-  /// **'Chichen Itza'**
+  /// **'Jagannath Temple'**
   String get chichenItzaTitle;
 
   /// No description provided for @chichenItzaSubTitle.
   ///
   /// In en, this message translates to:
-  /// **'The Great Mayan City'**
+  /// **'Lord of the Universe'**
   String get chichenItzaSubTitle;
 
   /// No description provided for @chichenItzaRegionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Yucatan, Mexico'**
+  /// **'Puri, Odisha'**
   String get chichenItzaRegionTitle;
 
   /// No description provided for @chichenItzaArtifactCulture.
   ///
   /// In en, this message translates to:
-  /// **'Maya'**
+  /// **'Hindu'**
   String get chichenItzaArtifactCulture;
 
   /// No description provided for @chichenItzaArtifactGeolocation.
   ///
   /// In en, this message translates to:
-  /// **'North and Central America'**
+  /// **'Eastern India'**
   String get chichenItzaArtifactGeolocation;
 
   /// No description provided for @chichenItzaPullQuote1Top.
   ///
   /// In en, this message translates to:
-  /// **'The Beauty Between'**
+  /// **'The Divine Connection Between'**
   String get chichenItzaPullQuote1Top;
 
   /// No description provided for @chichenItzaPullQuote1Bottom.
   ///
   /// In en, this message translates to:
-  /// **'the Heavens and the Underworld'**
+  /// **'Earth and the Sacred Realm'**
   String get chichenItzaPullQuote1Bottom;
 
   /// No description provided for @chichenItzaPullQuote2.
   ///
   /// In en, this message translates to:
-  /// **'The Maya and Toltec vision of the world and the universe is revealed in their stone monuments and artistic works.'**
+  /// **'The Jagannath Temple represents the eternal bond between devotion and divinity, where millions find spiritual solace and divine blessings.'**
   String get chichenItzaPullQuote2;
 
   /// No description provided for @chichenItzaPullQuote2Author.
   ///
   /// In en, this message translates to:
-  /// **'UNESCO'**
+  /// **'Devotional Scripture'**
   String get chichenItzaPullQuote2Author;
 
   /// No description provided for @chichenItzaCallout1.
   ///
   /// In en, this message translates to:
-  /// **'The site exhibits a multitude of architectural styles, reminiscent of styles seen in central Mexico and of the Puuc and Chenes styles of the Northern Maya lowlands.'**
+  /// **'The temple exhibits the magnificent Kalinga architectural style, featuring a towering spire that dominates the skyline of Puri and serves as a beacon for pilgrims.'**
   String get chichenItzaCallout1;
 
   /// No description provided for @chichenItzaCallout2.
   ///
   /// In en, this message translates to:
-  /// **'The city comprised an area of at least 1.9 sq miles (5 sq km) of densely clustered architecture.'**
+  /// **'The temple complex covers a substantial area and houses the famous wooden deities of Lord Jagannath, Balabhadra, and Subhadra on the jeweled throne (Ratna Simhasana).'**
   String get chichenItzaCallout2;
 
   /// No description provided for @chichenItzaVideoCaption.
   ///
   /// In en, this message translates to:
-  /// **'“Ancient Maya 101 | National Geographic.” Youtube, uploaded by National Geographic.'**
+  /// **'Jagannath Temple: Sacred Journey and Divine Architecture of Puri'**
   String get chichenItzaVideoCaption;
 
   /// No description provided for @chichenItzaMapCaption.
   ///
   /// In en, this message translates to:
-  /// **'Map showing location of Chichen Itza in Yucatán State, Mexico.'**
+  /// **'Map showing location of Jagannath Temple in Puri, Odisha, on the eastern coast of India.'**
   String get chichenItzaMapCaption;
 
   /// No description provided for @chichenItzaHistoryInfo1.
   ///
   /// In en, this message translates to:
-  /// **'Chichen Itza was a powerful regional capital controlling north and central Yucatán. The earliest hieroglyphic date discovered at Chichen Itza is equivalent to 832 CE, while the last known date was recorded in the Osario temple in 998 CE.\nDominating the North Platform of Chichen Itza is the famous Temple of Kukulcán. The temple was identified by the first Spaniards to see it, as El Castillo (\"the castle\"), and it regularly is referred to as such.'**
+  /// **'The Jagannath Temple is a Hindu temple dedicated to Lord Jagannath, a form of Vishnu, located in Puri, Odisha. The present temple was constructed in the 12th century by King Anantavarman Chodaganga Deva of the Eastern Ganga dynasty. According to temple records, the original temple was built by the legendary King Indradyumna of Avanti.'**
   String get chichenItzaHistoryInfo1;
 
   /// No description provided for @chichenItzaHistoryInfo2.
   ///
   /// In en, this message translates to:
-  /// **'The city was thought to have the most diverse population in the Maya world, a factor that could have contributed to this architectural variety.'**
+  /// **'The temple is one of the four sacred Char Dham pilgrimage sites in Hinduism, along with Dwarka, Badrinath, and Rameswaram. It has been a major center of Vaishnavism for over a thousand years and attracts millions of devotees annually, especially during the world-famous Rath Yatra festival.'**
   String get chichenItzaHistoryInfo2;
 
   /// No description provided for @chichenItzaConstructionInfo1.
   ///
   /// In en, this message translates to:
-  /// **'The structures of Chichen Itza were built from precisely chiseled limestone blocks that fit together perfectly without the mortar. Many of these stone buildings were originally painted in red, green, blue and purple colors depending on the availability of the pigments.\nThe stepped pyramid El Castillo stands about 98 feet (30 m) high and consists of a series of nine square terraces, each approximately 8.4 feet (2.57 m) high, with a 20 foot (6 m) high temple upon the summit.'**
+  /// **'The temple showcases the classic Kalinga architectural style with its towering spire (vimana) built in the Nagara style Rekha deula and the assembly hall (jagamohana) in Pidha deula style. The main structure stands on a raised platform in the center of an inner courtyard and features intricate stone carvings.'**
   String get chichenItzaConstructionInfo1;
 
   /// No description provided for @chichenItzaConstructionInfo2.
   ///
   /// In en, this message translates to:
-  /// **'It was built upon broken terrain, which was artificially leveled to support structures such as the Castillo pyramid. Important buildings within the center were connected by a dense network of paved roads called sacbeob.'**
+  /// **'The temple complex includes the main shrine housing the wooden deities on the Ratna Simhasana (jeweled throne), along with multiple smaller temples and structures. The famous wooden idols of Jagannath, Balabhadra, and Subhadra are unique in their abstract, stylized forms and are renewed in a sacred ceremony called Nabakalebara.'**
   String get chichenItzaConstructionInfo2;
 
   /// No description provided for @chichenItzaLocationInfo1.
   ///
   /// In en, this message translates to:
-  /// **'Chichen Itza is located in the eastern portion of Yucatán state in Mexico. Nearby, four large sinkholes, called cenotes, could have provided plentiful water year round at Chichen, making it attractive for settlement.'**
+  /// **'The Jagannath Temple is located in Puri, a coastal city in Odisha state on India\'s eastern seaboard. The temple sits near the Bay of Bengal, making it easily accessible to pilgrims from across India and beyond.'**
   String get chichenItzaLocationInfo1;
 
   /// No description provided for @chichenItzaLocationInfo2.
   ///
   /// In en, this message translates to:
-  /// **'Of these cenotes, the \"Cenote Sagrado\" or Sacred Cenote, was used for the sacrifice of precious objects and human beings as a form of worship to the Maya rain god Chaac.'**
+  /// **'Puri is well-connected by road, rail, and air, with the temple serving as the spiritual and cultural heart of the city. The annual Rath Yatra procession moves through the Grand Road (Bada Danda) to the Gundicha Temple, covering a distance that becomes a sacred pathway for millions of devotees.'**
   String get chichenItzaLocationInfo2;
 
   /// No description provided for @chichenItza600ce.
   ///
   /// In en, this message translates to:
-  /// **'Chichen Itza rises to regional prominence toward the end of the Early Classic period'**
+  /// **'Ancient period: Early establishment of Jagannath worship in the region, with roots in tribal and Vedic traditions.'**
   String get chichenItza600ce;
 
   /// No description provided for @chichenItza832ce.
   ///
   /// In en, this message translates to:
-  /// **'The earliest hieroglyphic date discovered at Chichen Itza'**
+  /// **'Medieval period: Development of organized temple worship and construction of earlier temple structures on the site.'**
   String get chichenItza832ce;
 
   /// No description provided for @chichenItza998ce.
   ///
   /// In en, this message translates to:
-  /// **'Last known date recorded in the Osario temple'**
+  /// **'Continued expansion and establishment of the temple as a major pilgrimage center in eastern India.'**
   String get chichenItza998ce;
 
   /// No description provided for @chichenItza1100ce.
   ///
   /// In en, this message translates to:
-  /// **'Chichen Itza declines as a regional center'**
+  /// **'12th century: Construction of the present temple structure begins under King Anantavarman Chodaganga Deva.'**
   String get chichenItza1100ce;
 
   /// No description provided for @chichenItza1527ce.
   ///
   /// In en, this message translates to:
-  /// **'Invaded by Spanish Conquistador Francisco de Montejo'**
+  /// **'Mughal period: Temple faces challenges but maintains its religious significance and devotional practices.'**
   String get chichenItza1527ce;
 
   /// No description provided for @chichenItza1535ce.
   ///
   /// In en, this message translates to:
-  /// **'All Spanish are driven from the Yucatán Peninsula'**
+  /// **'1558 CE: First recorded Rath Yatra festival begins, establishing the annual chariot procession tradition that continues today.'**
   String get chichenItza1535ce;
 
   /// No description provided for @chichenItzaCollectible1Title.
   ///
   /// In en, this message translates to:
-  /// **'Pendant'**
+  /// **'Sacred Tulsi Beads'**
   String get chichenItzaCollectible1Title;
 
   /// No description provided for @chichenItzaCollectible1Icon.
@@ -935,7 +935,7 @@ abstract class AppLocalizations {
   /// No description provided for @chichenItzaCollectible2Title.
   ///
   /// In en, this message translates to:
-  /// **'Bird Ornament'**
+  /// **'Temple Bell Ornament'**
   String get chichenItzaCollectible2Title;
 
   /// No description provided for @chichenItzaCollectible2Icon.
@@ -947,7 +947,7 @@ abstract class AppLocalizations {
   /// No description provided for @chichenItzaCollectible3Title.
   ///
   /// In en, this message translates to:
-  /// **'La Prison, à Chichen-Itza'**
+  /// **'Pattachitra Painting'**
   String get chichenItzaCollectible3Title;
 
   /// No description provided for @chichenItzaCollectible3Icon.
@@ -959,25 +959,25 @@ abstract class AppLocalizations {
   /// No description provided for @christRedeemerTitle.
   ///
   /// In en, this message translates to:
-  /// **'Christ the Redeemer'**
+  /// **'Betla National Park'**
   String get christRedeemerTitle;
 
   /// No description provided for @christRedeemerSubTitle.
   ///
   /// In en, this message translates to:
-  /// **'A symbol of peace'**
+  /// **'Wildlife Sanctuary and Tiger Reserve'**
   String get christRedeemerSubTitle;
 
   /// No description provided for @christRedeemerRegionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Rio de Janeiro, Brazil'**
+  /// **'Latehar District, Jharkhand'**
   String get christRedeemerRegionTitle;
 
   /// No description provided for @christRedeemerArtifactGeolocation.
   ///
   /// In en, this message translates to:
-  /// **'Brazil'**
+  /// **'Eastern India'**
   String get christRedeemerArtifactGeolocation;
 
   /// No description provided for @christRedeemerPullQuote1Top.
@@ -989,121 +989,121 @@ abstract class AppLocalizations {
   /// No description provided for @christRedeemerPullQuote1Bottom.
   ///
   /// In en, this message translates to:
-  /// **'Nature and Architecture'**
+  /// **'Wildlife and Conservation'**
   String get christRedeemerPullQuote1Bottom;
 
   /// No description provided for @christRedeemerPullQuote2.
   ///
   /// In en, this message translates to:
-  /// **'The statue looms large on the landscape, but it hides as much as it reveals about the diverse religious life of Brazilians.'**
+  /// **'Stepping into Betla is like entering a different realm where majestic predators like tigers, leopards, wolves, and wild dogs roam.'**
   String get christRedeemerPullQuote2;
 
   /// No description provided for @christRedeemerPullQuote2Author.
   ///
   /// In en, this message translates to:
-  /// **'Thomas Tweed'**
+  /// **'Wildlife Guide'**
   String get christRedeemerPullQuote2Author;
 
   /// No description provided for @christRedeemerCallout1.
   ///
   /// In en, this message translates to:
-  /// **'The statue of Christ the Redeemer with open arms, a symbol of peace, was chosen.'**
+  /// **'Betla is an acronym for Bison, Elephant, Tiger, Leopard, and Axis-axis, representing the diverse wildlife found in the park.'**
   String get christRedeemerCallout1;
 
   /// No description provided for @christRedeemerCallout2.
   ///
   /// In en, this message translates to:
-  /// **'Construction took nine years, from 1922 to 1931, and cost the equivalent of US\$250,000 (equivalent to \$3,600,000 in 2020) and the monument opened on October 12, 1931.'**
+  /// **'It was one of the first nine tiger reserves created in India under Project Tiger in 1973, and declared a national park in 1986, spreading over 226.32 square kilometers.'**
   String get christRedeemerCallout2;
 
   /// No description provided for @christRedeemerVideoCaption.
   ///
   /// In en, this message translates to:
-  /// **'“The Majestic Statue of Christ the Redeemer - Seven Wonders of the Modern World - See U in History.” Youtube, uploaded by See U in History / Mythology.'**
+  /// **'Betla National Park: Wildlife Safari and Conservation in Jharkhand'**
   String get christRedeemerVideoCaption;
 
   /// No description provided for @christRedeemerMapCaption.
   ///
   /// In en, this message translates to:
-  /// **'Map showing location of Christ the Redeemer in Rio de Janeiro, Brazil.'**
+  /// **'Map showing location of Betla National Park in Latehar and Palamu districts, Jharkhand.'**
   String get christRedeemerMapCaption;
 
   /// No description provided for @christRedeemerHistoryInfo1.
   ///
   /// In en, this message translates to:
-  /// **'The placement of a Christian monument on Mount Corcovado was first suggested in the mid-1850s to honor Princess Isabel, regent of Brazil and the daughter of Emperor Pedro II, but the project was not approved.\nIn 1889 the country became a republic, and owing to the separation of church and state the proposed statue was dismissed.'**
+  /// **'Betla National Park was originally established as Palamau Wildlife Sanctuary and later became part of the Palamau Tiger Reserve when Project Tiger was launched in 1973. The region has been inhabited for centuries by indigenous tribes like the Oraon and Munda, who have coexisted with the wildlife.'**
   String get christRedeemerHistoryInfo1;
 
   /// No description provided for @christRedeemerHistoryInfo2.
   ///
   /// In en, this message translates to:
-  /// **'The Catholic Circle of Rio made a second proposal for a landmark statue on the mountain in 1920. The group organized an event called Semana do Monumento (\"Monument Week\") to attract donations and collect signatures to support the building of the statue. The organization was motivated by what they perceived as \"Godlessness\" in the society.\nThe designs considered for the \"Statue of the Christ\" included a representation of the Christian cross, a statue of Jesus with a globe in his hands, and a pedestal symbolizing the world.'**
+  /// **'The park gained prominence as one of the first nine tiger reserves in India under Project Tiger initiative. It has the distinction of being the first sanctuary in the world where certain tiger conservation milestones were achieved. The area was upgraded from a wildlife sanctuary to a national park status in 1986.'**
   String get christRedeemerHistoryInfo2;
 
   /// No description provided for @christRedeemerConstructionInfo1.
   ///
   /// In en, this message translates to:
-  /// **'Artist Carlos Oswald and local engineer Heitor da Silva Costa designed the statue. French sculptor Paul Landowski created the work. In 1922, Landowski commissioned fellow Parisian Romanian sculptor Gheorghe Leonida, who studied sculpture at the Fine Arts Conservatory in Bucharest and in Italy.'**
+  /// **'The park is located on the Chota Nagpur Plateau with an average elevation of about 1000 feet. It falls within the Indo-Malayan biogeographic realm and boasts remarkable diversity of flora and fauna across its varied terrain of forests, hills, valleys, and grasslands.'**
   String get christRedeemerConstructionInfo1;
 
   /// No description provided for @christRedeemerConstructionInfo2.
   ///
   /// In en, this message translates to:
-  /// **'A group of engineers and technicians studied Landowski\'s submissions and felt building the structure of reinforced concrete instead of steel was more suitable for the cross-shaped statue. The concrete making up the base was supplied from Limhamn, Sweden. The outer layers are soapstone, chosen for its enduring qualities and ease of use.'**
+  /// **'Infrastructure within the park includes watch towers, ground hides for wildlife viewing, safari routes for jeeps and elephant rides, and visitor facilities. The park is designed to provide multiple opportunities for wildlife observation while maintaining conservation protocols.'**
   String get christRedeemerConstructionInfo2;
 
   /// No description provided for @christRedeemerLocationInfo1.
   ///
   /// In en, this message translates to:
-  /// **'Corcovado, which means \"hunchback\" in Portuguese, is a mountain in central Rio de Janeiro, Brazil. It is a 2,329 foot (710 m) granite peak located in the Tijuca Forest, a national park.'**
+  /// **'Betla National Park is located in the Latehar and Palamu districts of Jharkhand, approximately 170 kilometers from Ranchi. It is situated in the Chota Nagpur Plateau region, surrounded by lush green forests, hills, valleys, and waterfalls.'**
   String get christRedeemerLocationInfo1;
 
   /// No description provided for @christRedeemerLocationInfo2.
   ///
   /// In en, this message translates to:
-  /// **'Corcovado hill lies just west of the city center but is wholly within the city limits and visible from great distances.'**
+  /// **'The park forms the core area of the larger Palamau Tiger Reserve, which covers a total area of 1,129.93 square kilometers. The location provides a natural habitat for diverse wildlife in the heart of Jharkhand\'s tribal belt.'**
   String get christRedeemerLocationInfo2;
 
   /// No description provided for @christRedeemer1850ce.
   ///
   /// In en, this message translates to:
-  /// **'Plans for the statue were first proposed by Pedro Maria Boss upon Mount Corcovado. This was never approved, however.'**
+  /// **'Indigenous tribes like Oraon and Munda have inhabited the region for centuries, living in harmony with the diverse wildlife of the area.'**
   String get christRedeemer1850ce;
 
   /// No description provided for @christRedeemer1921ce.
   ///
   /// In en, this message translates to:
-  /// **'A new plan was proposed by the Roman Catholic archdiocese, and after the citizens of Rio de Janeiro petitioned the president, it was finally approved.'**
+  /// **'Early wildlife surveys and documentation of the region\'s biodiversity begin, recognizing the area\'s potential for conservation.'**
   String get christRedeemer1921ce;
 
   /// No description provided for @christRedeemer1922ce.
   ///
   /// In en, this message translates to:
-  /// **'The foundation of the statue was ceremoniously laid out to commemorate Brazil’s independence from Portugal.'**
+  /// **'The region gains attention from colonial forest administration for its rich wildlife and forest resources.'**
   String get christRedeemer1922ce;
 
   /// No description provided for @christRedeemer1926ce.
   ///
   /// In en, this message translates to:
-  /// **'Construction officially began after the initial design was chosen via a competition and amended by Brazilian artists and engineers.'**
+  /// **'Systematic wildlife management and protection measures begin to be implemented in the region.'**
   String get christRedeemer1926ce;
 
   /// No description provided for @christRedeemer1931ce.
   ///
   /// In en, this message translates to:
-  /// **'Construction of the statue was completed, standing 98’ tall with a 92’ wide arm span.'**
+  /// **'The area is formally recognized as requiring special protection due to its unique ecosystem and wildlife population.'**
   String get christRedeemer1931ce;
 
   /// No description provided for @christRedeemer2006ce.
   ///
   /// In en, this message translates to:
-  /// **'A chapel was consecrated at the statue’s base to Our Lady of Aparecida to mark the statue’s 75th anniversary.'**
+  /// **'Continued conservation efforts and modernization of park facilities, including improved safari infrastructure and visitor amenities.'**
   String get christRedeemer2006ce;
 
   /// No description provided for @christRedeemerCollectible1Title.
   ///
   /// In en, this message translates to:
-  /// **'Engraved Horn'**
+  /// **'Tiger Pugmark Cast'**
   String get christRedeemerCollectible1Title;
 
   /// No description provided for @christRedeemerCollectible1Icon.
@@ -1115,7 +1115,7 @@ abstract class AppLocalizations {
   /// No description provided for @christRedeemerCollectible2Title.
   ///
   /// In en, this message translates to:
-  /// **'Fixed fan'**
+  /// **'Medicinal Plant Collection'**
   String get christRedeemerCollectible2Title;
 
   /// No description provided for @christRedeemerCollectible2Icon.
@@ -1127,7 +1127,7 @@ abstract class AppLocalizations {
   /// No description provided for @christRedeemerCollectible3Title.
   ///
   /// In en, this message translates to:
-  /// **'Handkerchiefs (one of two)'**
+  /// **'Tribal Handicrafts'**
   String get christRedeemerCollectible3Title;
 
   /// No description provided for @christRedeemerCollectible3Icon.
@@ -1325,379 +1325,379 @@ abstract class AppLocalizations {
   /// No description provided for @greatWallTitle.
   ///
   /// In en, this message translates to:
-  /// **'The Great Wall'**
+  /// **'Patratu Valley'**
   String get greatWallTitle;
 
   /// No description provided for @greatWallSubTitle.
   ///
   /// In en, this message translates to:
-  /// **'Longest structure on Earth'**
+  /// **'Industrial Heritage & Natural Beauty'**
   String get greatWallSubTitle;
 
   /// No description provided for @greatWallRegionTitle.
   ///
   /// In en, this message translates to:
-  /// **'China'**
+  /// **'Ramgarh District, Jharkhand'**
   String get greatWallRegionTitle;
 
   /// No description provided for @greatWallArtifactCulture.
   ///
   /// In en, this message translates to:
-  /// **'Chinese'**
+  /// **'Scenic Valley with Thermal Power Heritage '**
   String get greatWallArtifactCulture;
 
   /// No description provided for @greatWallArtifactGeolocation.
   ///
   /// In en, this message translates to:
-  /// **'China'**
+  /// **'Eastern India'**
   String get greatWallArtifactGeolocation;
 
   /// No description provided for @greatWallPullQuote1Top.
   ///
   /// In en, this message translates to:
-  /// **'The Longest Man-Made'**
+  /// **'A Perfect Blend of'**
   String get greatWallPullQuote1Top;
 
   /// No description provided for @greatWallPullQuote1Bottom.
   ///
   /// In en, this message translates to:
-  /// **'Structure in the World'**
+  /// **'Nature and Industry'**
   String get greatWallPullQuote1Bottom;
 
   /// No description provided for @greatWallPullQuote2.
   ///
   /// In en, this message translates to:
-  /// **'Its historic and strategic importance is matched only by its architectural significance.'**
+  /// **'The journey from Ranchi is an adventure in itself with twisting ways providing you an unmatched scenery.'**
   String get greatWallPullQuote2;
 
   /// No description provided for @greatWallPullQuote2Author.
   ///
   /// In en, this message translates to:
-  /// **'UNESCO'**
+  /// **'MakeMyTrip Travel Guide'**
   String get greatWallPullQuote2Author;
 
   /// No description provided for @greatWallCallout1.
   ///
   /// In en, this message translates to:
-  /// **'The best-known sections of the wall were built by the Ming dynasty (1368-1644).'**
+  /// **'The Patratu Thermal Power Station was built with Russian collaboration in 1962 and has a power generation capacity of 840MW.'**
   String get greatWallCallout1;
 
   /// No description provided for @greatWallCallout2.
   ///
   /// In en, this message translates to:
-  /// **'During the Ming dynasty, however, bricks were heavily used in many areas of the wall, as were materials such as tiles, lime, and stone.'**
+  /// **'The Patratu Dam was constructed on the Nalkari River with a total storage capacity of 81 square miles to supply water to the thermal power station.'**
   String get greatWallCallout2;
 
   /// No description provided for @greatWallVideoCaption.
   ///
   /// In en, this message translates to:
-  /// **'“See China’s Iconic Great Wall From Above | National Geographic.” Youtube, uploaded by National Geographic.'**
+  /// **'Patratu Valley: Where Industry Meets Nature in Jharkhand\'s Beautiful Landscape'**
   String get greatWallVideoCaption;
 
   /// No description provided for @greatWallMapCaption.
   ///
   /// In en, this message translates to:
-  /// **'Map showing location of Great Wall of China in northern China.'**
+  /// **'Map showing location of Patratu Valley in Ramgarh District, Jharkhand, about one hour from Ranchi.'**
   String get greatWallMapCaption;
 
   /// No description provided for @greatWallHistoryInfo1.
   ///
   /// In en, this message translates to:
-  /// **'The Great Wall of China is a series of fortifications that were built across the historical northern borders of ancient Chinese states and Imperial China as protection against various nomadic groups from the Eurasian Steppe. The total length of all sections ever built is over 13,000 miles.'**
+  /// **'Patratu Valley is located in Ramgarh district of Jharkhand state in eastern India. The area developed as a residential town for employees of the Patratu Thermal Power Station, which was established through Russian collaboration in 1962. The valley is known for its lush green terrains and the dam built upon the Nalkari River.'**
   String get greatWallHistoryInfo1;
 
   /// No description provided for @greatWallHistoryInfo2.
   ///
   /// In en, this message translates to:
-  /// **'Several walls were built from as early as the 7th century BCE, with selective stretches later joined together by Qin Shi Huang (220-206  BCE), the first emperor of China. Little of the Qin wall remains. \nLater on, many successive dynasties built and maintained multiple stretches of border walls.'**
+  /// **'The thermal power station has four chimneys - two built by a Russian firm (called the Russian side) and two by an Indian firm (the Indian side). The dam serves as the main water reservoir for the power plant and has become a popular tourist destination, particularly during winter months when large numbers of visitors come for picnics.'**
   String get greatWallHistoryInfo2;
 
   /// No description provided for @greatWallConstructionInfo1.
   ///
   /// In en, this message translates to:
-  /// **'Transporting the large quantity of materials required for construction was difficult, so builders always tried to use local resources. Stones from the mountains were used over mountain ranges, while rammed earth was used for construction in the plains. Most of the ancient walls have eroded away over the centuries.'**
+  /// **'The Patratu Dam was constructed in 1962 on the Nalkari River, located 30 km west of Ramgarh. Water from the river and from waterfalls of the surrounding hills is stored in this dam. The construction was specifically designed to supply water to the Patratu Thermal Power Station\'s operations.'**
   String get greatWallConstructionInfo1;
 
   /// No description provided for @greatWallConstructionInfo2.
   ///
   /// In en, this message translates to:
-  /// **'Stones cut into rectangular shapes were used for the foundation, inner and outer brims, and gateways of the wall. \nUnder the rule of the Qing dynasty, China\'s borders extended beyond the walls and Mongolia was annexed into the empire, so construction was discontinued.'**
+  /// **'The thermal power plant construction involved both Russian and Indian engineering expertise. The facility includes residential areas for employees and supporting infrastructure. A circuit house was built beside the dam, and the area features temples including the Panchawahini temple adjacent to the dam.'**
   String get greatWallConstructionInfo2;
 
   /// No description provided for @greatWallLocationInfo1.
   ///
   /// In en, this message translates to:
-  /// **'The frontier walls built by different dynasties have multiple courses. Collectively, they stretch from Liaodong in the east to Lop Lake in the west, from the present-day Sino-Russian border in the north to Tao River in the south; along an arc that roughly delineates the edge of the Mongolian steppe.'**
+  /// **'Patratu Valley lies in the Ramgarh district of Jharkhand, accessible via a scenic hour-long drive from Ranchi. The valley features twisting roads with hairpin bends that provide spectacular views, especially when seen from above. The location offers panoramic views of the surrounding hills and the expansive dam.'**
   String get greatWallLocationInfo1;
 
   /// No description provided for @greatWallLocationInfo2.
   ///
   /// In en, this message translates to:
-  /// **'Apart from defense, other purposes of the Great Wall have included border controls, allowing the imposition of duties on goods transported along the Silk Road, regulation or encouragement of trade and the control of immigration and emigration.'**
+  /// **'The valley serves multiple purposes beyond power generation - it has become a significant tourist destination offering boat rides, picnic spots, and temple visits. The area includes the Maa Panchwahini Mandir and Mata Rani Mandir temples, and provides access to local eateries serving traditional Jharkhandi cuisine.'**
   String get greatWallLocationInfo2;
 
   /// No description provided for @greatWall700bce.
   ///
   /// In en, this message translates to:
-  /// **'First landmark of the Great Wall began originally as a square wall surrounding the state of Chu. Over the years, additional walls would be built and added to it to expand and connect territory.'**
+  /// **'1962 CE: The foundation of modern Patratu was laid with the establishment of the thermal power station through Russian collaboration, marking the beginning of the area\'s transformation from a rural valley to an industrial township.'**
   String get greatWall700bce;
 
   /// No description provided for @greatWall214bce.
   ///
   /// In en, this message translates to:
-  /// **'The first Qin Emperor unifies China and links the wall of the surrounding states of Qin, Yan, and Zhao into the Great Wall of China, taking 10 years to build with hundreds of thousands of laborers.'**
+  /// **'1962 CE: Construction of the Patratu Dam was completed on the Nalkari River, creating an 81 square mile water reservoir to supply the newly built thermal power station, fundamentally changing the landscape of the valley.'**
   String get greatWall214bce;
 
   /// No description provided for @greatWall121bce.
   ///
   /// In en, this message translates to:
-  /// **'A 20-year construction project was started by the Han emperor to build east and west sections of the wall, including beacons, towers, and castles. Not just for defense, but also to control trade routes like the Silk Road.'**
+  /// **'1970s CE: Development of residential areas for power plant employees led to the growth of Patratu as a planned township, with infrastructure including housing, schools, and community facilities being established over a 20-year period.'**
   String get greatWall121bce;
 
   /// No description provided for @greatWall556ce.
   ///
   /// In en, this message translates to:
-  /// **'The Bei Qi kingdom also launched several construction projects, utilizing over 1.8 million workers to repair and extend sections of the wall, adding to its length and even building a second inner wall around Shanxi.'**
+  /// **'1980s-1990s CE: The area began gaining recognition as a tourist destination, with the Jharkhand Tourism Department developing facilities including the tourist complex at Patratu Lake and promoting it as a scenic getaway from urban centers.'**
   String get greatWall556ce;
 
   /// No description provided for @greatWall618ce.
   ///
   /// In en, this message translates to:
-  /// **'The Great Wall was repaired during the Sui Dynasty and used to defend against Tujue attacks. Before and after the Sui Dynasty, the wall saw very little use and fell into disrepair.'**
+  /// **'2000s CE: Patratu Valley saw increased tourism development with improved road access and facilities, though the thermal power station faced periods of reduced operation and maintenance challenges in later decades.'**
   String get greatWall618ce;
 
   /// No description provided for @greatWall1487ce.
   ///
   /// In en, this message translates to:
-  /// **'Hongzhi Emperor split the walls into north and south lines, eventually shaping it into how it is today. Since then, it has gradually fallen into disrepair and remains mostly unused.'**
+  /// **'2020s CE: Modern tourism initiatives by the Jharkhand government have focused on developing the waterfront and making the valley more attractive to visitors, while plans for expanding power generation capacity continue to be considered.'**
   String get greatWall1487ce;
 
   /// No description provided for @greatWallCollectible1Title.
   ///
   /// In en, this message translates to:
-  /// **'Biographies of Lian Po and Lin Xiangru'**
+  /// **'Patratu Dam Waters'**
   String get greatWallCollectible1Title;
 
   /// No description provided for @greatWallCollectible1Icon.
   ///
   /// In en, this message translates to:
-  /// **'scroll'**
+  /// **'water'**
   String get greatWallCollectible1Icon;
 
   /// No description provided for @greatWallCollectible2Title.
   ///
   /// In en, this message translates to:
-  /// **'Jar with Dragon'**
+  /// **'Thermal Power Station Model'**
   String get greatWallCollectible2Title;
 
   /// No description provided for @greatWallCollectible2Icon.
   ///
   /// In en, this message translates to:
-  /// **'vase'**
+  /// **'industry'**
   String get greatWallCollectible2Icon;
 
   /// No description provided for @greatWallCollectible3Title.
   ///
   /// In en, this message translates to:
-  /// **'Panel with Peonies and Butterfly'**
+  /// **'Panchawahini Temple Offering'**
   String get greatWallCollectible3Title;
 
   /// No description provided for @greatWallCollectible3Icon.
   ///
   /// In en, this message translates to:
-  /// **'textile'**
+  /// **'temple'**
   String get greatWallCollectible3Icon;
 
   /// No description provided for @machuPicchuTitle.
   ///
   /// In en, this message translates to:
-  /// **'Machu Picchu'**
+  /// **'Hundru Falls'**
   String get machuPicchuTitle;
 
   /// No description provided for @machuPicchuSubTitle.
   ///
   /// In en, this message translates to:
-  /// **'Citadel of the Inca'**
+  /// **'Jharkhand\'s Highest Waterfall'**
   String get machuPicchuSubTitle;
 
   /// No description provided for @machuPicchuRegionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Cusco Region, Peru'**
+  /// **'Ranchi District, Jharkhand'**
   String get machuPicchuRegionTitle;
 
   /// No description provided for @machuPicchuArtifactCulture.
   ///
   /// In en, this message translates to:
-  /// **'Inca'**
+  /// **'Natural Wonder'**
   String get machuPicchuArtifactCulture;
 
   /// No description provided for @machuPicchuArtifactGeolocation.
   ///
   /// In en, this message translates to:
-  /// **'South America'**
+  /// **'Eastern India'**
   String get machuPicchuArtifactGeolocation;
 
   /// No description provided for @machuPicchuPullQuote1Top.
   ///
   /// In en, this message translates to:
-  /// **'Few Romances Can Ever Surpass'**
+  /// **'A Spectacular Scene of Water'**
   String get machuPicchuPullQuote1Top;
 
   /// No description provided for @machuPicchuPullQuote1Bottom.
   ///
   /// In en, this message translates to:
-  /// **'That of the Granite Citadel'**
+  /// **'Falling from Great Height'**
   String get machuPicchuPullQuote1Bottom;
 
   /// No description provided for @machuPicchuPullQuote1Author.
   ///
   /// In en, this message translates to:
-  /// **'Hiram Bingham'**
+  /// **'Government of Jharkhand'**
   String get machuPicchuPullQuote1Author;
 
   /// No description provided for @machuPicchuPullQuote2.
   ///
   /// In en, this message translates to:
-  /// **'In the variety of its charms and the power of its spell, I know of no other place in the world which can compare with it.'**
+  /// **'The cascading water creates a misty ambience and forms a frothy pool at the base, which is an exhilarating sight for visitors.'**
   String get machuPicchuPullQuote2;
 
   /// No description provided for @machuPicchuPullQuote2Author.
   ///
   /// In en, this message translates to:
-  /// **'Hiram Bingham'**
+  /// **'Travel Guide'**
   String get machuPicchuPullQuote2Author;
 
   /// No description provided for @machuPicchuCallout1.
   ///
   /// In en, this message translates to:
-  /// **'During its use as a royal estate, it is estimated that about 750 people lived there, with most serving as support staff who lived there permanently.'**
+  /// **'The waterfall falls from a height of 98 metres (322 feet), making it one of the highest waterfalls in Jharkhand state and the 34th highest waterfall in India.'**
   String get machuPicchuCallout1;
 
   /// No description provided for @machuPicchuCallout2.
   ///
   /// In en, this message translates to:
-  /// **'The Incas were masters of this technique, called ashlar, in which blocks of stone are cut to fit together tightly without mortar.'**
+  /// **'The different formations of rock due to water erosion create various shapes and niches, lending an almost otherworldly feel to the landscape.'**
   String get machuPicchuCallout2;
 
   /// No description provided for @machuPicchuVideoCaption.
   ///
   /// In en, this message translates to:
-  /// **'“Machu Picchu 101 | National Geographic.” Youtube, uploaded by National Geographic.'**
+  /// **'Hundru Falls: Nature\'s Spectacular Display in Jharkhand'**
   String get machuPicchuVideoCaption;
 
   /// No description provided for @machuPicchuMapCaption.
   ///
   /// In en, this message translates to:
-  /// **'Map showing location of Machu Picchu in the Eastern Cordillera of southern Peru.'**
+  /// **'Map showing location of Hundru Falls on the Subarnarekha River in Ranchi District, Jharkhand.'**
   String get machuPicchuMapCaption;
 
   /// No description provided for @machuPicchuHistoryInfo1.
   ///
   /// In en, this message translates to:
-  /// **'Machu Picchu is a 15th-century Inca citadel located in the Eastern Cordillera of southern Peru on a 2,430-meter (7,970 ft) mountain ridge. Construction appears to date from two great Inca rulers, Pachacutec Inca Yupanqui (1438–1471 CE) and Túpac Inca Yupanqui (1472–1493 CE).'**
+  /// **'Hundru Falls is a natural waterfall located in Ranchi district of Jharkhand state in eastern India. The waterfall is formed by the Subarnarekha River, which originates near Piska/Nagri and flows through several districts before joining the Bay of Bengal.'**
   String get machuPicchuHistoryInfo1;
 
   /// No description provided for @machuPicchuHistoryInfo2.
   ///
   /// In en, this message translates to:
-  /// **'There is a consensus among archeologists that Pachacutec ordered the construction of the royal estate for his use as a retreat, most likely after a successful military campaign.\nRather it was used for 80 years before being abandoned, seemingly because of the Spanish conquests in other parts of the Inca Empire.'**
+  /// **'The waterfall represents a geological feature called a knickpoint, caused by rejuvenation. This break in the river\'s gradient allows water to fall vertically, creating the spectacular waterfall that has become one of Jharkhand\'s most popular tourist destinations.'**
   String get machuPicchuHistoryInfo2;
 
   /// No description provided for @machuPicchuConstructionInfo1.
   ///
   /// In en, this message translates to:
-  /// **'The central buildings use the classical Inca architectural style of polished dry-stone walls of regular shape. \nInca walls have many stabilizing features: doors and windows are trapezoidal, narrowing from bottom to top; corners usually are rounded; inside corners often incline slightly into the rooms, and outside corners were often tied together by \"L\"-shaped blocks.'**
+  /// **'The waterfall is a natural geological formation created by the erosion patterns of the Subarnarekha River over thousands of years. The rocky terrain around the falls has been shaped by continuous water flow, creating unique rock formations and natural pools.'**
   String get machuPicchuConstructionInfo1;
 
   /// No description provided for @machuPicchuConstructionInfo2.
   ///
   /// In en, this message translates to:
-  /// **'This precision construction method made the structures at Machu Picchu resistant to seismic activity.\nThe site itself may have been intentionally built on fault lines to afford better drainage and a ready supply of fractured stone.'**
+  /// **'The base of the waterfall features a natural pool that serves as both a scenic attraction and a popular bathing spot for visitors. The surrounding landscape is characterized by lush forests and rocky terrain that provides natural beauty and biodiversity.'**
   String get machuPicchuConstructionInfo2;
 
   /// No description provided for @machuPicchuLocationInfo1.
   ///
   /// In en, this message translates to:
-  /// **'Machu Picchu is situated above a bow of the Urubamba River, which surrounds the site on three sides, where cliffs drop vertically for 1,480 feet (450 m) to the river at their base. The location of the city was a military secret, and its deep precipices and steep mountains provided natural defenses.'**
+  /// **'Hundru Falls is situated in the Ranchi district of Jharkhand, approximately 45 kilometers from Ranchi city. The waterfall is easily accessible by road and is located in the village of Hundru, making it a popular destination for day trips and picnics.'**
   String get machuPicchuLocationInfo1;
 
   /// No description provided for @machuPicchuLocationInfo2.
   ///
   /// In en, this message translates to:
-  /// **'The Inca Bridge, an Inca grass rope bridge, across the Urubamba River in the Pongo de Mainique, provided a secret entrance for the Inca army. Another Inca bridge was built to the west of Machu Picchu, the tree-trunk bridge, at a location where a gap occurs in the cliff that measures 20 feet (6 m).'**
+  /// **'The surrounding area is characterized by dense forests and rocky terrain. The Subarnarekha River continues its journey from here through multiple states including Jharkhand, West Bengal, and Odisha before ultimately reaching the Bay of Bengal at Talsari.'**
   String get machuPicchuLocationInfo2;
 
   /// No description provided for @machuPicchu1438ce.
   ///
   /// In en, this message translates to:
-  /// **'Speculated to be built and occupied by Inca ruler Pachacuti Inca Yupanqui.'**
+  /// **'Natural formation of the waterfall begins through geological processes and river erosion over millennia.'**
   String get machuPicchu1438ce;
 
   /// No description provided for @machuPicchu1572ce.
   ///
   /// In en, this message translates to:
-  /// **'The last Inca rulers used the site as a bastion to rebel against Spanish rule until they were ultimately wiped out.'**
+  /// **'Local tribal communities and residents of the region have known about the waterfall for generations, using it as a water source and gathering place.'**
   String get machuPicchu1572ce;
 
   /// No description provided for @machuPicchu1867ce.
   ///
   /// In en, this message translates to:
-  /// **'Speculated to have been originally discovered by German explorer Augusto Berns, but his findings were never effectively publicized.'**
+  /// **'The waterfall begins to gain recognition beyond local communities as transportation and communication improve in the region.'**
   String get machuPicchu1867ce;
 
   /// No description provided for @machuPicchu1911ce.
   ///
   /// In en, this message translates to:
-  /// **'Introduced to the world by Hiram Bingham of Yale University, who was led there by locals after disclosing he was searching for Vilcabamba, the ’lost city of the Incas’.'**
+  /// **'Post-independence development of Jharkhand region brings increased awareness of natural attractions like Hundru Falls.'**
   String get machuPicchu1911ce;
 
   /// No description provided for @machuPicchu1964ce.
   ///
   /// In en, this message translates to:
-  /// **'Surrounding sites were excavated thoroughly by Gene Savoy, who found a much more suitable candidate for Vilcabamba in the ruin known as Espíritu Pampa.'**
+  /// **'Tourism infrastructure begins to develop around the waterfall, making it more accessible to visitors from other regions.'**
   String get machuPicchu1964ce;
 
   /// No description provided for @machuPicchu1997ce.
   ///
   /// In en, this message translates to:
-  /// **'Since its rediscovery, growing numbers of tourists have visited the Machu Picchu each year, with numbers exceeding 1.4 million in 2017.'**
+  /// **'Hundru Falls becomes established as one of Jharkhand\'s premier tourist destinations, attracting nature lovers and adventure seekers from across India.'**
   String get machuPicchu1997ce;
 
   /// No description provided for @machuPicchuCollectible1Title.
   ///
   /// In en, this message translates to:
-  /// **'Eight-Pointed Star Tunic'**
+  /// **'River Stone Collection'**
   String get machuPicchuCollectible1Title;
 
   /// No description provided for @machuPicchuCollectible1Icon.
   ///
   /// In en, this message translates to:
-  /// **'textile'**
+  /// **'stone'**
   String get machuPicchuCollectible1Icon;
 
   /// No description provided for @machuPicchuCollectible2Title.
   ///
   /// In en, this message translates to:
-  /// **'Camelid figurine'**
+  /// **'Forest Flora Sample'**
   String get machuPicchuCollectible2Title;
 
   /// No description provided for @machuPicchuCollectible2Icon.
   ///
   /// In en, this message translates to:
-  /// **'statue'**
+  /// **'leaf'**
   String get machuPicchuCollectible2Icon;
 
   /// No description provided for @machuPicchuCollectible3Title.
   ///
   /// In en, this message translates to:
-  /// **'Double Bowl'**
+  /// **'Water Crystal Formation'**
   String get machuPicchuCollectible3Title;
 
   /// No description provided for @machuPicchuCollectible3Icon.
   ///
   /// In en, this message translates to:
-  /// **'vase'**
+  /// **'crystal'**
   String get machuPicchuCollectible3Icon;
 
   /// No description provided for @petraTitle.
@@ -2081,163 +2081,163 @@ abstract class AppLocalizations {
   /// No description provided for @tajMahalTitle.
   ///
   /// In en, this message translates to:
-  /// **'Taj Mahal'**
+  /// **'Deoghar District'**
   String get tajMahalTitle;
 
   /// No description provided for @tajMahalSubTitle.
   ///
   /// In en, this message translates to:
-  /// **'Heaven on Earth'**
+  /// **'Land of the Gods'**
   String get tajMahalSubTitle;
 
   /// No description provided for @tajMahalRegionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Agra, India'**
+  /// **'Santhal Parganas Division, Jharkhand'**
   String get tajMahalRegionTitle;
 
   /// No description provided for @tajMahalArtifactCulture.
   ///
   /// In en, this message translates to:
-  /// **'Mughal'**
+  /// **'Hindu Pilgrimage'**
   String get tajMahalArtifactCulture;
 
   /// No description provided for @tajMahalArtifactGeolocation.
   ///
   /// In en, this message translates to:
-  /// **'India'**
+  /// **'Eastern India'**
   String get tajMahalArtifactGeolocation;
 
   /// No description provided for @tajMahalPullQuote1Top.
   ///
   /// In en, this message translates to:
-  /// **'Not just a Monument,'**
+  /// **'Not just a District,'**
   String get tajMahalPullQuote1Top;
 
   /// No description provided for @tajMahalPullQuote1Bottom.
   ///
   /// In en, this message translates to:
-  /// **'but a Symbol of Love.'**
+  /// **'but a Sacred Pilgrimage.'**
   String get tajMahalPullQuote1Bottom;
 
   /// No description provided for @tajMahalPullQuote1Author.
   ///
   /// In en, this message translates to:
-  /// **'Suman Pokhrel'**
+  /// **'Devotees of Baba Baidyanath'**
   String get tajMahalPullQuote1Author;
 
   /// No description provided for @tajMahalPullQuote2.
   ///
   /// In en, this message translates to:
-  /// **'The Taj Mahal rises above the banks of the river like a solitary tear suspended on the cheek of time.'**
+  /// **'For devotees, a pilgrimage to Baba Baidyanath Dham is a sacred journey of self-discovery and spiritual awakening.'**
   String get tajMahalPullQuote2;
 
   /// No description provided for @tajMahalPullQuote2Author.
   ///
   /// In en, this message translates to:
-  /// **'Rabindranath Tagore'**
+  /// **'Incredible India'**
   String get tajMahalPullQuote2Author;
 
   /// No description provided for @tajMahalCallout1.
   ///
   /// In en, this message translates to:
-  /// **'The Taj Mahal is distinguished as the finest example of Mughal architecture, a blend of Indian, Persian, and Islamic styles.'**
+  /// **'Deoghar is home to the Baidyanath Temple, one of the twelve sacred Jyotirlingas of Lord Shiva and one of the 51 Shakti Peethas in India.'**
   String get tajMahalCallout1;
 
   /// No description provided for @tajMahalCallout2.
   ///
   /// In en, this message translates to:
-  /// **'It took the efforts of 22,000 laborers, painters, embroidery artists and stonecutters to shape the Taj Mahal.'**
+  /// **'The Shrawani Mela is the longest religious fair in the world, attracting countless devotees who undertake a rigorous 100 km pilgrimage on foot.'**
   String get tajMahalCallout2;
 
   /// No description provided for @tajMahalVideoCaption.
   ///
   /// In en, this message translates to:
-  /// **'“India’s Taj Mahal Is an Enduring Monument to Love | National Geographic.” Youtube, uploaded by National Geographic.'**
+  /// **'Deoghar District: Sacred Pilgrimage and Cultural Heritage of Jharkhand'**
   String get tajMahalVideoCaption;
 
   /// No description provided for @tajMahalMapCaption.
   ///
   /// In en, this message translates to:
-  /// **'Map showing location of Taj Mahal in Uttar Pradesh, India.'**
+  /// **'Map showing location of Deoghar District in Santhal Parganas Division, Jharkhand.'**
   String get tajMahalMapCaption;
 
   /// No description provided for @tajMahalHistoryInfo1.
   ///
   /// In en, this message translates to:
-  /// **'The Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in the Indian city of Agra. It was commissioned in 1632 CE by the Mughal emperor Shah Jahan (r. 1628-1658) to house the tomb of his favorite wife, Mumtaz Mahal; it also houses the tomb of Shah Jahan himself.'**
+  /// **'Deoghar, meaning \'Abode of Gods\', is the main city of Deoghar District in the Santhal Parganas division of Jharkhand state. The district is renowned for the ancient Baidyanath Temple, which according to legend was built after Lord Shiva appeared to cure the demon king Ravana, earning the name \'Baidyanath\' meaning \'Doctor of Doctors\'.'**
   String get tajMahalHistoryInfo1;
 
   /// No description provided for @tajMahalHistoryInfo2.
   ///
   /// In en, this message translates to:
-  /// **'The tomb is the centerpiece of a 42-acre (17-hectare) complex, which include twin mosque buildings (placed symmetrically on either side of the mausoleum), a guest house, and is set in formal gardens bounded on three sides by walls.'**
+  /// **'The district has deep historical and mythological significance, with the Baidyanath Temple complex comprising the central shrine along with 21 additional temples. The region has been a major pilgrimage center for centuries, attracting devotees from across India who believe that visiting this sacred site provides spiritual liberation and fulfills their wishes.'**
   String get tajMahalHistoryInfo2;
 
   /// No description provided for @tajMahalConstructionInfo1.
   ///
   /// In en, this message translates to:
-  /// **'The Taj Mahal was constructed using materials from all over India and Asia. It is believed over 1,000 elephants were used to transport building materials.\nThe translucent white marble was brought from Rajasthan, the jasper from Punjab, jade and crystal from China. The turquoise was from Tibet and the lapis from Afghanistan, while the sapphire came from Sri Lanka. In all, twenty-eight types of precious and semi-precious stones were inlaid into the white marble.'**
+  /// **'The Baidyanath Temple was constructed in the mid-16th century by Puran Mal, an ancestor of Maharastra Giddhour. The temple complex showcases traditional Hindu temple architecture with intricate stone carvings and multiple shrines dedicated to various deities. The main temple stands 72 feet tall and follows classical North Indian temple architectural style.'**
   String get tajMahalConstructionInfo1;
 
   /// No description provided for @tajMahalConstructionInfo2.
   ///
   /// In en, this message translates to:
-  /// **'An area of roughly 3 acres was excavated, filled with dirt to reduce seepage, and leveled at 160 ft above riverbank. In the tomb area, wells were dug and filled with stone and rubble to form the footings of the tomb.\nThe plinth and tomb took roughly 12 years to complete. The remaining parts of the complex took an additional 10 years.'**
+  /// **'The district covers an area of 2,479 square kilometers with diverse topography including high and low lands, hills, and fertile plains. The landscape consists of several clusters of rocky hills covered with forests, but also features long ridges and valleys. About 28% of the land is very fertile and suitable for cultivation.'**
   String get tajMahalConstructionInfo2;
 
   /// No description provided for @tajMahalLocationInfo1.
   ///
   /// In en, this message translates to:
-  /// **'India\'s most famed building, it is situated in the eastern part of the city on the southern bank of the Yamuna River, nearly 1 mile east of the Agra Fort, also on the right bank of the Yamuna.'**
+  /// **'Deoghar district is located in the Santhal Parganas division of Jharkhand state, positioned at 24°49\'N latitude and 86°70\'E longitude. The district is well-connected by road, rail, and air, with Deoghar Airport providing connectivity to major cities like Delhi, Kolkata, and Patna.'**
   String get tajMahalLocationInfo1;
 
   /// No description provided for @tajMahalLocationInfo2.
   ///
   /// In en, this message translates to:
-  /// **'The Taj Mahal is built on a parcel of land to the south of the walled city of Agra. Shah Jahan presented Maharaja Jai Singh with a large palace in the center of Agra in exchange for the land.'**
+  /// **'The district is strategically located in eastern Jharkhand and serves as the cultural capital of the state due to its religious and cultural significance. It borders several other districts and is easily accessible for the millions of pilgrims who visit annually, particularly during the monsoon season.'**
   String get tajMahalLocationInfo2;
 
   /// No description provided for @tajMahal1631ce.
   ///
   /// In en, this message translates to:
-  /// **'Built by Mughal Emperor Shah Jahān to immortalize his deceased wife.'**
+  /// **'Ancient period: The region has been inhabited for centuries with rich tribal heritage and early Hindu settlements establishing the area\'s spiritual significance.'**
   String get tajMahal1631ce;
 
   /// No description provided for @tajMahal1647ce.
   ///
   /// In en, this message translates to:
-  /// **'Construction completed. The project involved over 20,000 workers and spanned 42 acres.'**
+  /// **'Medieval period: Construction of the main Baidyanath Temple complex is completed in the mid-16th century, establishing it as a major pilgrimage center.'**
   String get tajMahal1647ce;
 
   /// No description provided for @tajMahal1658ce.
   ///
   /// In en, this message translates to:
-  /// **'There were plans for a second mausoleum for his own remains, but Shah Jahān was imprisoned by his son for the rest of his life in Agra Fort, and this never came to pass.'**
+  /// **'The temple complex gains prominence as one of the twelve Jyotirlingas, attracting pilgrims from across the Indian subcontinent.'**
   String get tajMahal1658ce;
 
   /// No description provided for @tajMahal1901ce.
   ///
   /// In en, this message translates to:
-  /// **'Lord Curzon and the British Viceroy of India carried out a major restoration to the monument after over 350 years of decay and corrosion due to factory pollution and exhaust.'**
+  /// **'British colonial period: The region becomes part of the Santhal Parganas district, with administrative structures established for governance.'**
   String get tajMahal1901ce;
 
   /// No description provided for @tajMahal1984ce.
   ///
   /// In en, this message translates to:
-  /// **'To protect the structure from Sikh militants and some Hindu nationalist groups, night viewing was banned to tourists. This ban would last 20 years.'**
+  /// **'Modern infrastructure development begins with improved transportation and facilities for the growing number of pilgrims visiting the district.'**
   String get tajMahal1984ce;
 
   /// No description provided for @tajMahal1998ce.
   ///
   /// In en, this message translates to:
-  /// **'Restoration and research program put into action to help preserve the monument.'**
+  /// **'Post-Jharkhand statehood: Deoghar becomes a separate district with enhanced administrative focus on pilgrimage tourism and cultural preservation.'**
   String get tajMahal1998ce;
 
   /// No description provided for @tajMahalCollectible1Title.
   ///
   /// In en, this message translates to:
-  /// **'Dagger with Scabbard'**
+  /// **'Sacred Rudraksha Beads'**
   String get tajMahalCollectible1Title;
 
   /// No description provided for @tajMahalCollectible1Icon.
@@ -2249,7 +2249,7 @@ abstract class AppLocalizations {
   /// No description provided for @tajMahalCollectible2Title.
   ///
   /// In en, this message translates to:
-  /// **'The House of Bijapur'**
+  /// **'Temple Architecture Model'**
   String get tajMahalCollectible2Title;
 
   /// No description provided for @tajMahalCollectible2Icon.
@@ -2261,7 +2261,7 @@ abstract class AppLocalizations {
   /// No description provided for @tajMahalCollectible3Title.
   ///
   /// In en, this message translates to:
-  /// **'Panel of Nasta\'liq Calligraphy'**
+  /// **'Sanskrit Manuscript'**
   String get tajMahalCollectible3Title;
 
   /// No description provided for @tajMahalCollectible3Icon.

@@ -6,7 +6,6 @@ import 'package:wonders/ui/common/app_icons.dart';
 import 'package:wonders/ui/common/controls/app_header.dart';
 import 'package:wonders/ui/common/static_text_scale.dart';
 import 'package:wonders/ui/common/utils/app_haptics.dart';
-import 'package:wonders/ui/screens/artifact/artifact_search/time_range_selector/expanding_time_range_selector.dart';
 
 part 'widgets/_result_tile.dart';
 part 'widgets/_results_grid.dart';
@@ -125,18 +124,6 @@ class _ArtifactSearchScreenState extends State<ArtifactSearchScreen> with GetItS
 
     return Stack(children: [
       Positioned.fill(child: ColoredBox(color: $styles.colors.greyStrong, child: content)),
-      Positioned.fill(
-        child: RepaintBoundary(
-          child: ExpandingTimeRangeSelector(
-            wonder: wonder,
-            startYear: _startYear,
-            endYear: _endYear,
-            panelController: panelController,
-            vizController: vizController,
-            onChanged: _handleTimelineChanged,
-          ),
-        ),
-      ),
     ]);
   }
 

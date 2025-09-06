@@ -9,7 +9,6 @@ import 'package:wonders/ui/screens/collection/collection_screen.dart';
 import 'package:wonders/ui/screens/home/wonders_home_screen.dart';
 import 'package:wonders/ui/screens/intro/intro_screen.dart';
 import 'package:wonders/ui/screens/page_not_found/page_not_found.dart';
-import 'package:wonders/ui/screens/timeline/timeline_screen.dart';
 import 'package:wonders/ui/screens/wonder_details/wonders_details_screen.dart';
 
 /// Shared paths / urls used across the app
@@ -42,20 +41,15 @@ class ScreenPaths {
 
 // Routes that are used multiple times
 AppRoute get _artifactRoute => AppRoute(
-  'artifact/:artifactId',
-  (s) => ArtifactDetailsScreen(artifactId: s.pathParameters['artifactId']!),
-);
-
-AppRoute get _timelineRoute => AppRoute(
-  'timeline',
-  (s) => TimelineScreen(type: _tryParseWonderType(s.uri.queryParameters['type']!)),
-);
+      'artifact/:artifactId',
+      (s) => ArtifactDetailsScreen(artifactId: s.pathParameters['artifactId']!),
+    );
 
 AppRoute get _collectionRoute => AppRoute(
-  'collection',
-  (s) => CollectionScreen(fromId: s.uri.queryParameters['id'] ?? ''),
-  routes: [_artifactRoute],
-);
+      'collection',
+      (s) => CollectionScreen(fromId: s.uri.queryParameters['id'] ?? ''),
+      routes: [_artifactRoute],
+    );
 
 /// Routing table, matches string paths to UI Screens, optionally parses params from the paths
 final appRouter = GoRouter(
@@ -70,7 +64,6 @@ final appRouter = GoRouter(
           AppRoute(ScreenPaths.splash, (_) => Container(color: $styles.colors.greyStrong)), // This will be hidden
           AppRoute(ScreenPaths.intro, (_) => IntroScreen()),
           AppRoute(ScreenPaths.home, (_) => HomeScreen(), routes: [
-            _timelineRoute,
             _collectionRoute,
             AppRoute(
               'wonder/:detailsType',
@@ -84,7 +77,6 @@ final appRouter = GoRouter(
               useFade: true,
               // Wonder sub-routes
               routes: [
-                _timelineRoute,
                 _collectionRoute,
                 _artifactRoute,
                 // Youtube Video

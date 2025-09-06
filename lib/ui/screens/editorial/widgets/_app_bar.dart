@@ -1,7 +1,7 @@
 part of '../editorial_screen.dart';
 
 class _AppBar extends StatelessWidget {
-  _AppBar(this.wonderType, {super.key, required this.sectionIndex, required this.scrollPos});
+  _AppBar(this.wonderType, {required this.sectionIndex, required this.scrollPos});
   final WonderType wonderType;
   final ValueNotifier<int> sectionIndex;
   final ValueNotifier<double> scrollPos;

@@ -86,9 +86,6 @@ class WonderDetailsTabMenu extends StatelessWidget {
                       ),
                     ),
                     Gap(gapAmt),
-
-                    /// A second Row / Col holding tab buttons
-                    /// Add the btn inset padding so they will be centered on the colored background
                     Padding(
                       padding: buttonInsetPadding,
                       child: Flex(
@@ -133,10 +130,10 @@ class WonderDetailsTabMenu extends StatelessWidget {
                               tabController,
                               iconImg: 'timeline',
                               label: $strings.wonderDetailsTabLabelEvents,
-                              color: iconColor,
+                              color: Colors.transparent,
                               axis: axis,
                               mainAxisSize: tabBtnSize,
-                              onTap: onTap,
+                              onTap: (int data) {},
                             ),
                           ]),
                     ),

@@ -107,9 +107,6 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get artifactsTitleArtifacts => '文物';
-
-  @override
   String semanticsPrevious(Object title) {
     return '之前的文物$title';
   }
@@ -118,6 +115,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String semanticsNext(Object title) {
     return '下一个文物$title';
   }
+
+  @override
+  String get artifactsTitleArtifacts => '文物';
 
   @override
   String get artifactsSemanticsPrevious => '之前的文物';

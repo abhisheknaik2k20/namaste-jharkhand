@@ -45,18 +45,13 @@ class UnsplashDownloadService {
     debugPrint('${data.title} complete, downloads = $downloadCount');
   }
 
-  /// Downloads all images for all collections
   static Future<void> downloadAllCollections() async {
-    /// Note: intentionally not in parallel so as to not annoy the unsplash servers
     for (var w in _wondersLogic.all) {
       await downloadCollectionImages(w);
     }
   }
 
-  /// Generates a map we can use to look up collection images without needing to copy all 200 ids by hand.
-  /// Spits the results into the log, developers can copy and paste them from there into a dart file somewhere.
   static Future<void> printPhotosByCollectionIdMap() async {
-    /// Note: intentionally not in parallel so as to not annoy the unsplash servers
     Map<String, List<String>> imageListByCollectionId = {};
     for (var w in _wondersLogic.all) {
       final collection = await _unsplash.loadCollectionPhotos(w.unsplashCollectionId) ?? [];

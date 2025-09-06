@@ -8,7 +8,6 @@ import 'package:wonders/ui/common/controls/app_loading_indicator.dart';
 import 'package:wonders/ui/common/controls/eight_way_swipe_detector.dart';
 import 'package:wonders/ui/common/fullscreen_keyboard_listener.dart';
 import 'package:wonders/ui/common/hidden_collectible.dart';
-import 'package:wonders/ui/common/ignore_pointer.dart';
 import 'package:wonders/ui/common/modals/fullscreen_url_img_viewer.dart';
 import 'package:wonders/ui/common/unsplash_photo.dart';
 import 'package:wonders/ui/common/utils/app_haptics.dart';
@@ -37,8 +36,6 @@ class _PhotoGalleryState extends State<PhotoGallery> {
   int get _imgCount => pow(_gridSize, 2).round();
 
   late final List<FocusNode> _focusNodes = List.generate(_imgCount, (index) => FocusNode());
-
-  //TODO: Remove this field (and associated workarounds) once web properly supports ClipPath (https://github.com/flutter/flutter/issues/124675)
   final bool useClipPathWorkAroundForWeb = kIsWeb;
 
   @override

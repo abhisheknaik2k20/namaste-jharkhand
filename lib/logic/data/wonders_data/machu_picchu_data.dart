@@ -7,8 +7,8 @@ part 'search/machu_picchu_search_data.dart';
 class MachuPicchuData extends WonderData {
   MachuPicchuData()
       : super(
-          searchData: _searchData, // included as a part from ./search/
-          searchSuggestions: _searchSuggestions, // included as a part from ./search/
+          searchData: _searchData,
+          searchSuggestions: _searchSuggestions,
           type: WonderType.machuPicchu,
           title: $strings.machuPicchuTitle,
           subTitle: $strings.machuPicchuSubTitle,
@@ -20,8 +20,8 @@ class MachuPicchuData extends WonderData {
           artifactEndYr: 1700,
           artifactCulture: $strings.machuPicchuArtifactCulture,
           artifactGeolocation: $strings.machuPicchuArtifactGeolocation,
-          lat: -13.162690683637758,
-          lng: -72.54500778824891,
+          lat: 23.4497246,
+          lng: 85.6666868,
           unsplashCollectionId: 'wUhgZTyUnl8',
           pullQuote1Top: $strings.machuPicchuPullQuote1Top,
           pullQuote1Bottom: $strings.machuPicchuPullQuote1Bottom,

@@ -9,16 +9,11 @@ import 'package:wonders/ui/common/centered_box.dart';
 import 'package:wonders/ui/common/controls/app_header.dart';
 import 'package:wonders/ui/common/curved_clippers.dart';
 import 'package:wonders/ui/common/hidden_collectible.dart';
-import 'package:wonders/ui/common/ignore_pointer.dart';
 import 'package:wonders/ui/common/list_gradient.dart';
 import 'package:wonders/ui/common/themed_text.dart';
-import 'package:wonders/ui/common/timeline_event_card.dart';
-import 'package:wonders/ui/common/utils/duration_utils.dart';
-import 'package:wonders/ui/common/wonders_timeline_builder.dart';
 import 'package:wonders/ui/wonder_illustrations/common/wonder_title_text.dart';
 
 part 'widgets/_events_list.dart';
-part 'widgets/_timeline_btn.dart';
 part 'widgets/_wonder_image_with_timeline.dart';
 
 class WonderEvents extends StatefulWidget {
@@ -39,8 +34,6 @@ class _WonderEventsState extends State<WonderEvents> {
   @override
   Widget build(BuildContext context) {
     void handleTimelineBtnPressed() => context.go(ScreenPaths.timeline(widget.type));
-    // Main view content switches between 1 and 2 column layouts
-    // On mobile, use the 2 column layout on screens close to landscape (>.85). This is primarily an optimization for foldable devices which have square-ish dimensions when opened.
     final twoColumnAspect = PlatformInfo.isMobile ? .85 : 1;
     bool useTwoColumnLayout = context.mq.size.aspectRatio > twoColumnAspect;
 
@@ -96,7 +89,6 @@ class _WonderEventsState extends State<WonderEvents> {
                   children: [
                     _WonderImageWithTimeline(data: _data, height: timelineImageSize),
                     Gap($styles.insets.lg),
-                    SizedBox(width: 400, child: _TimelineBtn(type: widget.type)),
                   ],
                 ),
               ),
@@ -149,9 +141,6 @@ class _WonderEventsState extends State<WonderEvents> {
                   ),
                 ),
                 Gap($styles.insets.lg),
-
-                /// TimelineBtn
-                _TimelineBtn(type: _data.type, width: $styles.sizes.maxContentWidth2),
                 Gap($styles.insets.lg),
               ],
             ),

@@ -45,18 +45,8 @@ class _EventsListState extends State<_EventsList> {
       );
     }
 
-    final events = widget.data.events;
-
     final listItems = <Widget>[];
-    for (var e in events.entries) {
-      final delay = (100 + (100 * listItems.length)).delayMs;
-      listItems.add(
-        TimelineEventCard(year: e.key, text: e.value, darkMode: true)
-            .maybeAnimate()
-            .fade(delay: delay, duration: $styles.times.slow)
-            .slide(begin: Offset(0, 1), curve: Curves.easeOutBack),
-      );
-    }
+
     return Stack(
       children: [
         SingleChildScrollView(

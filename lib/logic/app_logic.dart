@@ -11,13 +11,7 @@ import 'package:wonders/ui/common/utils/page_routes.dart';
 
 class AppLogic {
   Size _appSize = Size.zero;
-
-  /// Indicates to the rest of the app that bootstrap has not completed.
-  /// The router will use this to prevent redirects while bootstrapping.
   bool isBootstrapComplete = false;
-
-  /// Indicates which orientations the app will allow be default. Affects Android/iOS devices only.
-  /// Defaults to both landscape (hz) and portrait (vt)
   List<Axis> supportedOrientations = [Axis.vertical, Axis.horizontal];
 
   /// Allow a view to override the currently supported orientations. For example, [FullscreenVideoViewer] always wants to enable both landscape and portrait.
@@ -132,39 +126,32 @@ class AppLogic {
       'assets/images/chichen_itza/chichen.png',
       'assets/images/chichen_itza/foreground-left.png',
       'assets/images/chichen_itza/foreground-right.png',
-      
       'assets/images/christ_the_redeemer/redeemer.png',
       'assets/images/christ_the_redeemer/foreground-left.png',
       'assets/images/christ_the_redeemer/foreground-right.png',
-
       'assets/images/colosseum/colosseum.png',
       'assets/images/colosseum/foreground-left.png',
       'assets/images/colosseum/foreground-right.png',
-
       'assets/images/great_wall_of_china/great-wall.png',
       'assets/images/great_wall_of_china/foreground-left.png',
       'assets/images/great_wall_of_china/foreground-right.png',
-
       'assets/images/machu_picchu/machu-picchu.png',
       'assets/images/machu_picchu/foreground-back.png',
       'assets/images/machu_picchu/foreground-front.png',
-
       'assets/images/petra/petra.png',
       'assets/images/petra/foreground-left.png',
       'assets/images/petra/foreground-right.png',
-
       'assets/images/pyramids/pyramids.png',
       'assets/images/pyramids/foreground-back.png',
       'assets/images/pyramids/foreground-front.png',
-
       'assets/images/taj_mahal/taj-mahal.png',
       'assets/images/taj_mahal/foreground-left.png',
       'assets/images/taj_mahal/foreground-right.png',
     ];
 
-    urls.forEach((url) => precacheImage(AssetImage(url), context, onError: (error, stackTrace) {
-      print('Loading $url failed - ${error.toString()}');
-    }));
+    for (var url in urls) {
+      precacheImage(AssetImage(url), context, onError: (error, stackTrace) {});
+    }
   }
 }
 

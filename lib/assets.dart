@@ -5,7 +5,6 @@ import 'package:wonders/logic/common/platform_info.dart';
 /// Loads bitmap assets into memory that may be required later
 class AppBitmaps {
   static late final BitmapDescriptor mapMarker;
-
   static Future<void> init() async {
     mapMarker = await BitmapDescriptor.asset(
       ImageConfiguration(devicePixelRatio: PlatformInfo.pixelRatio),
@@ -14,7 +13,6 @@ class AppBitmaps {
   }
 }
 
-/// Consolidates raster image paths used across the app
 class ImagePaths {
   static String root = 'assets/images';
   static String common = 'assets/images/_common';
@@ -61,4 +59,9 @@ extension WonderAssetExtensions on WonderType {
   String get photo3 => '$assetPath/photo-3.jpg';
   String get photo4 => '$assetPath/photo-4.jpg';
   String get flattened => '$assetPath/flattened.jpg';
+}
+
+class Animations {
+  static String root = 'assets/animations';
+  static String siri = '$root/siri.json';
 }

@@ -3,7 +3,6 @@ part of '../collection_screen.dart';
 @immutable
 class _CollectionList extends StatefulWidget with GetItStatefulWidgetMixin {
   _CollectionList({
-    super.key,
     this.onReset,
     required this.fromId,
     this.scrollKey,
@@ -34,8 +33,6 @@ class _CollectionListState extends State<_CollectionList> with GetItStateMixin {
     return item?.wonder;
   }
 
-  // Maintain scroll position when switching between vertical and horizontal orientation.
-  // Multiplies or divides the current scroll position by the ratio of the vertical and horizontal card extents.
   void _maintainScrollPos() {
     if (scrollController.hasClients == false) return;
     const extentFactor = _CollectionList._vtCardExtent / _CollectionList._hzCardExtent;

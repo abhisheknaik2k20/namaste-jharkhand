@@ -63,27 +63,6 @@ class ChristRedeemerIllustration extends StatelessWidget {
   }
 
   List<Widget> _buildFg(BuildContext context, Animation<double> anim) {
-    return [
-      IllustrationPiece(
-        fileName: 'foreground-left.png',
-        alignment: Alignment.bottomCenter,
-        initialScale: .95,
-        initialOffset: Offset(-140, 60),
-        heightFactor: .65,
-        fractionalOffset: Offset(-.25, .05),
-        zoomAmt: .15,
-        dynamicHzOffset: -100,
-      ),
-      IllustrationPiece(
-        fileName: 'foreground-right.png',
-        alignment: Alignment.bottomCenter,
-        initialOffset: Offset(120, 40),
-        initialScale: .9,
-        heightFactor: .55,
-        fractionalOffset: Offset(.35, .2),
-        zoomAmt: .1,
-        dynamicHzOffset: 100,
-      ),
-    ];
+    return [];
   }
 }

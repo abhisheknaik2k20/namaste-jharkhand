@@ -33,12 +33,8 @@ class _VerticalSwipeController {
         onSwipeComplete();
       }
     }
-
-    //print(_swipeUpAmt.value);
   }
 
-  /// Utility method to wrap a couple of ValueListenableBuilders and pass the values into a builder methods.
-  /// Saves the UI some boilerplate when subscribing to changes.
   Widget buildListener(
       {required Widget Function(double swipeUpAmt, bool isPointerDown, Widget? child) builder, Widget? child}) {
     return ValueListenableBuilder<double>(

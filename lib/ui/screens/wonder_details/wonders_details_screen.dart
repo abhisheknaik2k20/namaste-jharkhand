@@ -73,7 +73,6 @@ class _WonderDetailsScreenState extends State<WonderDetailsScreen>
       color: Colors.black,
       child: Stack(
         children: [
-          /// Fullscreen tab views
           LazyIndexedStack(
             index: _tabController.index,
             children: [
