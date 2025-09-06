@@ -24,7 +24,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
 
   // AI-related variables
   late final GenerativeModel _model;
-  late AnimationController _fadeController;
   late AnimationController _dotAnimationController;
   late List<Animation<double>> _dotAnimations;
 
@@ -32,12 +31,11 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   void initState() {
     super.initState();
     _model = GenerativeModel(
-      model: 'gemini-2.5-pro',
+      model: 'gemini-2.5-flash-lite',
       apiKey: ApiKeys.geminiApi,
       generationConfig: GenerationConfig(maxOutputTokens: 2048, temperature: 0.7),
     );
 
-    _fadeController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     _dotAnimationController = AnimationController(duration: const Duration(milliseconds: 1800), vsync: this)..repeat();
 
     _dotAnimations = List.generate(3, (index) {
@@ -64,7 +62,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   void dispose() {
     _textController.dispose();
     _animationController.dispose();
-    _fadeController.dispose();
     _dotAnimationController.dispose();
     super.dispose();
   }
@@ -93,7 +90,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
         initialMessages: List.from(_messages),
         textController: _textController,
         model: _model,
-        fadeController: _fadeController,
         dotAnimations: _dotAnimations,
         onMessagesUpdated: (messages) => setState(() => _messages
           ..clear()
@@ -118,14 +114,16 @@ class ChatMessage {
   final bool isUser;
   final DateTime timestamp;
   final File? imageFile;
-  ChatMessage(this.text, this.isUser, this.timestamp, {this.imageFile});
+  final String id; // Unique identifier for stable animations
+
+  ChatMessage(this.text, this.isUser, this.timestamp, {this.imageFile})
+      : id = '${DateTime.now().millisecondsSinceEpoch}_${text.hashCode}';
 }
 
 class WhatsAppChatScreen extends StatefulWidget {
   final List<ChatMessage> initialMessages;
   final TextEditingController textController;
   final GenerativeModel model;
-  final AnimationController fadeController;
   final List<Animation<double>> dotAnimations;
   final Function(List<ChatMessage>) onMessagesUpdated;
   final Future<bool> Function() onRequestImagePermissions;
@@ -135,7 +133,6 @@ class WhatsAppChatScreen extends StatefulWidget {
     required this.initialMessages,
     required this.textController,
     required this.model,
-    required this.fadeController,
     required this.dotAnimations,
     required this.onMessagesUpdated,
     required this.onRequestImagePermissions,
@@ -145,18 +142,50 @@ class WhatsAppChatScreen extends StatefulWidget {
   State<WhatsAppChatScreen> createState() => _WhatsAppChatScreenState();
 }
 
-class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> {
+class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   late List<ChatMessage> _messages;
   bool _isLoading = false;
   File? _imageFile;
   bool _showImagePreview = false;
 
+  // Animation controllers for individual messages
+  final Map<String, AnimationController> _messageAnimations = {};
+  final Map<String, Animation<Offset>> _slideAnimations = {};
+  final Map<String, Animation<double>> _fadeAnimations = {};
+
   @override
   void initState() {
     super.initState();
     _messages = List.from(widget.initialMessages);
+
+    // Initialize animations for existing messages
+    for (final message in _messages) {
+      _initializeMessageAnimation(message);
+    }
+
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+  }
+
+  void _initializeMessageAnimation(ChatMessage message) {
+    if (!_messageAnimations.containsKey(message.id)) {
+      final controller = AnimationController(
+        duration: const Duration(milliseconds: 400),
+        vsync: this,
+      );
+
+      _messageAnimations[message.id] = controller;
+      _slideAnimations[message.id] = Tween<Offset>(
+        begin: Offset(message.isUser ? 0.3 : -0.3, 0.0),
+        end: Offset.zero,
+      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOutBack));
+
+      _fadeAnimations[message.id] = Tween<double>(
+        begin: 0.0,
+        end: 1.0,
+      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+      controller.forward();
+    }
   }
 
   void _updateParentMessages() {
@@ -165,11 +194,15 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> {
 
   void _scrollToBottom() {
     if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutCubic,
+          );
+        }
+      });
     }
   }
 
@@ -204,19 +237,26 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> {
 
     widget.textController.clear();
 
+    // Add user messages with animations
+    final List<ChatMessage> newMessages = [];
+    if (messageText.isNotEmpty) {
+      newMessages.add(ChatMessage(messageText, true, DateTime.now()));
+    }
+    if (_imageFile != null) {
+      newMessages.add(ChatMessage($strings.chatImageUploaded, true, DateTime.now(), imageFile: _imageFile));
+    }
+
     setState(() {
-      if (messageText.isNotEmpty) {
-        _messages.add(ChatMessage(messageText, true, DateTime.now()));
-      }
-      if (_imageFile != null) {
-        _messages.add(ChatMessage($strings.chatImageUploaded, true, DateTime.now(), imageFile: _imageFile));
+      for (final message in newMessages) {
+        _messages.add(message);
+        _initializeMessageAnimation(message);
       }
       _isLoading = true;
       _showImagePreview = false;
     });
 
     _updateParentMessages();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+    _scrollToBottom();
 
     try {
       final chatSession = widget.model.startChat();
@@ -229,13 +269,15 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> {
           parts.add(DataPart('image/jpeg', imageBytes));
         } catch (e) {
           if (mounted) {
+            final errorMessage = ChatMessage('${$strings.chatErrorProcessingImage}: $e', false, DateTime.now());
             setState(() {
-              _messages.add(ChatMessage('${$strings.chatErrorProcessingImage}: $e', false, DateTime.now()));
+              _messages.add(errorMessage);
+              _initializeMessageAnimation(errorMessage);
               _isLoading = false;
               _imageFile = null;
             });
             _updateParentMessages();
-            WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+            _scrollToBottom();
           }
           return;
         }
@@ -244,22 +286,26 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> {
       final response = await chatSession.sendMessage(Content.multi(parts));
 
       if (mounted) {
+        final responseMessage = ChatMessage(response.text ?? $strings.chatNoResponse, false, DateTime.now());
         setState(() {
-          _messages.add(ChatMessage(response.text ?? $strings.chatNoResponse, false, DateTime.now()));
+          _messages.add(responseMessage);
+          _initializeMessageAnimation(responseMessage);
           _isLoading = false;
           _imageFile = null;
         });
         _updateParentMessages();
-        WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+        _scrollToBottom();
       }
     } catch (e) {
       if (mounted) {
+        final errorMessage = ChatMessage('${$strings.chatErrorProcessingRequest}: $e', false, DateTime.now());
         setState(() {
-          _messages.add(ChatMessage('${$strings.chatErrorProcessingRequest}: $e', false, DateTime.now()));
+          _messages.add(errorMessage);
+          _initializeMessageAnimation(errorMessage);
           _isLoading = false;
         });
         _updateParentMessages();
-        WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+        _scrollToBottom();
       }
     }
   }
@@ -292,66 +338,72 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> {
   }
 
   Widget _buildMessageItem(ChatMessage message) {
-    final slideAnimation = Tween<Offset>(begin: Offset(message.isUser ? 0.1 : -0.1, 0.0), end: Offset.zero)
-        .animate(CurvedAnimation(parent: widget.fadeController, curve: Curves.easeOut));
-    final fadeAnimation = Tween<double>(begin: 0.0, end: 1.0)
-        .animate(CurvedAnimation(parent: widget.fadeController, curve: Curves.easeOut));
+    final slideAnimation = _slideAnimations[message.id];
+    final fadeAnimation = _fadeAnimations[message.id];
+
+    if (slideAnimation == null || fadeAnimation == null) {
+      _initializeMessageAnimation(message);
+      return const SizedBox.shrink(); // Return empty while animations initialize
+    }
 
     return Align(
       alignment: message.isUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: SlideTransition(
-        position: slideAnimation,
-        child: FadeTransition(
-          opacity: fadeAnimation,
-          child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
-            decoration: BoxDecoration(
-              color: message.isUser ? const Color(0xFF005C4B) : const Color(0xFF202C3B),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                if (message.imageFile != null) ...[
-                  Container(
-                    constraints: const BoxConstraints(maxHeight: 200),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.file(message.imageFile!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => Container(
-                              height: 100,
-                              color: Colors.grey.shade800,
-                              child: const Center(child: Icon(Icons.broken_image, size: 40, color: Colors.grey)))),
+      child: AnimatedBuilder(
+        animation: Listenable.merge([slideAnimation, fadeAnimation]),
+        builder: (context, child) => SlideTransition(
+          position: slideAnimation,
+          child: FadeTransition(
+            opacity: fadeAnimation,
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+              decoration: BoxDecoration(
+                color: message.isUser ? const Color(0xFF005C4B) : const Color(0xFF202C3B),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  if (message.imageFile != null) ...[
+                    Container(
+                      constraints: const BoxConstraints(maxHeight: 200),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(message.imageFile!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) => Container(
+                                height: 100,
+                                color: Colors.grey.shade800,
+                                child: const Center(child: Icon(Icons.broken_image, size: 40, color: Colors.grey)))),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                ],
-                MarkdownWidget(
-                  data: message.text,
-                  shrinkWrap: true,
-                  config: MarkdownConfig(configs: [
-                    CodeConfig(
-                        style: TextStyle(
-                            backgroundColor: Colors.grey.shade800, fontFamily: 'monospace', color: Colors.white)),
-                    PConfig(textStyle: const TextStyle(color: Colors.white)),
-                    H1Config(style: const TextStyle(color: Colors.white)),
-                    H2Config(style: const TextStyle(color: Colors.white)),
-                    H3Config(style: const TextStyle(color: Colors.white)),
-                    LinkConfig(style: const TextStyle(color: Colors.lightBlue)),
-                  ]),
-                ),
-                const SizedBox(height: 4),
-                Row(mainAxisSize: MainAxisSize.min, children: [
-                  Text(_time(message.timestamp), style: TextStyle(color: Colors.grey[400], fontSize: 11)),
-                  if (message.isUser) ...[
-                    const SizedBox(width: 4),
-                    const Icon(Icons.done_all, color: Color(0xFF4FC3F7), size: 14)
+                    const SizedBox(height: 8),
                   ],
-                ]),
-              ],
+                  MarkdownWidget(
+                    data: message.text,
+                    shrinkWrap: true,
+                    config: MarkdownConfig(configs: [
+                      CodeConfig(
+                          style: TextStyle(
+                              backgroundColor: Colors.grey.shade800, fontFamily: 'monospace', color: Colors.white)),
+                      PConfig(textStyle: const TextStyle(color: Colors.white)),
+                      H1Config(style: const TextStyle(color: Colors.white)),
+                      H2Config(style: const TextStyle(color: Colors.white)),
+                      H3Config(style: const TextStyle(color: Colors.white)),
+                      LinkConfig(style: const TextStyle(color: Colors.lightBlue)),
+                    ]),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(mainAxisSize: MainAxisSize.min, children: [
+                    Text(_time(message.timestamp), style: TextStyle(color: Colors.grey[400], fontSize: 11)),
+                    if (message.isUser) ...[
+                      const SizedBox(width: 4),
+                      const Icon(Icons.done_all, color: Color(0xFF4FC3F7), size: 14)
+                    ],
+                  ]),
+                ],
+              ),
             ),
           ),
         ),
@@ -361,24 +413,21 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> {
 
   Widget _buildLoadingIndicator() => Align(
         alignment: Alignment.centerLeft,
-        child: FadeTransition(
-          opacity: widget.fadeController..forward(),
-          child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              color: Color(0xFF202C3B),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16), topRight: Radius.circular(16), bottomRight: Radius.circular(16)),
-            ),
-            child: Row(mainAxisSize: MainAxisSize.min, children: [
-              _buildDot(0),
-              const SizedBox(width: 4),
-              _buildDot(1),
-              const SizedBox(width: 4),
-              _buildDot(2),
-            ]),
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: Color(0xFF202C3B),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16), topRight: Radius.circular(16), bottomRight: Radius.circular(16)),
           ),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            _buildDot(0),
+            const SizedBox(width: 4),
+            _buildDot(1),
+            const SizedBox(width: 4),
+            _buildDot(2),
+          ]),
         ),
       );
 
@@ -433,7 +482,6 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> {
                       itemCount: _messages.length + (_isLoading ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index < _messages.length) {
-                          widget.fadeController.forward(from: 0.0);
                           return _buildMessageItem(_messages[index]);
                         } else {
                           return _buildLoadingIndicator();

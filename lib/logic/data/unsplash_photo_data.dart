@@ -1,4 +1,3 @@
-import 'package:wonders/_tools/unsplash_download_service.dart';
 import 'package:wonders/logic/common/platform_info.dart';
 
 enum UnsplashPhotoSize { med, large, xl }
@@ -25,7 +24,6 @@ class UnsplashPhotoData {
     return 'https://www.wonderous.info/unsplash/$id-$size.jpg';
   }
 
-  /// List of image ids by collection. This can be generated with the [UnsplashDownloadService].generateUnsplashCollectionsClass().
   static final photosByCollectionId = {
     'SUK0tuMnLLw': [
       'T-A0pEYn_0w',
