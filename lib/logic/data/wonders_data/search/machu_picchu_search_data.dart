@@ -83,7 +83,6 @@ List<String> _searchSuggestions = const [
   'container',
 ];
 
-// Machu Picchu (377)
 List<SearchData> _searchData = const [
   SearchData(1467, 313287, 'Urpu (jar)', 'bottle|ceramic, slip|ceramics-containers'),
   SearchData(1500, 314528, 'Tunic with Diamond Band', 'tunic|camelid hair, cotton|textiles-woven'),

@@ -108,7 +108,6 @@ final appRouter = GoRouter(
   ],
 );
 
-/// Custom GoRoute sub-class to make the router declaration easier to read
 class AppRoute extends GoRoute {
   AppRoute(String path, Widget Function(GoRouterState s) builder,
       {List<GoRoute> routes = const [], this.useFade = false})

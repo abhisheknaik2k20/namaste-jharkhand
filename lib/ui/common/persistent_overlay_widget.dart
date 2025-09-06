@@ -2,11 +2,9 @@ import 'package:lottie/lottie.dart';
 import 'package:wonders/common_libs.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:markdown_widget/markdown_widget.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:wonders/logic/api_keys.dart';
 import 'dart:io';
+
+import 'package:wonders/logic/api_keys.dart';
 
 class PersistentOverlayWidget extends StatefulWidget {
   const PersistentOverlayWidget({super.key});
@@ -18,14 +16,14 @@ class PersistentOverlayWidget extends StatefulWidget {
 class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with TickerProviderStateMixin {
   final _textController = TextEditingController();
   final _messages = <ChatMessage>[];
-  late final _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
-  late final _scaleAnimation = Tween<double>(begin: 1.0, end: 0.0)
-      .animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
 
-  // AI-related variables
+  late final _tapController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
+  late final _longPressController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
   late final GenerativeModel _model;
   late AnimationController _dotAnimationController;
   late List<Animation<double>> _dotAnimations;
+
+  bool _isLongPressing = false;
 
   @override
   void initState() {
@@ -37,76 +35,93 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     );
 
     _dotAnimationController = AnimationController(duration: const Duration(milliseconds: 1800), vsync: this)..repeat();
-
-    _dotAnimations = List.generate(3, (index) {
-      final beginTime = index * 0.2;
-      return TweenSequence<double>([
-        TweenSequenceItem(
-            tween: Tween<double>(begin: 0.5, end: 1.0).chain(CurveTween(curve: Curves.easeInOut)), weight: 50),
-        TweenSequenceItem(
-            tween: Tween<double>(begin: 1.0, end: 0.5).chain(CurveTween(curve: Curves.easeInOut)), weight: 50),
-      ]).animate(CurvedAnimation(
-          parent: _dotAnimationController, curve: Interval(beginTime, beginTime + 0.6, curve: Curves.linear)));
-    });
+    _dotAnimations = List.generate(
+        3,
+        (index) => TweenSequence<double>([
+              TweenSequenceItem(
+                  tween: Tween<double>(begin: 0.5, end: 1.0).chain(CurveTween(curve: Curves.easeInOut)), weight: 50),
+              TweenSequenceItem(
+                  tween: Tween<double>(begin: 1.0, end: 0.5).chain(CurveTween(curve: Curves.easeInOut)), weight: 50),
+            ]).animate(CurvedAnimation(
+                parent: _dotAnimationController,
+                curve: Interval(index * 0.2, index * 0.2 + 0.6, curve: Curves.linear))));
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_messages.isEmpty) {
-      _messages.add(ChatMessage($strings.chatWelcomeMessage, false, DateTime.now()));
-    }
-  }
-
-  @override
-  void dispose() {
-    _textController.dispose();
-    _animationController.dispose();
-    _dotAnimationController.dispose();
-    super.dispose();
-  }
-
-  Future<bool> _requestImagePermissions() async {
-    if (Platform.isAndroid) {
-      final androidInfo = await DeviceInfoPlugin().androidInfo;
-      final sdkInt = androidInfo.version.sdkInt;
-      if (sdkInt >= 33) {
-        return (await Permission.photos.request()).isGranted;
-      } else {
-        return (await Permission.storage.request()).isGranted;
-      }
-    } else {
-      return (await Permission.photos.request()).isGranted;
+      _messages.add(ChatMessage('Welcome message', false, DateTime.now()));
     }
   }
 
   void _showChat() {
-    _animationController.forward();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => WhatsAppChatScreen(
-        initialMessages: List.from(_messages),
-        textController: _textController,
-        model: _model,
-        dotAnimations: _dotAnimations,
-        onMessagesUpdated: (messages) => setState(() => _messages
-          ..clear()
-          ..addAll(messages)),
-        onRequestImagePermissions: _requestImagePermissions,
-      ),
-    ).then((_) => _animationController.reverse());
+    if (_isLongPressing) return;
+    _tapController.forward().then((value) => showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) => WhatsAppChatScreen(
+            initialMessages: List.from(_messages),
+            textController: _textController,
+            model: _model,
+            dotAnimations: _dotAnimations,
+            onMessagesUpdated: (messages) => setState(() => _messages
+              ..clear()
+              ..addAll(messages)),
+          ),
+        ).then((_) => _tapController.reverse()));
+  }
+
+  Offset _getTranslation() {
+    final renderBox = context.findRenderObject() as RenderBox?;
+    if (renderBox == null) return Offset.zero;
+
+    final size = renderBox.size;
+    final position = renderBox.localToGlobal(Offset.zero);
+    final screenSize = MediaQuery.of(context).size;
+
+    return Offset(
+      screenSize.width / 2 - position.dx - size.width / 2,
+      screenSize.height / 2 - position.dy - size.height / 2,
+    );
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        onTap: _showChat,
-        child: SizedBox(
-          height: MediaQuery.sizeOf(context).height * 0.1,
-          child: ScaleTransition(scale: _scaleAnimation, child: Lottie.asset(Animations.siri)),
-        ),
-      );
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _showChat,
+      onLongPressStart: (_) {
+        setState(() => _isLongPressing = true);
+        _longPressController.forward();
+      },
+      onLongPressEnd: (_) {
+        setState(() => _isLongPressing = false);
+        _longPressController.reverse();
+      },
+      onLongPressCancel: () {
+        setState(() => _isLongPressing = false);
+        _longPressController.reverse();
+      },
+      child: AnimatedBuilder(
+        animation: Listenable.merge([_tapController, _longPressController]),
+        builder: (context, child) {
+          final longPressValue = _longPressController.value;
+          final tapScale = Tween<double>(begin: 1.0, end: 0.0).transform(_tapController.value);
+          return Transform.translate(
+            offset: _getTranslation() * longPressValue,
+            child: Transform.scale(
+              scale: tapScale * (1.0 + longPressValue * 1.5), // Combines both animations
+              child: SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.1,
+                child: Lottie.asset('assets/animations/siri.json'),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
 class ChatMessage {
@@ -114,8 +129,7 @@ class ChatMessage {
   final bool isUser;
   final DateTime timestamp;
   final File? imageFile;
-  final String id; // Unique identifier for stable animations
-
+  final String id;
   ChatMessage(this.text, this.isUser, this.timestamp, {this.imageFile})
       : id = '${DateTime.now().millisecondsSinceEpoch}_${text.hashCode}';
 }
@@ -126,7 +140,6 @@ class WhatsAppChatScreen extends StatefulWidget {
   final GenerativeModel model;
   final List<Animation<double>> dotAnimations;
   final Function(List<ChatMessage>) onMessagesUpdated;
-  final Future<bool> Function() onRequestImagePermissions;
 
   const WhatsAppChatScreen({
     super.key,
@@ -135,7 +148,6 @@ class WhatsAppChatScreen extends StatefulWidget {
     required this.model,
     required this.dotAnimations,
     required this.onMessagesUpdated,
-    required this.onRequestImagePermissions,
   });
 
   @override
@@ -158,8 +170,6 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> with TickerProv
   void initState() {
     super.initState();
     _messages = List.from(widget.initialMessages);
-
-    // Initialize animations for existing messages
     for (final message in _messages) {
       _initializeMessageAnimation(message);
     }
@@ -203,31 +213,6 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> with TickerProv
           );
         }
       });
-    }
-  }
-
-  Future<void> _pickImage() async {
-    try {
-      final hasPermission = await widget.onRequestImagePermissions();
-      if (hasPermission) {
-        final result =
-            await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: false, allowCompression: false);
-        if (result?.files.isNotEmpty == true && result!.files.single.path != null) {
-          setState(() {
-            _imageFile = File(result.files.single.path!);
-            _showImagePreview = true;
-          });
-        }
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text($strings.chatPermissionRequired)));
-          await openAppSettings();
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${$strings.chatErrorPickingImage}: $e')));
-      }
     }
   }
 
@@ -494,10 +479,6 @@ class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> with TickerProv
                 padding: const EdgeInsets.all(8),
                 color: const Color(0xFF202C3B),
                 child: Row(children: [
-                  Container(
-                      decoration: const BoxDecoration(color: Color(0xFF0B1426), shape: BoxShape.circle),
-                      child: IconButton(icon: const Icon(Icons.image, color: Colors.teal), onPressed: _pickImage)),
-                  const SizedBox(width: 8),
                   Expanded(
                       child: Container(
                     decoration: BoxDecoration(color: const Color(0xFF0B1426), borderRadius: BorderRadius.circular(25)),

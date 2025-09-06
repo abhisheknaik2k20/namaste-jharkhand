@@ -11,7 +11,5 @@ class SearchData {
 
   String get imageUrl => ArtifactData.getSelfHostedImageUrl('$id');
   String get imageUrlSmall => ArtifactData.getSelfHostedImageUrlSmall('$id');
-
-  // used by the search helper tool:
   String write() => "SearchData($year, $id, '$title', '$keywords')";
 }
