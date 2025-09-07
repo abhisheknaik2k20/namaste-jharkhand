@@ -612,112 +612,111 @@ class AppLocalizationsEn extends AppLocalizations {
   String get christRedeemerCollectible3Icon => 'textile';
 
   @override
-  String get colosseumTitle => 'Colosseum';
+  String get colosseumTitle => 'Parasnath Hill';
 
   @override
-  String get colosseumSubTitle => 'The icon of Rome';
+  String get colosseumSubTitle => 'Sammed Shikhar';
 
   @override
-  String get colosseumRegionTitle => 'Rome, Italy';
+  String get colosseumRegionTitle => 'Giridih, Jharkhand';
 
   @override
-  String get colosseumArtifactCulture => 'Roman';
+  String get colosseumArtifactCulture => 'Jain';
 
   @override
-  String get colosseumArtifactGeolocation => 'Roman Empire';
+  String get colosseumArtifactGeolocation => 'Eastern India';
 
   @override
-  String get colosseumPullQuote1Top => 'Still the Largest Standing';
+  String get colosseumPullQuote1Top => 'Sacred Peak Where Twenty';
 
   @override
-  String get colosseumPullQuote1Bottom => 'Amphitheater in the World Today';
+  String get colosseumPullQuote1Bottom => 'Tirthankaras Attained Moksha';
 
   @override
   String get colosseumPullQuote2 =>
-      'When falls the Coliseum, Rome shall fall; And when Rome falls - the World.';
+      'Sammed Shikhar represents the ultimate spiritual destination where divine souls achieved liberation through meditation and detachment from worldly bonds.';
 
   @override
-  String get colosseumPullQuote2Author => 'Lord Byron';
+  String get colosseumPullQuote2Author => 'Jain Scripture';
 
   @override
   String get colosseumCallout1 =>
-      'It was used for gladiatorial contests and public spectacles including animal hunts, executions, reenactments of famous battles, and dramas based on Roman mythology, and mock sea battles.';
+      'It is the holiest pilgrimage site for Jains, where 20 out of 24 Tirthankaras attained Moksha (salvation), including the 23rd Tirthankara Lord Parshvanatha who achieved liberation here in 772 BCE.';
 
   @override
   String get colosseumCallout2 =>
-      'It is the largest ancient amphitheater ever built, and is still the largest standing amphitheater in the world today, despite its age.';
+      'At 1,370 meters (4,480 feet), it is the highest peak in Jharkhand state and houses 32 ancient temples with exquisite stone carvings depicting Jain spiritual teachings and mythology.';
 
   @override
   String get colosseumVideoCaption =>
-      '“Ancient Rome 101 | National Geographic.” Youtube, uploaded by National Geographic.';
+      'Sammed Shikhar: Sacred Journey to Jain Pilgrimage Site on Parasnath Hill';
 
   @override
   String get colosseumMapCaption =>
-      'Map showing location of Colosseum in Rome, Italy,';
+      'Map showing location of Parasnath Hill in Giridih district, Jharkhand, Eastern India';
 
   @override
   String get colosseumHistoryInfo1 =>
-      'The Colosseum is an oval amphitheater in the center of the city of Rome, Italy. Unlike Roman theaters that were built into hillsides, the Colosseum is an entirely free-standing structure.';
+      'Parasnath Hill, also known as Sammed Shikhar (Peak of Concentration), is an ancient Jain pilgrimage site with archaeological evidence indicating Jain presence dating back to at least 1500 BCE. The earliest literary reference appears in the Jñātṛdhārmakātha, compiled in the 6th century BCE.';
 
   @override
   String get colosseumHistoryInfo2 =>
-      'The building ceased to be used for entertainment in the early medieval era. By the late 6th century a small chapel had been built into the structure of the amphitheater, and the arena was converted into a cemetery. \nThe numerous vaulted spaces in the arcades under the seating were converted into housing and workshops, and are recorded as still being rented out as late as the 12th century.';
+      'The site derives its name from Lord Parshvanatha, the 23rd Tirthankara, who attained Moksha here in 772 BCE. Throughout history, it has remained the most sacred Jain tirth (pilgrimage site), continuously drawing devotees seeking spiritual liberation and enlightenment.';
 
   @override
   String get colosseumConstructionInfo1 =>
-      'Construction began under the emperor Vespasian (r. 69-79 CE) in 72 and was completed in 80 CE under his successor and heir, Titus (r. 79-81). Further modifications were made during the reign of Domitian (r. 81-96).\nThe Colosseum is built of travertine limestone, tuff (volcanic rock), and brick-faced concrete. The outer wall is estimated to have required over 3.5 million cubic feet of travertine stone which were set without mortar; they were held together by 300 tons of iron clamps.';
+      'The temple complex showcases magnificent Jain architecture built primarily in the 18th century, featuring 32 temples distributed across the hill. The structures display intricate stone carvings, beautiful murals on temple walls, and delicately carved sculptures that depict Jain religious tenets.';
 
   @override
   String get colosseumConstructionInfo2 =>
-      'It could hold an estimated 50,000 to 80,000 spectators at various points in its history, having an average audience of some 65,000.';
+      'The temples feature distinctive arched gateway structures and elaborate wall carvings that narrate stories of spiritual Jain teachers. At the base in Madhuvan, there are eight main temples, two Dadawadis (pilgrimage rest houses), and the temple of Bhomiyaji Maharaja, creating a divine architectural ensemble.';
 
   @override
   String get colosseumLocationInfo1 =>
-      'Following the Great Fire of Rome in 64 CE, Emperor Nero seized much of the destroyed area to build his grandiose Domus Aurea (\"Golden House\"). A severe embarrassment to Nero\'s successors, parts of this extravagant palace and grounds, encompassing 1 sq mile, were filled with earth and built over.';
+      'Parasnath Hill is located in the Giridih district of Jharkhand state in eastern India, rising to 1,370 meters as the highest mountain in the state. It lies on the NH-2 Delhi-Kolkata highway section of the historic Grand Trunk Road.';
 
   @override
   String get colosseumLocationInfo2 =>
-      'On the site of the lake, in the middle of the palace grounds, Emperor Vespasian would build the Colosseum as part of a Roman resurgence.';
+      'The hill is part of the Parasnath Wildlife Sanctuary, a protected area that preserves both the natural ecosystem and sacred Jain heritage. The site is accessible to pilgrims from across India and internationally, serving as the spiritual heart of global Jainism.';
 
   @override
   String get colosseum70ce =>
-      'Colosseum construction was started during the Vespasian reign overtop what used to be a private lake for the previous four emperors. This was done in an attempt to revitalize Rome from their tyrannical reign.';
+      '1500 BCE: Archaeological evidence indicates the earliest Jain presence on Parasnath Hill, establishing it as an ancient center of Jain spirituality and meditation.';
 
   @override
   String get colosseum82ce =>
-      'The uppermost floor was built, and the structure was officially completed by Domitian.';
+      '772 BCE: Lord Parshvanatha, the 23rd Tirthankara, attains Moksha (salvation) on the hill, giving the site its sacred name and establishing its supreme religious significance.';
 
   @override
   String get colosseum1140ce =>
-      'The arena was repurposed as a fortress for the Frangipane and Annibaldi families. It was also at one point used as a church.';
+      '6th century BCE: The Jñātṛdhārmakātha, one of the twelve core Jain texts, makes the earliest literary reference to Shikharji as a sacred tirth (pilgrimage site).';
 
   @override
   String get colosseum1490ce =>
-      'Pope Alexander VI permitted the site to be used as a quarry, for both storing and salvaging building materials.';
+      '12th century: Historical records indicate continued religious activities and temple maintenance, with the site serving as an established pilgrimage center.';
 
   @override
   String get colosseum1829ce =>
-      'Preservation of the colosseum officially began, after more than a millennia of dilapidation and vandalism. Pope Pius VIII was notably devoted to this project.';
+      '18th century: Major temple construction period begins, with the current architectural complex of 32 temples being built, featuring the distinctive Jain architectural style with intricate carvings.';
 
   @override
   String get colosseum1990ce =>
-      'A restoration project was undertaken to ensure the colosseum remained a major tourist attraction for Rome. It currently stands as one of the greatest sources of tourism revenue in Italy.';
+      'Modern era: The site continues to attract millions of Jain pilgrims annually and is recognized as a protected wildlife sanctuary, balancing religious heritage with environmental conservation.';
 
   @override
-  String get colosseumCollectible1Title => 'Glass hexagonal amphoriskos';
+  String get colosseumCollectible1Title => 'Jain Prayer Beads (Mala)';
 
   @override
-  String get colosseumCollectible1Icon => 'vase';
+  String get colosseumCollectible1Icon => 'jewelry';
 
   @override
-  String get colosseumCollectible2Title =>
-      'Bronze plaque of Mithras slaying the bull';
+  String get colosseumCollectible2Title => 'Tirthankara Sculpture';
 
   @override
   String get colosseumCollectible2Icon => 'statue';
 
   @override
-  String get colosseumCollectible3Title => 'Interno del Colosseo';
+  String get colosseumCollectible3Title => 'Jain Manuscript Palm Leaf';
 
   @override
   String get colosseumCollectible3Icon => 'picture';
@@ -947,224 +946,226 @@ class AppLocalizationsEn extends AppLocalizations {
   String get machuPicchuCollectible3Icon => 'crystal';
 
   @override
-  String get petraTitle => 'Petra';
+  String get petraTitle => 'Tapovan Caves';
 
   @override
-  String get petraSubTitle => 'The Lost City';
+  String get petraSubTitle => 'Forest of Meditation';
 
   @override
-  String get petraRegionTitle => 'Ma’an, Jordan';
+  String get petraRegionTitle => 'Deoghar, Jharkhand';
 
   @override
-  String get petraArtifactCulture => 'Nabataean';
+  String get petraArtifactCulture => 'Hindu';
 
   @override
-  String get petraArtifactGeolocation => 'Levant';
+  String get petraArtifactGeolocation => 'Eastern India';
 
   @override
-  String get petraPullQuote1Top => 'A Rose-Red City';
+  String get petraPullQuote1Top => 'Sacred Caves Where Sage';
 
   @override
-  String get petraPullQuote1Bottom => 'Half as Old as Time';
+  String get petraPullQuote1Bottom => 'Valmiki Found Divine Solitude';
 
   @override
-  String get petraPullQuote1Author => 'John William Burgon';
+  String get petraPullQuote1Author => 'Ancient Hindu Tradition';
 
   @override
   String get petraPullQuote2 =>
-      'Petra is a brilliant display of man’s artistry in turning barren rock into a majestic wonder.';
+      'Tapovan represents the eternal quest for spiritual enlightenment, where meditation transforms the seeker into the divine.';
 
   @override
-  String get petraPullQuote2Author => 'Edward Dawson';
+  String get petraPullQuote2Author => 'Hindu Scripture';
 
   @override
   String get petraCallout1 =>
-      'They were particularly skillful in harvesting rainwater, agriculture and stone carving.';
+      'The name \'Tapovan\' translates to \'forest of meditation\' in Sanskrit, reflecting the spiritual aura permeating this sacred site where ancient sages sought enlightenment.';
 
   @override
   String get petraCallout2 =>
-      'Perhaps a more prominent resemblance to Hellenistic style in Petra comes with its Treasury.';
+      'These historic caves carved into the hills feature intricate sculptures and quiet interiors, providing fascinating insights into the region\'s rich spiritual heritage and meditative traditions.';
 
   @override
   String get petraVideoCaption =>
-      '“Stunning Stone Monuments of Petra | National Geographic.” Youtube, uploaded by National Geographic.';
+      'Tapovan Caves: Sacred Meditation Retreat in the Hills of Deoghar, Jharkhand';
 
   @override
   String get petraMapCaption =>
-      'Map showing location of Petra in Ma’an Governorate, Jordan.';
+      'Map showing location of Tapovan Caves, 10 kilometers from Deoghar in Jharkhand, Eastern India';
 
   @override
   String get petraHistoryInfo1 =>
-      'The area around Petra has been inhabited from as early as 7000  BCE, and the Nabataeans might have settled in what would become the capital city of their kingdom as early as the 4th century BCE.\nThe trading business gained the Nabataeans considerable revenue and Petra became the focus of their wealth. The Nabataeans were accustomed to living in the barren deserts, unlike their enemies, and were able to repel attacks by taking advantage of the area\'s mountainous terrain.';
+      'Tapovan Caves have been a spiritual sanctuary for thousands of years, with legends dating back to the Treta Yuga when Lord Rama, Sita, and Lakshmana are believed to have stayed here during their 14-year exile. The caves derive their sacred significance from being the meditation retreat of Sage Valmiki, the composer of the Ramayana.';
 
   @override
   String get petraHistoryInfo2 =>
-      'Petra flourished in the 1st century CE, when its famous Al-Khazneh structure - believed to be the mausoleum of Nabataean king Aretas IV - was constructed, and its population peaked at an estimated 20,000 inhabitants.\nAccess to the city is through a 3/4 mile-long (1.2 km) gorge called the Siq, which leads directly to the Khazneh.';
+      'The site gained prominence as a center for intense spiritual practice (tapas) when Sage Valmiki came here to do penance for his past wrongdoings and later composed parts of the Ramayana in these very caves. Throughout history, numerous saints and ascetics have found solitude and enlightenment in these tranquil surroundings.';
 
   @override
   String get petraConstructionInfo1 =>
-      'Famous for its rock-cut architecture and water conduit system, Petra is also called the \"Red Rose City\" because of the color of the stone from which it is carved.\nAnother thing Petra is known for is its Hellenistic (“Greek”) architecture. These influences can be seen in many of the facades at Petra and are a reflection of the cultures that the Nabataens traded with.';
+      'The Tapovan Caves are naturally formed caverns enhanced with carved elements, featuring the sacred Taponath Mahadeva temple at the summit. Inside one of the main caves, a naturally formed Shiva lingam has been installed, creating a powerful spiritual focal point for devotees and pilgrims.';
 
   @override
   String get petraConstructionInfo2 =>
-      'The facade of the Treasury features a broken pediment with a central tholos (“dome”) inside, and two obelisks appear to form into the rock of Petra at the top. Near the bottom of the Treasury we see twin Greek Gods: Pollux, Castor, and Dioscuri, who protect travelers on their journeys. \nNear the top of the Treasury, two victories are seen standing on each side of a female figure on the tholos. This female figure is believed to be the Isis-Tyche, Isis being the Egyptian Goddess and Tyche being the Greek Goddess of good fortune.';
+      'The cave complex showcases intricate stone sculptures and carvings that depict various Hindu deities and spiritual symbols. The architectural elements blend natural rock formations with human craftsmanship, creating spaces perfectly suited for meditation and spiritual contemplation amidst the hill\'s serene environment.';
 
   @override
   String get petraLocationInfo1 =>
-      'Petra is located in southern Jordan. It is adjacent to the mountain of Jabal Al-Madbah, in a basin surrounded by mountains forming the eastern flank of the Arabah valley running from the Dead Sea to the Gulf of Aqaba.';
+      'Tapovan Caves are located 10 kilometers from Deoghar in Jharkhand state, Eastern India. The site is nestled in the hills surrounding the holy city of Deoghar, which is famous for the Baidyanath Temple, one of the twelve Jyotirlingas.';
 
   @override
   String get petraLocationInfo2 =>
-      'The area around Petra has been inhabited from as early as 7000 BC, and the Nabataeans might have settled in what would become the capital city of their kingdom as early as the 4th century BC.\nArchaeological work has only discovered evidence of Nabataean presence dating back to the second century BC, by which time Petra had become their capital. The Nabataeans were nomadic Arabs who invested in Petra\'s proximity to the incense trade routes by establishing it as a major regional trading hub.';
+      'The caves are situated on a hill that can be reached by a 30-minute trek from the base, making them a popular destination for both pilgrims seeking spiritual solace and adventure enthusiasts. The location offers panoramic views of the surrounding landscape and maintains its ancient atmosphere of tranquility.';
 
   @override
   String get petra1200bce =>
-      'First Edomites occupied the area and established a foothold.';
+      'Treta Yuga: According to Hindu tradition, Lord Rama, Sita, and Lakshmana stayed in these caves during their 14-year exile, establishing the site\'s initial sacred significance.';
 
   @override
-  String get petra106bce => 'Became part of the Roman province Arabia';
+  String get petra106bce =>
+      'Ancient Period: Sage Valmiki arrives at Tapovan to perform penance for his past deeds, later composing portions of the Ramayana while meditating in these caves.';
 
   @override
   String get petra551ce =>
-      'After being damaged by earthquakes, habitation of the city all but ceased.';
+      'Medieval Period: The caves continue to attract saints and ascetics, with various spiritual masters using the site for intense meditation and tapas (spiritual austerities).';
 
   @override
   String get petra1812ce =>
-      'Rediscovered by the Swiss traveler Johann Ludwig Burckhardt.';
+      '19th Century: Saint Balananda Brahmachari performs intense tapas for more than 50 years at Tapovan, achieving spiritual siddhis (supernatural powers) through his dedication.';
 
   @override
   String get petra1958ce =>
-      'Excavations led on the site by the British School of Archaeology and the American Center of Oriental Research.';
+      'Modern Era: Sri Balananda Brahmachari and other spiritual masters establish the site\'s reputation as a powerful center for achieving spiritual enlightenment and divine realization.';
 
   @override
   String get petra1989ce =>
-      'Appeared in the film Indiana Jones and The Last Crusade.';
+      'Contemporary Period: The site becomes recognized as an important pilgrimage destination, attracting devotees from across India while maintaining its pristine spiritual atmosphere.';
 
   @override
-  String get petraCollectible1Title => 'Camel and riders';
+  String get petraCollectible1Title => 'Sacred Rudraksha Beads';
 
   @override
-  String get petraCollectible1Icon => 'statue';
+  String get petraCollectible1Icon => 'jewelry';
 
   @override
-  String get petraCollectible2Title => 'Vessel';
+  String get petraCollectible2Title => 'Shiva Lingam Stone';
 
   @override
-  String get petraCollectible2Icon => 'vase';
+  String get petraCollectible2Icon => 'statue';
 
   @override
-  String get petraCollectible3Title => 'Open bowl';
+  String get petraCollectible3Title => 'Palm Leaf Sanskrit Manuscript';
 
   @override
-  String get petraCollectible3Icon => 'vase';
+  String get petraCollectible3Icon => 'picture';
 
   @override
-  String get pyramidsGizaTitle => 'Pyramids of Giza';
+  String get pyramidsGizaTitle => 'Tagore Hill';
 
   @override
-  String get pyramidsGizaSubTitle => 'The ancient wonder';
+  String get pyramidsGizaSubTitle => 'Morabadi Hill of Literary Heritage';
 
   @override
-  String get pyramidsGizaRegionTitle => 'Cairo, Egypt';
+  String get pyramidsGizaRegionTitle => 'Ranchi, Jharkhand';
 
   @override
-  String get pyramidsGizaArtifactCulture => 'Egyptian';
+  String get pyramidsGizaArtifactCulture => 'Bengali Literary';
 
   @override
-  String get pyramidsGizaArtifactGeolocation => 'Egypt';
+  String get pyramidsGizaArtifactGeolocation => 'Eastern India';
 
   @override
-  String get pyramidsGizaPullQuote1Top => 'The Tallest Structures on Earth';
+  String get pyramidsGizaPullQuote1Top => 'Where Nature\'s Beauty Inspired';
 
   @override
   String get pyramidsGizaPullQuote1Bottom =>
-      'Until the Advent of Modern Skyscrapers';
+      'The Tagore Family\'s Literary Spirit';
 
   @override
   String get pyramidsGizaPullQuote2 =>
-      'From the heights of these pyramids, forty centuries look down on us.';
+      'The serene hilltop became a sanctuary where literary genius found solace amidst nature\'s grandeur, creating a lasting bond between art and landscape.';
 
   @override
-  String get pyramidsGizaPullQuote2Author => 'Napoleon Bonaparte';
+  String get pyramidsGizaPullQuote2Author => 'Literary Heritage';
 
   @override
   String get pyramidsGizaCallout1 =>
-      'It is theorized the pyramid not only served as a tomb for the pharaoh, but also as a storage pit for various items he would need in the afterlife.';
+      'Standing 300 meters (900 feet) high and located just 4 kilometers from Albert Ekka Chowk, this scenic hilltop offers breathtaking sunrise and sunset views that captivated the Tagore family.';
 
   @override
   String get pyramidsGizaCallout2 =>
-      'The Great Pyramid consists of an estimated 2.3 million blocks. Approximately 5.5 million tonnes of limestone, 8,000 tonnes of granite, and 500,000 tonnes of mortar were used in the construction.';
+      'The hill houses the historic Shanti Dham residence and Brahma Sthal monument built by Jyotirindranath Tagore, along with the Ramakrishna Mission Ashram and educational institutions that continue the legacy of learning.';
 
   @override
   String get pyramidsGizaVideoCaption =>
-      '“The Great Pyramids of Giza | Egypt’s Ancient Mysteries | National Geographic UK.” Youtube, uploaded by National Geographic UK.';
+      'Tagore Hill: Literary Heritage and Natural Beauty in Ranchi, Jharkhand';
 
   @override
   String get pyramidsGizaMapCaption =>
-      'Map showing location of Giza Pyramids in Greater Cairo, Egypt.';
+      'Map showing location of Tagore Hill in Morabadi area, Ranchi, Jharkhand';
 
   @override
   String get pyramidsGizaHistoryInfo1 =>
-      'The Giza pyramid complex, also called the Giza necropolis, is the site on the Giza Plateau in Greater Cairo, Egypt that includes the Great Pyramid of Giza, the Pyramid of Khafre, and the Pyramid of Menkaure, along with their associated pyramid complexes and the Great Sphinx of Giza. All were built during the Fourth Dynasty of the Old Kingdom of Ancient Egypt, between 2600 and 2500 BCE.';
+      'Tagore Hill, also known as Morabadi Hill, gained historical significance when Jyotirindranath and Satyendranath Tagore first visited Ranchi in 1898, captivated by the natural beauty of the region. Jyotirindranath Tagore visited again in 1908 and was so enamored by the captivating beauty of Morabadi Hill that he set up his camp home on the hillock.';
 
   @override
   String get pyramidsGizaHistoryInfo2 =>
-      'The pyramids of Giza and others are thought to have been constructed to house the remains of the deceased pharaohs who ruled over Ancient Egypt. A portion of the pharaoh\'s spirit called his ka was believed to remain with his corpse. Proper care of the remains was necessary in order for the former Pharaoh to perform his new duties as king of the dead.';
+      'After the death of his wife Kadambari Devi, Jyotirindranath Tagore settled here in 1912, building a house named Shanti Dham and a monument named Brahma Sthal. He lived here until his death in 1925, making the hill a place of literary pilgrimage and cultural heritage.';
 
   @override
   String get pyramidsGizaConstructionInfo1 =>
-      'Most construction theories are based on the idea that the pyramids were built by moving huge stones from a quarry and dragging and lifting them into place. In building the pyramids, the architects might have developed their techniques over time.\nThey would select a site on a relatively flat area of bedrock — not sand — which provided a stable foundation. After carefully surveying the site and laying down the first level of stones, they constructed the pyramids in horizontal levels, one on top of the other.';
+      'The hill features the historic Shanti Dham house built by Jyotirindranath Tagore as his residence, designed to harmonize with the natural landscape. The architecture reflects the Bengali style adapted to the local climate and terrain, creating spaces for contemplation and creative work.';
 
   @override
   String get pyramidsGizaConstructionInfo2 =>
-      'For the Great Pyramid, most of the stone for the interior seems to have been quarried immediately to the south of the construction site. The smooth exterior of the pyramid was made of a fine grade of white limestone that was quarried across the Nile.\nTo ensure that the pyramid remained symmetrical, the exterior casing stones all had to be equal in height and width. Workers might have marked all the blocks to indicate the angle of the pyramid wall and trimmed the surfaces carefully so that the blocks fit together. During construction, the outer surface of the stone was smooth limestone; excess stone has eroded as time has passed.';
+      'The Brahma Sthal monument stands as a spiritual focal point on the hilltop, representing the philosophical and religious inclinations of the Tagore family. The site also houses the Ramakrishna Mission Ashram and educational institutions including the Centre of Divyayan and Agrarian Vocational Institute, continuing the tradition of learning and spiritual development.';
 
   @override
   String get pyramidsGizaLocationInfo1 =>
-      'The site is at the edges of the Western Desert, approximately 5.6 miles (9 km) west of the Nile River in the city of Giza, and about 8 miles (13 km) southwest of the city center of Cairo.';
+      'Tagore Hill is situated in Morabadi, Ranchi, Jharkhand, standing approximately 300 meters high (900 feet) and located 4 kilometers from Albert Ekka Chowk. The scenic locality of Morabadi offers spectacular views of sunrise and sunset from the hilltop.';
 
   @override
   String get pyramidsGizaLocationInfo2 =>
-      'Currently, the pyramids are located in the northwestern side of the Western Desert, and it is considered to be one of the best recognizable and the most visited tourist attractions of the planet.';
+      'The hill serves as both a historical landmark and a popular tourist destination, attracting nature lovers, literature enthusiasts, and those seeking peaceful retreats. The destination is popular among adventure lovers for activities like rock climbing, while also serving as inspiration for creative works.';
 
   @override
   String get pyramidsGiza2575bce =>
-      'Construction of the 3 pyramids began for three kings of the 4th dynasty; Khufu, Khafre, and Menkaure.';
+      '1898 CE: Jyotirindranath and Satyendranath Tagore first visit Ranchi and discover the natural beauty of Morabadi Hill, beginning the Tagore family\'s connection with the region.';
 
   @override
   String get pyramidsGiza2465bce =>
-      'Construction began on the smaller surrounding structures called Mastabas for royalty of the 5th and 6th dynasties.';
+      '1908 CE: Jyotirindranath Tagore returns to the hill and establishes his camp home, deeply moved by the captivating beauty and tranquil environment of the hilltop location.';
 
   @override
   String get pyramidsGiza443bce =>
-      'Greek Author Herodotus speculated that the pyramids were built in the span of 20 years with over 100,000 slave labourers. This assumption would last for over 1500 years';
+      '1912 CE: Following the death of his wife Kadambari Devi, Jyotirindranath Tagore permanently settles on the hill, constructing Shanti Dham residence and Brahma Sthal monument.';
 
   @override
   String get pyramidsGiza1925ce =>
-      'Tomb of Queen Hetepheres was discovered, containing furniture and jewelry. One of the last remaining treasure-filled tombs after many years of looting and plundering.';
+      '1925 CE: Jyotirindranath Tagore passes away on the hill, leaving behind a legacy of literary and spiritual heritage that transforms the location into a place of cultural pilgrimage.';
 
   @override
   String get pyramidsGiza1979ce =>
-      'Designated a UNESCO World Heritage Site to prevent any more unauthorized plundering and vandalism.';
+      'Mid-20th Century: The Ramakrishna Mission Ashram is established on the hill, continuing the tradition of spiritual learning and community service initiated by the Tagore family.';
 
   @override
   String get pyramidsGiza1990ce =>
-      'Discovery of labouror’s districts suggest that the workers building the pyramids were not slaves, and an ingenious building method proved a relatively small work-force was required to build such immense structures.';
+      'Contemporary Period: Tagore Hill becomes a recognized tourist destination managed by Jharkhand Tourism, attracting visitors interested in literary heritage, natural beauty, and spiritual retreats.';
 
   @override
-  String get pyramidsGizaCollectible1Title => 'Two papyrus fragments';
+  String get pyramidsGizaCollectible1Title => 'Tagore Family Manuscript';
 
   @override
   String get pyramidsGizaCollectible1Icon => 'scroll';
 
   @override
-  String get pyramidsGizaCollectible2Title => 'Fragmentary Face of King Khafre';
+  String get pyramidsGizaCollectible2Title => 'Brahma Sthal Stone Carving';
 
   @override
   String get pyramidsGizaCollectible2Icon => 'statue';
 
   @override
-  String get pyramidsGizaCollectible3Title => 'Jewelry Elements';
+  String get pyramidsGizaCollectible3Title =>
+      'Shanti Dham Architectural Element';
 
   @override
   String get pyramidsGizaCollectible3Icon => 'jewelry';

@@ -1,10 +1,14 @@
+// ignore_for_file: deprecated_member_use
+
+import 'dart:async';
 import 'package:lottie/lottie.dart';
+import 'package:manual_speech_to_text/manual_speech_to_text.dart';
 import 'package:wonders/common_libs.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:markdown_widget/markdown_widget.dart';
-import 'dart:io';
-
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 import 'package:wonders/logic/api_keys.dart';
+import 'package:wonders/ui/common/chat_screen.dart';
 
 class PersistentOverlayWidget extends StatefulWidget {
   const PersistentOverlayWidget({super.key});
@@ -22,8 +26,21 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   late final GenerativeModel _model;
   late AnimationController _dotAnimationController;
   late List<Animation<double>> _dotAnimations;
-
+  late ManualSttController _speechController;
+  late FlutterTts _flutterTts;
+  late SpeechToText _speechToText;
+  Timer? _speechMaintenanceTimer;
+  String _recognizedText = '';
+  String _finalRecognizedText = '';
+  ManualSttState _speechState = ManualSttState.stopped;
   bool _isLongPressing = false;
+  bool _isProcessingSpeech = false;
+  double _soundLevel = 0.0;
+  List<dynamic> _availableTtsLanguages = [];
+  List<LocaleName> _availableSttLocales = [];
+  String _selectedLanguage = 'en-US';
+  String _selectedTtsLanguage = 'en-US';
+  bool _languagesInitialized = false;
 
   @override
   void initState() {
@@ -45,6 +62,10 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
             ]).animate(CurvedAnimation(
                 parent: _dotAnimationController,
                 curve: Interval(index * 0.2, index * 0.2 + 0.6, curve: Curves.linear))));
+
+    _initSpeech();
+    _initTts();
+    _initSpeechToTextForLocales();
   }
 
   @override
@@ -52,6 +73,251 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     super.didChangeDependencies();
     if (_messages.isEmpty) {
       _messages.add(ChatMessage('Welcome message', false, DateTime.now()));
+    }
+    if (_languagesInitialized) {
+      String deviceLanguage = Localizations.localeOf(context).toString().replaceAll('_', '-');
+      if (_isLanguageSupported(deviceLanguage) && _selectedLanguage != deviceLanguage) {
+        _changeLanguage(deviceLanguage);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _speechController.dispose();
+    _tapController.dispose();
+    _longPressController.dispose();
+    _dotAnimationController.dispose();
+    _textController.dispose();
+    _speechMaintenanceTimer?.cancel();
+    _speechToText.stop();
+    super.dispose();
+  }
+
+  void _initSpeech() {
+    _speechController = ManualSttController(context);
+    _setupSpeechController();
+  }
+
+  void _setupSpeechController() {
+    _speechController.listen(
+      onListeningStateChanged: (state) {
+        setState(() => _speechState = state);
+        if (state == ManualSttState.stopped && _isLongPressing) {
+          Future.delayed(const Duration(milliseconds: 200), _maintainListening);
+        }
+      },
+      onListeningTextChanged: (recognizedText) {
+        setState(() {
+          _recognizedText = recognizedText;
+          _finalRecognizedText = recognizedText;
+        });
+      },
+      onSoundLevelChanged: (level) => setState(() => _soundLevel = level),
+    );
+    _speechController.clearTextOnStart = true;
+    _speechController.localId = _selectedLanguage;
+    _speechController.enableHapticFeedback = true;
+    _speechController.pauseIfMuteFor = const Duration(minutes: 10);
+    _speechController.handlePermanentlyDeniedPermission(() {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Microphone permission is required for voice input')),
+        );
+      }
+    });
+  }
+
+  void _initSpeechToTextForLocales() async {
+    _speechToText = SpeechToText();
+    try {
+      bool available = await _speechToText.initialize();
+      if (available) {
+        _availableSttLocales = await _speechToText.locales();
+        setState(() => _languagesInitialized = true);
+        await _setDefaultLanguage();
+      } else {
+        setState(() => _languagesInitialized = true);
+      }
+    } catch (e) {
+      setState(() => _languagesInitialized = true);
+    }
+  }
+
+  void _initTts() async {
+    _flutterTts = FlutterTts();
+    try {
+      _availableTtsLanguages = await _flutterTts.getLanguages ?? [];
+      await _setDefaultTtsLanguage();
+    } catch (e) {
+      _selectedTtsLanguage = 'en-US';
+    }
+    await _flutterTts.setVolume(1.0);
+    await _flutterTts.setSpeechRate(0.5);
+    await _flutterTts.setPitch(1.0);
+    await _flutterTts.setLanguage(_selectedTtsLanguage);
+  }
+
+  Future<void> _setDefaultLanguage() async {
+    String deviceLanguage = Localizations.localeOf(context).toString().replaceAll('_', '-');
+    String sttLocaleId = deviceLanguage.replaceAll('-', '_');
+    LocaleName? matchingLocale = _availableSttLocales
+        .cast<LocaleName?>()
+        .firstWhere((locale) => locale?.localeId == sttLocaleId, orElse: () => null);
+    if (matchingLocale != null) {
+      _selectedLanguage = deviceLanguage;
+    } else {
+      List<String> fallbackPriority = ['en_US', 'en_GB', 'en_AU', 'en_CA'];
+      for (String fallback in fallbackPriority) {
+        LocaleName? fallbackLocale = _availableSttLocales
+            .cast<LocaleName?>()
+            .firstWhere((locale) => locale?.localeId == fallback, orElse: () => null);
+        if (fallbackLocale != null) {
+          _selectedLanguage = fallback.replaceAll('_', '-');
+          break;
+        }
+      }
+      if (_selectedLanguage == deviceLanguage && _availableSttLocales.isNotEmpty) {
+        _selectedLanguage = _availableSttLocales.first.localeId.replaceAll('_', '-');
+      }
+    }
+
+    _speechController.localId = _selectedLanguage;
+  }
+
+  Future<void> _setDefaultTtsLanguage() async {
+    String deviceLanguage = Localizations.localeOf(context).toString().replaceAll('_', '-');
+
+    if (_availableTtsLanguages.contains(deviceLanguage)) {
+      _selectedTtsLanguage = deviceLanguage;
+    } else if (_availableTtsLanguages.contains('en-US')) {
+      _selectedTtsLanguage = 'en-US';
+    } else if (_availableTtsLanguages.contains('en_US')) {
+      _selectedTtsLanguage = 'en_US';
+    } else if (_availableTtsLanguages.isNotEmpty) {
+      _selectedTtsLanguage = _availableTtsLanguages.first.toString();
+    }
+  }
+
+  bool _isLanguageSupported(String languageCode) {
+    String sttLocaleId = languageCode.replaceAll('-', '_');
+    return _availableSttLocales.any((locale) => locale.localeId == sttLocaleId);
+  }
+
+  void _startListening() {
+    if (_speechState == ManualSttState.stopped) {
+      _speechController.startStt();
+    } else if (_speechState == ManualSttState.paused) {
+      _speechController.resumeStt();
+    }
+  }
+
+  void _stopListening() {
+    if (_speechState != ManualSttState.stopped) {
+      _speechController.stopStt();
+    }
+  }
+
+  void _maintainListening() {
+    if (_isLongPressing && _speechState == ManualSttState.stopped) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (_isLongPressing) _speechController.startStt();
+      });
+    }
+  }
+
+  Future<void> _changeLanguage(String newLanguage) async {
+    setState(() {
+      _selectedLanguage = newLanguage;
+      _selectedTtsLanguage = newLanguage;
+    });
+    _speechController.localId = newLanguage;
+    try {
+      await _flutterTts.setLanguage(newLanguage);
+    } catch (e) {
+      String altFormat =
+          newLanguage.contains('-') ? newLanguage.replaceAll('-', '_') : newLanguage.replaceAll('_', '-');
+      await _flutterTts.setLanguage(altFormat);
+      _selectedTtsLanguage = altFormat;
+    }
+  }
+
+  void _showLanguageSelector() {
+    if (!_languagesInitialized) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Languages are still loading...')),
+      );
+      return;
+    }
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select Language'),
+          content: SizedBox(
+            width: double.maxFinite,
+            height: 300,
+            child: ListView.builder(
+              itemCount: _availableSttLocales.length,
+              itemBuilder: (context, index) {
+                final locale = _availableSttLocales[index];
+                final languageCode = locale.localeId.replaceAll('_', '-');
+                final isSelected = languageCode == _selectedLanguage;
+                final displayName = _getLanguageDisplayName(locale);
+                return ListTile(
+                  title: Text(displayName),
+                  subtitle: Text(locale.localeId),
+                  trailing: isSelected ? const Icon(Icons.check, color: Colors.green) : null,
+                  onTap: () {
+                    _changeLanguage(languageCode);
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  String _getLanguageDisplayName(LocaleName locale) {
+    if (locale.name.isNotEmpty) return locale.name;
+    return locale.localeId;
+  }
+
+  Future<void> _speak(String text) async {
+    if (text.isNotEmpty) await _flutterTts.speak(text);
+  }
+
+  Future<void> _sendSpeechMessage() async {
+    if (_finalRecognizedText.isEmpty) return;
+    final userMessage = ChatMessage(_finalRecognizedText, true, DateTime.now());
+    setState(() => _messages.add(userMessage));
+    try {
+      final chatSession = _model.startChat();
+      final response = await chatSession.sendMessage(Content.text(_finalRecognizedText));
+      final aiMessage = ChatMessage(
+        response.text ?? 'Sorry, I could not understand that.',
+        false,
+        DateTime.now(),
+      );
+      setState(() => _messages.add(aiMessage));
+      if (aiMessage.text.isNotEmpty) await _speak(aiMessage.text);
+    } catch (e) {
+      final errorMessage = ChatMessage(
+        'Sorry, there was an error processing your request.',
+        false,
+        DateTime.now(),
+      );
+      setState(() => _messages.add(errorMessage));
+      await _speak('Sorry, there was an error processing your request.');
     }
   }
 
@@ -61,26 +327,55 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
           context: context,
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
-          builder: (context) => WhatsAppChatScreen(
-            initialMessages: List.from(_messages),
-            textController: _textController,
-            model: _model,
-            dotAnimations: _dotAnimations,
-            onMessagesUpdated: (messages) => setState(() => _messages
-              ..clear()
-              ..addAll(messages)),
+          builder: (context) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Language selector button
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ElevatedButton.icon(
+                  onPressed: _showLanguageSelector,
+                  icon: const Icon(Icons.language),
+                  label: Text('Language: ${_getLanguageDisplayNameFromCode(_selectedLanguage)}'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+              // Chat screen
+              WhatsAppChatScreen(
+                initialMessages: List.from(_messages),
+                textController: _textController,
+                model: _model,
+                dotAnimations: _dotAnimations,
+                onMessagesUpdated: (messages) => setState(() => _messages
+                  ..clear()
+                  ..addAll(messages)),
+              ),
+            ],
           ),
         ).then((_) => _tapController.reverse()));
+  }
+
+  String _getLanguageDisplayNameFromCode(String languageCode) {
+    String localeId = languageCode.replaceAll('-', '_');
+    LocaleName? matchingLocale = _availableSttLocales
+        .cast<LocaleName?>()
+        .firstWhere((locale) => locale?.localeId == localeId, orElse: () => null);
+    if (matchingLocale != null) return _getLanguageDisplayName(matchingLocale);
+    return languageCode;
   }
 
   Offset _getTranslation() {
     final renderBox = context.findRenderObject() as RenderBox?;
     if (renderBox == null) return Offset.zero;
-
     final size = renderBox.size;
     final position = renderBox.localToGlobal(Offset.zero);
     final screenSize = MediaQuery.of(context).size;
-
     return Offset(
       screenSize.width / 2 - position.dx - size.width / 2,
       screenSize.height / 2 - position.dy - size.height / 2,
@@ -88,422 +383,82 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _showChat,
-      onLongPressStart: (_) {
-        setState(() => _isLongPressing = true);
-        _longPressController.forward();
-      },
-      onLongPressEnd: (_) {
-        setState(() => _isLongPressing = false);
-        _longPressController.reverse();
-      },
-      onLongPressCancel: () {
-        setState(() => _isLongPressing = false);
-        _longPressController.reverse();
-      },
-      child: AnimatedBuilder(
-        animation: Listenable.merge([_tapController, _longPressController]),
-        builder: (context, child) {
-          final longPressValue = _longPressController.value;
-          final tapScale = Tween<double>(begin: 1.0, end: 0.0).transform(_tapController.value);
-          return Transform.translate(
-            offset: _getTranslation() * longPressValue,
-            child: Transform.scale(
-              scale: tapScale * (1.0 + longPressValue * 1.5), // Combines both animations
-              child: SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.1,
-                child: Lottie.asset('assets/animations/siri.json'),
-              ),
-            ),
-          );
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: _showChat,
+        onDoubleTap: _showLanguageSelector,
+        onLongPressStart: (_) {
+          setState(() {
+            _isLongPressing = true;
+            _recognizedText = '';
+            _finalRecognizedText = '';
+          });
+          _longPressController.forward();
+          _startListening();
+          _speechMaintenanceTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+            if (_isLongPressing) {
+              _maintainListening();
+            } else {
+              timer.cancel();
+            }
+          });
         },
-      ),
-    );
-  }
-}
+        onLongPressEnd: (_) async {
+          setState(() {
+            _isLongPressing = false;
+            _isProcessingSpeech = true;
+          });
+          _longPressController.reverse();
+          _speechMaintenanceTimer?.cancel();
+          _stopListening();
+          await Future.delayed(const Duration(milliseconds: 500));
+          if (_finalRecognizedText.isNotEmpty) await _sendSpeechMessage();
+          setState(() => _isProcessingSpeech = false);
+        },
+        onLongPressCancel: () {
+          setState(() {
+            _isLongPressing = false;
+            _isProcessingSpeech = false;
+          });
+          _longPressController.reverse();
 
-class ChatMessage {
-  final String text;
-  final bool isUser;
-  final DateTime timestamp;
-  final File? imageFile;
-  final String id;
-  ChatMessage(this.text, this.isUser, this.timestamp, {this.imageFile})
-      : id = '${DateTime.now().millisecondsSinceEpoch}_${text.hashCode}';
-}
-
-class WhatsAppChatScreen extends StatefulWidget {
-  final List<ChatMessage> initialMessages;
-  final TextEditingController textController;
-  final GenerativeModel model;
-  final List<Animation<double>> dotAnimations;
-  final Function(List<ChatMessage>) onMessagesUpdated;
-
-  const WhatsAppChatScreen({
-    super.key,
-    required this.initialMessages,
-    required this.textController,
-    required this.model,
-    required this.dotAnimations,
-    required this.onMessagesUpdated,
-  });
-
-  @override
-  State<WhatsAppChatScreen> createState() => _WhatsAppChatScreenState();
-}
-
-class _WhatsAppChatScreenState extends State<WhatsAppChatScreen> with TickerProviderStateMixin {
-  final ScrollController _scrollController = ScrollController();
-  late List<ChatMessage> _messages;
-  bool _isLoading = false;
-  File? _imageFile;
-  bool _showImagePreview = false;
-
-  // Animation controllers for individual messages
-  final Map<String, AnimationController> _messageAnimations = {};
-  final Map<String, Animation<Offset>> _slideAnimations = {};
-  final Map<String, Animation<double>> _fadeAnimations = {};
-
-  @override
-  void initState() {
-    super.initState();
-    _messages = List.from(widget.initialMessages);
-    for (final message in _messages) {
-      _initializeMessageAnimation(message);
-    }
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-  }
-
-  void _initializeMessageAnimation(ChatMessage message) {
-    if (!_messageAnimations.containsKey(message.id)) {
-      final controller = AnimationController(
-        duration: const Duration(milliseconds: 400),
-        vsync: this,
-      );
-
-      _messageAnimations[message.id] = controller;
-      _slideAnimations[message.id] = Tween<Offset>(
-        begin: Offset(message.isUser ? 0.3 : -0.3, 0.0),
-        end: Offset.zero,
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOutBack));
-
-      _fadeAnimations[message.id] = Tween<double>(
-        begin: 0.0,
-        end: 1.0,
-      ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
-      controller.forward();
-    }
-  }
-
-  void _updateParentMessages() {
-    widget.onMessagesUpdated(_messages);
-  }
-
-  void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      Future.delayed(const Duration(milliseconds: 100), () {
-        if (_scrollController.hasClients) {
-          _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOutCubic,
-          );
-        }
-      });
-    }
-  }
-
-  Future<void> _sendMessage() async {
-    final messageText = widget.textController.text.trim();
-    if (messageText.isEmpty && _imageFile == null) return;
-
-    widget.textController.clear();
-
-    // Add user messages with animations
-    final List<ChatMessage> newMessages = [];
-    if (messageText.isNotEmpty) {
-      newMessages.add(ChatMessage(messageText, true, DateTime.now()));
-    }
-    if (_imageFile != null) {
-      newMessages.add(ChatMessage($strings.chatImageUploaded, true, DateTime.now(), imageFile: _imageFile));
-    }
-
-    setState(() {
-      for (final message in newMessages) {
-        _messages.add(message);
-        _initializeMessageAnimation(message);
-      }
-      _isLoading = true;
-      _showImagePreview = false;
-    });
-
-    _updateParentMessages();
-    _scrollToBottom();
-
-    try {
-      final chatSession = widget.model.startChat();
-      List<Part> parts = [];
-
-      if (messageText.isNotEmpty) parts.add(TextPart(messageText));
-      if (_imageFile != null) {
-        try {
-          final imageBytes = await _imageFile!.readAsBytes();
-          parts.add(DataPart('image/jpeg', imageBytes));
-        } catch (e) {
-          if (mounted) {
-            final errorMessage = ChatMessage('${$strings.chatErrorProcessingImage}: $e', false, DateTime.now());
-            setState(() {
-              _messages.add(errorMessage);
-              _initializeMessageAnimation(errorMessage);
-              _isLoading = false;
-              _imageFile = null;
-            });
-            _updateParentMessages();
-            _scrollToBottom();
-          }
-          return;
-        }
-      }
-
-      final response = await chatSession.sendMessage(Content.multi(parts));
-
-      if (mounted) {
-        final responseMessage = ChatMessage(response.text ?? $strings.chatNoResponse, false, DateTime.now());
-        setState(() {
-          _messages.add(responseMessage);
-          _initializeMessageAnimation(responseMessage);
-          _isLoading = false;
-          _imageFile = null;
-        });
-        _updateParentMessages();
-        _scrollToBottom();
-      }
-    } catch (e) {
-      if (mounted) {
-        final errorMessage = ChatMessage('${$strings.chatErrorProcessingRequest}: $e', false, DateTime.now());
-        setState(() {
-          _messages.add(errorMessage);
-          _initializeMessageAnimation(errorMessage);
-          _isLoading = false;
-        });
-        _updateParentMessages();
-        _scrollToBottom();
-      }
-    }
-  }
-
-  String _time(DateTime t) => "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}";
-
-  Widget _buildImagePreview() {
-    if (_imageFile == null || !_showImagePreview) return const SizedBox.shrink();
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Row(children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.file(_imageFile!,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.grey.shade300,
-                  child: const Icon(Icons.broken_image, size: 40))),
-        ),
-        const SizedBox(width: 10),
-        Expanded(child: Text($strings.chatImageReady, style: const TextStyle(color: Colors.white70))),
-        IconButton(
-            icon: const Icon(Icons.close, color: Colors.redAccent), onPressed: () => setState(() => _imageFile = null)),
-      ]),
-    );
-  }
-
-  Widget _buildMessageItem(ChatMessage message) {
-    final slideAnimation = _slideAnimations[message.id];
-    final fadeAnimation = _fadeAnimations[message.id];
-
-    if (slideAnimation == null || fadeAnimation == null) {
-      _initializeMessageAnimation(message);
-      return const SizedBox.shrink(); // Return empty while animations initialize
-    }
-
-    return Align(
-      alignment: message.isUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: AnimatedBuilder(
-        animation: Listenable.merge([slideAnimation, fadeAnimation]),
-        builder: (context, child) => SlideTransition(
-          position: slideAnimation,
-          child: FadeTransition(
-            opacity: fadeAnimation,
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
-              decoration: BoxDecoration(
-                color: message.isUser ? const Color(0xFF005C4B) : const Color(0xFF202C3B),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  if (message.imageFile != null) ...[
-                    Container(
-                      constraints: const BoxConstraints(maxHeight: 200),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.file(message.imageFile!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => Container(
-                                height: 100,
-                                color: Colors.grey.shade800,
-                                child: const Center(child: Icon(Icons.broken_image, size: 40, color: Colors.grey)))),
+          _speechMaintenanceTimer?.cancel();
+          _stopListening();
+        },
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            AnimatedBuilder(
+              animation: Listenable.merge([_tapController, _longPressController]),
+              builder: (context, child) {
+                final longPressValue = _longPressController.value;
+                final tapScale = Tween<double>(begin: 1.0, end: 0.0).transform(_tapController.value);
+                return Transform.translate(
+                  offset: _getTranslation() * longPressValue,
+                  child: Transform.scale(
+                    scale: tapScale * (1.0 + longPressValue * 1.5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: _isLongPressing || _speechState == ManualSttState.listening
+                            ? [
+                                BoxShadow(
+                                  color: Colors.red.withOpacity(0.3),
+                                  blurRadius: 20,
+                                  spreadRadius: 5,
+                                ),
+                              ]
+                            : null,
+                      ),
+                      child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height * 0.1,
+                        child: Lottie.asset('assets/animations/siri.json'),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                  ],
-                  MarkdownWidget(
-                    data: message.text,
-                    shrinkWrap: true,
-                    config: MarkdownConfig(configs: [
-                      CodeConfig(
-                          style: TextStyle(
-                              backgroundColor: Colors.grey.shade800, fontFamily: 'monospace', color: Colors.white)),
-                      PConfig(textStyle: const TextStyle(color: Colors.white)),
-                      H1Config(style: const TextStyle(color: Colors.white)),
-                      H2Config(style: const TextStyle(color: Colors.white)),
-                      H3Config(style: const TextStyle(color: Colors.white)),
-                      LinkConfig(style: const TextStyle(color: Colors.lightBlue)),
-                    ]),
                   ),
-                  const SizedBox(height: 4),
-                  Row(mainAxisSize: MainAxisSize.min, children: [
-                    Text(_time(message.timestamp), style: TextStyle(color: Colors.grey[400], fontSize: 11)),
-                    if (message.isUser) ...[
-                      const SizedBox(width: 4),
-                      const Icon(Icons.done_all, color: Color(0xFF4FC3F7), size: 14)
-                    ],
-                  ]),
-                ],
-              ),
+                );
+              },
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoadingIndicator() => Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          padding: const EdgeInsets.all(16),
-          decoration: const BoxDecoration(
-            color: Color(0xFF202C3B),
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16), topRight: Radius.circular(16), bottomRight: Radius.circular(16)),
-          ),
-          child: Row(mainAxisSize: MainAxisSize.min, children: [
-            _buildDot(0),
-            const SizedBox(width: 4),
-            _buildDot(1),
-            const SizedBox(width: 4),
-            _buildDot(2),
-          ]),
+          ],
         ),
       );
-
-  Widget _buildDot(int index) => AnimatedBuilder(
-        animation: widget.dotAnimations[index],
-        builder: (context, child) => Transform.scale(
-          scale: widget.dotAnimations[index].value,
-          child: Opacity(
-            opacity: widget.dotAnimations[index].value,
-            child: Container(
-                width: 8,
-                height: 8,
-                decoration:
-                    const BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.all(Radius.circular(4)))),
-          ),
-        ),
-      );
-
-  @override
-  Widget build(BuildContext context) {
-    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.8,
-      decoration:
-          const BoxDecoration(color: Color(0xFF0B1426), borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      child: Padding(
-          padding: EdgeInsets.only(bottom: keyboardHeight),
-          child: Column(children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: const BoxDecoration(
-                  color: Color(0xFF202C3B), borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-              child: Row(children: [
-                CircleAvatar(backgroundColor: Colors.grey, child: Lottie.asset('assets/animations/siri.json')),
-                const SizedBox(width: 12),
-                Expanded(
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text($strings.chatAssistantName,
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
-                  Text($strings.chatAssistantStatus, style: TextStyle(color: Colors.grey[400], fontSize: 12)),
-                ])),
-                IconButton(icon: const Icon(Icons.more_vert, color: Colors.white), onPressed: () {}),
-              ]),
-            ),
-            Expanded(
-                child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: _messages.isEmpty
-                  ? Center(child: Text($strings.chatStartConversation, style: const TextStyle(color: Colors.grey)))
-                  : ListView.builder(
-                      controller: _scrollController,
-                      itemCount: _messages.length + (_isLoading ? 1 : 0),
-                      itemBuilder: (context, index) {
-                        if (index < _messages.length) {
-                          return _buildMessageItem(_messages[index]);
-                        } else {
-                          return _buildLoadingIndicator();
-                        }
-                      },
-                    ),
-            )),
-            _buildImagePreview(),
-            Container(
-                padding: const EdgeInsets.all(8),
-                color: const Color(0xFF202C3B),
-                child: Row(children: [
-                  Expanded(
-                      child: Container(
-                    decoration: BoxDecoration(color: const Color(0xFF0B1426), borderRadius: BorderRadius.circular(25)),
-                    child: TextField(
-                        controller: widget.textController,
-                        style: const TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                            hintText: $strings.chatTypeMessage,
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12)),
-                        onSubmitted: (_) => _sendMessage()),
-                  )),
-                  const SizedBox(width: 8),
-                  Container(
-                      decoration: const BoxDecoration(color: Color(0xFF00A884), shape: BoxShape.circle),
-                      child: IconButton(icon: const Icon(Icons.send, color: Colors.white), onPressed: _sendMessage)),
-                ])),
-          ])),
-    );
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 }

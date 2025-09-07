@@ -59,6 +59,8 @@ dependencies:
   google_generative_ai: ^0.4.7
   markdown_widget: ^2.3.2+8
   flutter_tts: ^4.2.3
+  permission_handler: ^11.4.0
+  manual_speech_to_text: ^1.0.4
   speech_to_text: ^7.3.0
 
 dev_dependencies:

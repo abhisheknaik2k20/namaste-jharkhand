@@ -3,3 +3,6 @@ christRedeemer -> BetlaNationalPark
 taj Mahal -> Deoghar
 chichenItza -> Jagannath Temple
 greatWall -> Patratu Valley
+colosseum -> Parasnath Hill
+petra -> Tapovan caves
+pyramidsGiza -> Hargaddi Chokahatu
