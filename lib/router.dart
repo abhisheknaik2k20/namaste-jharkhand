@@ -17,10 +17,7 @@ class ScreenPaths {
   static String intro = '/welcome';
   static String home = '/home';
   static String settings = '/settings';
-
   static String wonderDetails(WonderType type, {required int tabIndex}) => '$home/wonder/${type.name}?t=$tabIndex';
-
-  /// Dynamically nested pages, always added on to the existing path
   static String video(String id) => _appendToCurrentPath('/video/$id');
   static String search(WonderType type) => _appendToCurrentPath('/search/${type.name}');
   static String maps(WonderType type) => _appendToCurrentPath('/maps/${type.name}');

@@ -29,6 +29,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   late FlutterTts _flutterTts;
   late SpeechToText _speechToText;
   Timer? _speechMaintenanceTimer;
+  Timer? _restartTimer;
   String _recognizedText = '';
   String _finalRecognizedText = '';
   ManualSttState _speechState = ManualSttState.stopped;
@@ -83,20 +84,17 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     _dotAnimationController.dispose();
     _textController.dispose();
     _speechMaintenanceTimer?.cancel();
+    _restartTimer?.cancel();
     _speechToText.stop();
     super.dispose();
   }
 
   void _initSpeech() {
     _speechController = ManualSttController(context);
-    _setupSpeechController();
-  }
-
-  void _setupSpeechController() {
     _speechController.listen(onListeningStateChanged: (state) {
       if (mounted) setState(() => _speechState = state);
       if (state == ManualSttState.stopped && _isLongPressing) {
-        Future.delayed(const Duration(milliseconds: 200), _maintainListening);
+        _restartListening();
       }
     }, onListeningTextChanged: (recognizedText) {
       if (mounted) {
@@ -108,16 +106,27 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     }, onSoundLevelChanged: (level) {
       if (mounted) setState(() => _soundLevel = level);
     });
-    _speechController.clearTextOnStart = true;
+
+    _speechController.clearTextOnStart = false;
     _speechController.localId = _selectedLanguage;
     _speechController.enableHapticFeedback = true;
-    _speechController.pauseIfMuteFor = const Duration(minutes: 10);
+    _speechController.pauseIfMuteFor = const Duration(minutes: 30);
     _speechController.handlePermanentlyDeniedPermission(() {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Microphone permission is required for voice input',
                 style: $styles.text.body.copyWith(color: $styles.colors.white)),
             backgroundColor: $styles.colors.greyStrong));
+      }
+    });
+  }
+
+  void _restartListening() {
+    if (!_isLongPressing) return;
+    _restartTimer?.cancel();
+    _restartTimer = Timer(const Duration(milliseconds: 100), () {
+      if (_isLongPressing && _speechState == ManualSttState.stopped) {
+        _speechController.startStt();
       }
     });
   }
@@ -180,7 +189,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
 
   Future<void> _setDefaultTtsLanguage() async {
     String deviceLanguage = Localizations.localeOf(context).toString().replaceAll('_', '-');
-
     if (_availableTtsLanguages.contains(deviceLanguage)) {
       _selectedTtsLanguage = deviceLanguage;
     } else if (_availableTtsLanguages.contains('en-US')) {
@@ -206,15 +214,9 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   void _stopListening() {
+    _restartTimer?.cancel();
+    _speechMaintenanceTimer?.cancel();
     if (_speechState != ManualSttState.stopped) _speechController.stopStt();
-  }
-
-  void _maintainListening() {
-    if (_isLongPressing && _speechState == ManualSttState.stopped) {
-      Future.delayed(const Duration(milliseconds: 100), () {
-        if (_isLongPressing) _speechController.startStt();
-      });
-    }
   }
 
   Future<void> _changeLanguage(String newLanguage) async {
@@ -337,10 +339,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
                         backgroundColor: $styles.colors.accent1,
                         foregroundColor: $styles.colors.white,
                         elevation: 4.0,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: $styles.insets.md,
-                          vertical: $styles.insets.sm,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: $styles.insets.md, vertical: $styles.insets.sm),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular($styles.corners.lg))))),
             WhatsAppChatScreen(
                 initialMessages: List.from(_messages),
@@ -391,9 +390,9 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
         }
         _longPressController.forward();
         _startListening();
-        _speechMaintenanceTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+        _speechMaintenanceTimer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
           if (_isLongPressing) {
-            _maintainListening();
+            if (_speechState == ManualSttState.stopped) _startListening();
           } else {
             timer.cancel();
           }
@@ -408,8 +407,9 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
         }
         _longPressController.reverse();
         _speechMaintenanceTimer?.cancel();
+        _restartTimer?.cancel();
         _stopListening();
-        await Future.delayed(const Duration(milliseconds: 500));
+        await Future.delayed(const Duration(milliseconds: 800));
         if (_finalRecognizedText.isNotEmpty) await _sendSpeechMessage();
         if (mounted) setState(() => _isProcessingSpeech = false);
       },
@@ -422,6 +422,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
         }
         _longPressController.reverse();
         _speechMaintenanceTimer?.cancel();
+        _restartTimer?.cancel();
         _stopListening();
       },
       child: Stack(clipBehavior: Clip.none, children: [
