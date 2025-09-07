@@ -443,5 +443,16 @@
 	"chatErrorProcessingImage": "Error processing image",
 	"chatErrorProcessingRequest": "Sorry, there was an error processing your request",
 	"chatNoResponse": "I'm not sure how to respond to that.",
-	"chatTypingMessage": "Type your message..."
+	"chatTypingMessage": "Type your message...",
+	"speechPermissionRequired": "Microphone permission is required for voice input",
+	"speechLanguageSelector": "Language",
+	"speechLanguageSelectorTitle": "Select Language",
+	"speechCancel": "Cancel",
+	"speechListening": "Listening",
+	"speechPaused": "Paused",
+	"speechStopped": "Stopped",
+	"speechProcessing": "Processing...",
+	"speechSayingSomething": "Say something",
+	"speechDoubleTapLanguage": "Double tap to change language",
+	"speechLongPressToTalk": "Long press to talk"
 }

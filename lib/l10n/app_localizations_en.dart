@@ -1109,7 +1109,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pyramidsGizaHistoryInfo2 =>
-      'After the death of his wife Kadambari Devi, Jyotirindranath Tagore settled here in 1912, building a house named Shanti Dham and a monument named Brahma Sthal. He lived here until his death in 1925, making the hill a place of literary pilgrimage and cultural heritage.';
+      'After the death of his wife Kadambari Devi,rindranath Tagore settled here in 1912, building a house named Shanti Dham and a monument named Brahma Sthal. He lived here until his death in 1925, making the hill a place of literary pilgrimage and cultural heritage.';
 
   @override
   String get pyramidsGizaConstructionInfo1 =>
@@ -1486,4 +1486,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatTypingMessage => 'Type your message...';
+
+  @override
+  String get speechPermissionRequired =>
+      'Microphone permission is required for voice input';
+
+  @override
+  String get speechLanguageSelector => 'Language';
+
+  @override
+  String get speechLanguageSelectorTitle => 'Select Language';
+
+  @override
+  String get speechCancel => 'Cancel';
+
+  @override
+  String get speechListening => 'Listening';
+
+  @override
+  String get speechPaused => 'Paused';
+
+  @override
+  String get speechStopped => 'Stopped';
+
+  @override
+  String get speechProcessing => 'Processing...';
+
+  @override
+  String get speechSayingSomething => 'Say something';
+
+  @override
+  String get speechDoubleTapLanguage => 'Double tap to change language';
+
+  @override
+  String get speechLongPressToTalk => 'Long press to talk';
 }

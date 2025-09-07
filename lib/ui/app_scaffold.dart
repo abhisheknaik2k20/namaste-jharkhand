@@ -2,38 +2,115 @@ import 'package:wonders/common_libs.dart';
 import 'package:wonders/ui/common/app_scroll_behavior.dart';
 import 'package:wonders/ui/common/persistent_overlay_widget.dart';
 
-class WondersAppScaffold extends StatelessWidget {
+class WondersAppScaffold extends StatefulWidget {
   const WondersAppScaffold({super.key, required this.child});
   final Widget child;
+
   static AppStyle get style => _style;
   static AppStyle _style = AppStyle();
 
   @override
+  State<WondersAppScaffold> createState() => _WondersAppScaffoldState();
+}
+
+class _WondersAppScaffoldState extends State<WondersAppScaffold> with TickerProviderStateMixin {
+  Offset _overlayPosition = const Offset(20, 20);
+  Offset _lastPanVelocity = Offset.zero;
+  late AnimationController _inertiaController;
+  late Animation<Offset> _inertiaAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _inertiaController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _inertiaController.dispose();
+    super.dispose();
+  }
+
+  void _handlePanUpdate(DragUpdateDetails details, Size screenSize) {
+    setState(() {
+      _overlayPosition = Offset(
+        (_overlayPosition.dx + details.delta.dx).clamp(0.0, screenSize.width - 100),
+        (_overlayPosition.dy + details.delta.dy).clamp(0.0, screenSize.height - 100),
+      );
+    });
+    _lastPanVelocity = details.delta;
+  }
+
+  void _handlePanEnd(Size screenSize) {
+    final velocity = _lastPanVelocity;
+    final magnitude = velocity.distance;
+
+    if (magnitude > 2.0) {
+      final inertiaDistance = magnitude * 20;
+      final normalizedVelocity = velocity / magnitude;
+
+      final targetPosition = Offset(
+        (_overlayPosition.dx + normalizedVelocity.dx * inertiaDistance).clamp(0.0, screenSize.width - 100),
+        (_overlayPosition.dy + normalizedVelocity.dy * inertiaDistance).clamp(0.0, screenSize.height - 100),
+      );
+
+      _inertiaAnimation = Tween<Offset>(
+        begin: _overlayPosition,
+        end: targetPosition,
+      ).animate(CurvedAnimation(
+        parent: _inertiaController,
+        curve: Curves.decelerate,
+      ));
+
+      _inertiaController.reset();
+      _inertiaController.forward();
+
+      _inertiaAnimation.addListener(() {
+        setState(() {
+          _overlayPosition = _inertiaAnimation.value;
+        });
+      });
+    }
+
+    _lastPanVelocity = Offset.zero;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    appLogic.handleAppSizeChanged(mq.size);
-    // Set default timing for animations in the app
-    Animate.defaultDuration = _style.times.fast;
-    // Create a style object that will be passed down the widget tree
-    _style =
+    final screenSize = mq.size;
+
+    if (_overlayPosition == const Offset(20, 20)) {
+      _overlayPosition = Offset(screenSize.width - 120, screenSize.height - 120);
+    }
+
+    appLogic.handleAppSizeChanged(screenSize);
+    Animate.defaultDuration = WondersAppScaffold._style.times.fast;
+    WondersAppScaffold._style =
         AppStyle(screenSize: context.sizePx, disableAnimations: mq.disableAnimations, highContrast: mq.highContrast);
+
     return KeyedSubtree(
       key: ValueKey($styles.scale),
       child: Theme(
         data: $styles.colors.toThemeData(),
-        // Provide a default texts style to allow Hero's to render text properly
         child: DefaultTextStyle(
           style: $styles.text.body,
-          // Use a custom scroll behavior across entire app
           child: ScrollConfiguration(
             behavior: AppScrollBehavior(),
             child: Stack(
               children: [
-                child,
+                widget.child,
                 Positioned(
-                  bottom: 20,
-                  right: 20,
-                  child: const PersistentOverlayWidget(),
+                  left: _overlayPosition.dx,
+                  top: _overlayPosition.dy,
+                  child: GestureDetector(
+                    onPanUpdate: (details) => _handlePanUpdate(details, screenSize),
+                    onPanEnd: (_) => _handlePanEnd(screenSize),
+                    child: const PersistentOverlayWidget(),
+                  ),
                 ),
               ],
             ),

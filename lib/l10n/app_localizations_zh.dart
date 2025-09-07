@@ -1399,4 +1399,37 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get chatTypingMessage => '输入您的消息...';
+
+  @override
+  String get speechPermissionRequired => '需要麦克风权限才能进行语音输入';
+
+  @override
+  String get speechLanguageSelector => '语言';
+
+  @override
+  String get speechLanguageSelectorTitle => '选择语言';
+
+  @override
+  String get speechCancel => '取消';
+
+  @override
+  String get speechListening => '正在聆听';
+
+  @override
+  String get speechPaused => '已暂停';
+
+  @override
+  String get speechStopped => '已停止';
+
+  @override
+  String get speechProcessing => '处理中...';
+
+  @override
+  String get speechSayingSomething => '请说话';
+
+  @override
+  String get speechDoubleTapLanguage => '双击更改语言';
+
+  @override
+  String get speechLongPressToTalk => '长按说话';
 }

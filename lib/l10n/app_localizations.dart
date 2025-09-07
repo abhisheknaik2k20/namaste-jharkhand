@@ -1979,7 +1979,7 @@ abstract class AppLocalizations {
   /// No description provided for @pyramidsGizaHistoryInfo2.
   ///
   /// In en, this message translates to:
-  /// **'After the death of his wife Kadambari Devi, Jyotirindranath Tagore settled here in 1912, building a house named Shanti Dham and a monument named Brahma Sthal. He lived here until his death in 1925, making the hill a place of literary pilgrimage and cultural heritage.'**
+  /// **'After the death of his wife Kadambari Devi,rindranath Tagore settled here in 1912, building a house named Shanti Dham and a monument named Brahma Sthal. He lived here until his death in 1925, making the hill a place of literary pilgrimage and cultural heritage.'**
   String get pyramidsGizaHistoryInfo2;
 
   /// No description provided for @pyramidsGizaConstructionInfo1.
@@ -2635,6 +2635,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Type your message...'**
   String get chatTypingMessage;
+
+  /// No description provided for @speechPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission is required for voice input'**
+  String get speechPermissionRequired;
+
+  /// No description provided for @speechLanguageSelector.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get speechLanguageSelector;
+
+  /// No description provided for @speechLanguageSelectorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get speechLanguageSelectorTitle;
+
+  /// No description provided for @speechCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get speechCancel;
+
+  /// No description provided for @speechListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get speechListening;
+
+  /// No description provided for @speechPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get speechPaused;
+
+  /// No description provided for @speechStopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get speechStopped;
+
+  /// No description provided for @speechProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing...'**
+  String get speechProcessing;
+
+  /// No description provided for @speechSayingSomething.
+  ///
+  /// In en, this message translates to:
+  /// **'Say something'**
+  String get speechSayingSomething;
+
+  /// No description provided for @speechDoubleTapLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap to change language'**
+  String get speechDoubleTapLanguage;
+
+  /// No description provided for @speechLongPressToTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to talk'**
+  String get speechLongPressToTalk;
 }
 
 class _AppLocalizationsDelegate

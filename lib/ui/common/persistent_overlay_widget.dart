@@ -12,7 +12,6 @@ import 'package:wonders/ui/common/chat_screen.dart';
 
 class PersistentOverlayWidget extends StatefulWidget {
   const PersistentOverlayWidget({super.key});
-
   @override
   State<PersistentOverlayWidget> createState() => _PersistentOverlayWidgetState();
 }
@@ -46,11 +45,9 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   void initState() {
     super.initState();
     _model = GenerativeModel(
-      model: 'gemini-2.5-flash-lite',
-      apiKey: ApiKeys.geminiApi,
-      generationConfig: GenerationConfig(maxOutputTokens: 2048, temperature: 0.7),
-    );
-
+        model: 'gemini-2.5-flash-lite',
+        apiKey: ApiKeys.geminiApi,
+        generationConfig: GenerationConfig(maxOutputTokens: 2048, temperature: 0.7));
     _dotAnimationController = AnimationController(duration: const Duration(milliseconds: 1800), vsync: this)..repeat();
     _dotAnimations = List.generate(
         3,
@@ -58,7 +55,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
               TweenSequenceItem(
                   tween: Tween<double>(begin: 0.5, end: 1.0).chain(CurveTween(curve: Curves.easeInOut)), weight: 50),
               TweenSequenceItem(
-                  tween: Tween<double>(begin: 1.0, end: 0.5).chain(CurveTween(curve: Curves.easeInOut)), weight: 50),
+                  tween: Tween<double>(begin: 1.0, end: 0.5).chain(CurveTween(curve: Curves.easeInOut)), weight: 50)
             ]).animate(CurvedAnimation(
                 parent: _dotAnimationController,
                 curve: Interval(index * 0.2, index * 0.2 + 0.6, curve: Curves.linear))));
@@ -71,14 +68,10 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (_messages.isEmpty) {
-      _messages.add(ChatMessage('Welcome message', false, DateTime.now()));
-    }
+    if (_messages.isEmpty) _messages.add(ChatMessage('Welcome message', false, DateTime.now()));
     if (_languagesInitialized) {
       String deviceLanguage = Localizations.localeOf(context).toString().replaceAll('_', '-');
-      if (_isLanguageSupported(deviceLanguage) && _selectedLanguage != deviceLanguage) {
-        _changeLanguage(deviceLanguage);
-      }
+      if (_isLanguageSupported(deviceLanguage) && _selectedLanguage != deviceLanguage) _changeLanguage(deviceLanguage);
     }
   }
 
@@ -100,30 +93,31 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   void _setupSpeechController() {
-    _speechController.listen(
-      onListeningStateChanged: (state) {
-        setState(() => _speechState = state);
-        if (state == ManualSttState.stopped && _isLongPressing) {
-          Future.delayed(const Duration(milliseconds: 200), _maintainListening);
-        }
-      },
-      onListeningTextChanged: (recognizedText) {
+    _speechController.listen(onListeningStateChanged: (state) {
+      if (mounted) setState(() => _speechState = state);
+      if (state == ManualSttState.stopped && _isLongPressing) {
+        Future.delayed(const Duration(milliseconds: 200), _maintainListening);
+      }
+    }, onListeningTextChanged: (recognizedText) {
+      if (mounted) {
         setState(() {
           _recognizedText = recognizedText;
           _finalRecognizedText = recognizedText;
         });
-      },
-      onSoundLevelChanged: (level) => setState(() => _soundLevel = level),
-    );
+      }
+    }, onSoundLevelChanged: (level) {
+      if (mounted) setState(() => _soundLevel = level);
+    });
     _speechController.clearTextOnStart = true;
     _speechController.localId = _selectedLanguage;
     _speechController.enableHapticFeedback = true;
     _speechController.pauseIfMuteFor = const Duration(minutes: 10);
     _speechController.handlePermanentlyDeniedPermission(() {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Microphone permission is required for voice input')),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Microphone permission is required for voice input',
+                style: $styles.text.body.copyWith(color: $styles.colors.white)),
+            backgroundColor: $styles.colors.greyStrong));
       }
     });
   }
@@ -134,13 +128,13 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
       bool available = await _speechToText.initialize();
       if (available) {
         _availableSttLocales = await _speechToText.locales();
-        setState(() => _languagesInitialized = true);
+        if (mounted) setState(() => _languagesInitialized = true);
         await _setDefaultLanguage();
       } else {
-        setState(() => _languagesInitialized = true);
+        if (mounted) setState(() => _languagesInitialized = true);
       }
     } catch (e) {
-      setState(() => _languagesInitialized = true);
+      if (mounted) setState(() => _languagesInitialized = true);
     }
   }
 
@@ -181,7 +175,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
         _selectedLanguage = _availableSttLocales.first.localeId.replaceAll('_', '-');
       }
     }
-
     _speechController.localId = _selectedLanguage;
   }
 
@@ -213,9 +206,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   void _stopListening() {
-    if (_speechState != ManualSttState.stopped) {
-      _speechController.stopStt();
-    }
+    if (_speechState != ManualSttState.stopped) _speechController.stopStt();
   }
 
   void _maintainListening() {
@@ -227,10 +218,12 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   Future<void> _changeLanguage(String newLanguage) async {
-    setState(() {
-      _selectedLanguage = newLanguage;
-      _selectedTtsLanguage = newLanguage;
-    });
+    if (mounted) {
+      setState(() {
+        _selectedLanguage = newLanguage;
+        _selectedTtsLanguage = newLanguage;
+      });
+    }
     _speechController.localId = newLanguage;
     try {
       await _flutterTts.setLanguage(newLanguage);
@@ -244,47 +237,61 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
 
   void _showLanguageSelector() {
     if (!_languagesInitialized) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Languages are still loading...')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content:
+              Text('Languages are still loading...', style: $styles.text.body.copyWith(color: $styles.colors.white)),
+          backgroundColor: $styles.colors.greyStrong));
       return;
     }
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Select Language'),
-          content: SizedBox(
-            width: double.maxFinite,
-            height: 300,
-            child: ListView.builder(
-              itemCount: _availableSttLocales.length,
-              itemBuilder: (context, index) {
-                final locale = _availableSttLocales[index];
-                final languageCode = locale.localeId.replaceAll('_', '-');
-                final isSelected = languageCode == _selectedLanguage;
-                final displayName = _getLanguageDisplayName(locale);
-                return ListTile(
-                  title: Text(displayName),
-                  subtitle: Text(locale.localeId),
-                  trailing: isSelected ? const Icon(Icons.check, color: Colors.green) : null,
-                  onTap: () {
-                    _changeLanguage(languageCode);
-                    Navigator.of(context).pop();
-                  },
-                );
-              },
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+                backgroundColor: $styles.colors.offWhite,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular($styles.corners.md)),
+                title: Text('Select Language', style: $styles.text.h3.copyWith(color: $styles.colors.greyStrong)),
+                content: SizedBox(
+                    width: double.maxFinite,
+                    height: 300,
+                    child: ListView.builder(
+                        itemCount: _availableSttLocales.length,
+                        itemBuilder: (context, index) {
+                          final locale = _availableSttLocales[index];
+                          final languageCode = locale.localeId.replaceAll('_', '-');
+                          final isSelected = languageCode == _selectedLanguage;
+                          final displayName = _getLanguageDisplayName(locale);
+                          return Container(
+                              margin: EdgeInsets.symmetric(vertical: $styles.insets.xxs),
+                              decoration: BoxDecoration(
+                                  color: isSelected ? $styles.colors.accent1.withOpacity(0.1) : Colors.transparent,
+                                  borderRadius: BorderRadius.circular($styles.corners.sm)),
+                              child: ListTile(
+                                  title: Text(displayName,
+                                      style: $styles.text.bodyBold
+                                          .copyWith(color: isSelected ? $styles.colors.accent1 : $styles.colors.body)),
+                                  subtitle: Text(locale.localeId,
+                                      style: $styles.text.bodySmall.copyWith(color: $styles.colors.caption)),
+                                  trailing: isSelected
+                                      ? Icon(Icons.check_circle, color: $styles.colors.accent1)
+                                      : Icon(Icons.radio_button_unchecked, color: $styles.colors.greyMedium),
+                                  onTap: () {
+                                    _changeLanguage(languageCode);
+                                    Navigator.of(context).pop();
+                                  }));
+                        })),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      style: TextButton.styleFrom(
+                          foregroundColor: $styles.colors.accent1,
+                          backgroundColor: $styles.colors.accent1.withOpacity(0.1),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular($styles.corners.sm))),
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: $styles.insets.sm,
+                            vertical: $styles.insets.xs,
+                          ),
+                          child: Text('Cancel', style: $styles.text.btn.copyWith(color: $styles.colors.accent1))))
+                ]));
   }
 
   String _getLanguageDisplayName(LocaleName locale) {
@@ -299,24 +306,16 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   Future<void> _sendSpeechMessage() async {
     if (_finalRecognizedText.isEmpty) return;
     final userMessage = ChatMessage(_finalRecognizedText, true, DateTime.now());
-    setState(() => _messages.add(userMessage));
+    if (mounted) setState(() => _messages.add(userMessage));
     try {
       final chatSession = _model.startChat();
       final response = await chatSession.sendMessage(Content.text(_finalRecognizedText));
-      final aiMessage = ChatMessage(
-        response.text ?? 'Sorry, I could not understand that.',
-        false,
-        DateTime.now(),
-      );
-      setState(() => _messages.add(aiMessage));
+      final aiMessage = ChatMessage(response.text ?? 'Sorry, I could not understand that.', false, DateTime.now());
+      if (mounted) setState(() => _messages.add(aiMessage));
       if (aiMessage.text.isNotEmpty) await _speak(aiMessage.text);
     } catch (e) {
-      final errorMessage = ChatMessage(
-        'Sorry, there was an error processing your request.',
-        false,
-        DateTime.now(),
-      );
-      setState(() => _messages.add(errorMessage));
+      final errorMessage = ChatMessage('Sorry, there was an error processing your request.', false, DateTime.now());
+      if (mounted) setState(() => _messages.add(errorMessage));
       await _speak('Sorry, there was an error processing your request.');
     }
   }
@@ -327,37 +326,35 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
           context: context,
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
-          builder: (context) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Language selector button
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
+            Container(
+                margin: EdgeInsets.symmetric(horizontal: $styles.insets.md, vertical: $styles.insets.sm),
                 child: ElevatedButton.icon(
-                  onPressed: _showLanguageSelector,
-                  icon: const Icon(Icons.language),
-                  label: Text('Language: ${_getLanguageDisplayNameFromCode(_selectedLanguage)}'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
-              // Chat screen
-              WhatsAppChatScreen(
+                    onPressed: _showLanguageSelector,
+                    icon: Icon(Icons.language, color: $styles.colors.white),
+                    label: Text('Language: ${_getLanguageDisplayNameFromCode(_selectedLanguage)}'),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: $styles.colors.accent1,
+                        foregroundColor: $styles.colors.white,
+                        elevation: 4.0,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: $styles.insets.md,
+                          vertical: $styles.insets.sm,
+                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular($styles.corners.lg))))),
+            WhatsAppChatScreen(
                 initialMessages: List.from(_messages),
                 textController: _textController,
                 model: _model,
                 dotAnimations: _dotAnimations,
-                onMessagesUpdated: (messages) => setState(() => _messages
-                  ..clear()
-                  ..addAll(messages)),
-              ),
-            ],
-          ),
+                onMessagesUpdated: (messages) {
+                  if (mounted) {
+                    setState(() => _messages
+                      ..clear()
+                      ..addAll(messages));
+                  }
+                })
+          ]),
         ).then((_) => _tapController.reverse()));
   }
 
@@ -377,88 +374,80 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     final position = renderBox.localToGlobal(Offset.zero);
     final screenSize = MediaQuery.of(context).size;
     return Offset(
-      screenSize.width / 2 - position.dx - size.width / 2,
-      screenSize.height / 2 - position.dy - size.height / 2,
-    );
+        screenSize.width / 2 - position.dx - size.width / 2, screenSize.height / 2 - position.dy - size.height / 2);
   }
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: _showChat,
-        onDoubleTap: _showLanguageSelector,
-        onLongPressStart: (_) {
+      onTap: _showChat,
+      onDoubleTap: _showLanguageSelector,
+      onLongPressStart: (_) {
+        if (mounted) {
           setState(() {
             _isLongPressing = true;
             _recognizedText = '';
             _finalRecognizedText = '';
           });
-          _longPressController.forward();
-          _startListening();
-          _speechMaintenanceTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
-            if (_isLongPressing) {
-              _maintainListening();
-            } else {
-              timer.cancel();
-            }
-          });
-        },
-        onLongPressEnd: (_) async {
+        }
+        _longPressController.forward();
+        _startListening();
+        _speechMaintenanceTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+          if (_isLongPressing) {
+            _maintainListening();
+          } else {
+            timer.cancel();
+          }
+        });
+      },
+      onLongPressEnd: (_) async {
+        if (mounted) {
           setState(() {
             _isLongPressing = false;
             _isProcessingSpeech = true;
           });
-          _longPressController.reverse();
-          _speechMaintenanceTimer?.cancel();
-          _stopListening();
-          await Future.delayed(const Duration(milliseconds: 500));
-          if (_finalRecognizedText.isNotEmpty) await _sendSpeechMessage();
-          setState(() => _isProcessingSpeech = false);
-        },
-        onLongPressCancel: () {
+        }
+        _longPressController.reverse();
+        _speechMaintenanceTimer?.cancel();
+        _stopListening();
+        await Future.delayed(const Duration(milliseconds: 500));
+        if (_finalRecognizedText.isNotEmpty) await _sendSpeechMessage();
+        if (mounted) setState(() => _isProcessingSpeech = false);
+      },
+      onLongPressCancel: () {
+        if (mounted) {
           setState(() {
             _isLongPressing = false;
             _isProcessingSpeech = false;
           });
-          _longPressController.reverse();
-
-          _speechMaintenanceTimer?.cancel();
-          _stopListening();
-        },
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            AnimatedBuilder(
-              animation: Listenable.merge([_tapController, _longPressController]),
-              builder: (context, child) {
-                final longPressValue = _longPressController.value;
-                final tapScale = Tween<double>(begin: 1.0, end: 0.0).transform(_tapController.value);
-                return Transform.translate(
+        }
+        _longPressController.reverse();
+        _speechMaintenanceTimer?.cancel();
+        _stopListening();
+      },
+      child: Stack(clipBehavior: Clip.none, children: [
+        AnimatedBuilder(
+            animation: Listenable.merge([_tapController, _longPressController]),
+            builder: (context, child) {
+              final longPressValue = _longPressController.value;
+              final tapScale = Tween<double>(begin: 1.0, end: 0.0).transform(_tapController.value);
+              return Transform.translate(
                   offset: _getTranslation() * longPressValue,
                   child: Transform.scale(
-                    scale: tapScale * (1.0 + longPressValue * 1.5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: _isLongPressing || _speechState == ManualSttState.listening
-                            ? [
-                                BoxShadow(
-                                  color: Colors.red.withOpacity(0.3),
-                                  blurRadius: 20,
-                                  spreadRadius: 5,
-                                ),
-                              ]
-                            : null,
-                      ),
-                      child: SizedBox(
-                        height: MediaQuery.sizeOf(context).height * 0.1,
-                        child: Lottie.asset('assets/animations/siri.json'),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      );
+                      scale: tapScale * (1.0 + longPressValue * 1.5),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: _isLongPressing || _speechState == ManualSttState.listening
+                                  ? [
+                                      BoxShadow(
+                                          color: $styles.colors.accent1.withOpacity(0.4),
+                                          blurRadius: $styles.insets.md,
+                                          spreadRadius: $styles.insets.xs)
+                                    ]
+                                  : null),
+                          child: SizedBox(
+                              height: MediaQuery.sizeOf(context).height * 0.13,
+                              child: Lottie.asset('assets/animations/siri.json')))));
+            })
+      ]));
 }
