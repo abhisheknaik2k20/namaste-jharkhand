@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import 'dart:async';
 import 'package:lottie/lottie.dart';
 import 'package:manual_speech_to_text/manual_speech_to_text.dart';
@@ -119,7 +118,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     try {
       _speechController = ManualSttController(context);
       _speechController!.listen(onListeningStateChanged: (state) {
-        debugPrint('Speech state changed: $state');
         if (mounted) {
           setState(() {
             switch (state) {
@@ -165,11 +163,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   void _startListening() {
-    debugPrint('_startListening called, current state: $_listeningState, canStart: $_canStartListening');
-    if (_speechController == null || !_canStartListening) {
-      debugPrint('Cannot start listening: controller=${_speechController != null}, canStart=$_canStartListening');
-      return;
-    }
+    if (_speechController == null || !_canStartListening) return;
     try {
       setState(() {
         _listeningState = ListeningState.starting;
@@ -178,7 +172,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
       });
       _speechController!.startStt();
       _resetTimeoutTimer();
-      debugPrint('Speech recognition started');
     } catch (e) {
       debugPrint('Error starting speech recognition: $e');
       if (mounted) setState(() => _listeningState = ListeningState.idle);
@@ -187,17 +180,13 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
 
   void _stopListening() {
     debugPrint('_stopListening called, current state: $_listeningState');
-    if (_listeningState == ListeningState.idle) {
-      debugPrint('Already idle, nothing to stop');
-      return;
-    }
+    if (_listeningState == ListeningState.idle) return;
     _speechTimeoutTimer?.cancel();
     _speechTimeoutTimer = null;
     if (mounted) setState(() => _listeningState = ListeningState.stopping);
     if (_speechController != null) {
       try {
         _speechController!.stopStt();
-        debugPrint('Speech recognition stopped');
       } catch (e) {
         debugPrint('Error stopping speech recognition: $e');
         if (mounted) setState(() => _listeningState = ListeningState.idle);
@@ -210,7 +199,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   void _resetTimeoutTimer() {
     _speechTimeoutTimer?.cancel();
     _speechTimeoutTimer = Timer(const Duration(seconds: 60), () {
-      debugPrint('Speech timeout reached');
       if (_isListening) _stopListening();
     });
   }
@@ -474,14 +462,12 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   void _handleLongPressStart() {
-    debugPrint('Long press started');
     if (mounted) setState(() => _isLongPressing = true);
     _longPressController.forward();
     _startListening();
   }
 
   void _handleLongPressEnd() async {
-    debugPrint('Long press ended');
     if (mounted) setState(() => _isLongPressing = false);
     _longPressController.reverse();
     _stopListening();
@@ -490,9 +476,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   void _handleLongPressCancel() {
-    debugPrint('Long press cancelled');
     if (mounted) setState(() => _isLongPressing = false);
-
     _longPressController.reverse();
     _stopListening();
   }
@@ -500,7 +484,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   @override
   Widget build(BuildContext context) => GestureDetector(
       onTap: () {
-        debugPrint('Tap detected - speaking: ${_speakingState == SpeakingState.speaking}, busy: $_isBusyWithSpeech');
         if (_speakingState == SpeakingState.speaking) {
           _stopSpeaking();
         } else if (_isBusyWithSpeech) {
@@ -531,14 +514,12 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
                               boxShadow: _isLongPressing || _isListening
                                   ? [
                                       BoxShadow(
-                                          color: $styles.colors.accent1.withOpacity(0.4),
+                                          color: $styles.colors.aiShadowColor.withOpacity(0.4),
                                           blurRadius: $styles.insets.md,
                                           spreadRadius: $styles.insets.xs)
                                     ]
                                   : null),
-                          child: SizedBox(
-                              height: MediaQuery.sizeOf(context).height * 0.13,
-                              child: Lottie.asset('assets/animations/siri.json')))));
+                          child: SizedBox(height: 120, child: Lottie.asset('assets/animations/siri.json')))));
             })
       ]));
 }

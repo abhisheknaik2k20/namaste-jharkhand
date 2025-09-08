@@ -14,9 +14,7 @@ class AppColors {
   final Color greyStrong = const Color(0xFF272625);
   final Color greyMedium = const Color(0xFF9D9995);
   final Color white = Colors.white;
-  // NOTE: If this color is changed, also change it in
-  // - web/manifest.json
-  // - web/index.html -
+  final Color aiShadowColor = Colors.lightBlueAccent;
   final Color black = const Color(0xFF1E1B18);
 
   final bool isDark = false;
@@ -24,11 +22,9 @@ class AppColors {
   Color shift(Color c, double d) => ColorUtils.shiftHsl(c, d * (isDark ? -1 : 1));
 
   ThemeData toThemeData() {
-    /// Create a TextTheme and ColorScheme, that we can use to generate ThemeData
     TextTheme txtTheme = (isDark ? ThemeData.dark() : ThemeData.light()).textTheme;
     Color txtColor = white;
     ColorScheme colorScheme = ColorScheme(
-        // Map our custom theme to the Material ColorScheme
         brightness: isDark ? Brightness.dark : Brightness.light,
         primary: accent1,
         primaryContainer: accent1,
@@ -41,14 +37,11 @@ class AppColors {
         onSecondary: Colors.white,
         error: Colors.red.shade400);
 
-    /// Now that we have ColorScheme and TextTheme, we can create the ThemeData
-    /// Also add on some extra properties that ColorScheme seems to miss
     var t = ThemeData.from(textTheme: txtTheme, colorScheme: colorScheme).copyWith(
       textSelectionTheme: TextSelectionThemeData(cursorColor: accent1),
       highlightColor: accent1,
     );
 
-    /// Return the themeData which MaterialApp can now use
     return t;
   }
 }
