@@ -10,6 +10,10 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:wonders/logic/api_keys.dart';
 import 'package:wonders/ui/common/chat_screen.dart';
 
+enum SpeakingState { speaking, paused, stopped }
+
+enum ListeningState { idle, starting, listening, stopping }
+
 class PersistentOverlayWidget extends StatefulWidget {
   const PersistentOverlayWidget({super.key});
   @override
@@ -19,28 +23,29 @@ class PersistentOverlayWidget extends StatefulWidget {
 class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with TickerProviderStateMixin {
   final _textController = TextEditingController();
   final _messages = <ChatMessage>[];
-
   late final _tapController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
   late final _longPressController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
   late final GenerativeModel _model;
   late AnimationController _dotAnimationController;
   late List<Animation<double>> _dotAnimations;
-  late ManualSttController _speechController;
-  late FlutterTts _flutterTts;
-  late SpeechToText _speechToText;
-  Timer? _speechMaintenanceTimer;
-  Timer? _restartTimer;
+  ManualSttController? _speechController;
+  FlutterTts? _flutterTts;
+  SpeechToText? _speechToText;
+  Timer? _speechTimeoutTimer;
   String _recognizedText = '';
   String _finalRecognizedText = '';
-  ManualSttState _speechState = ManualSttState.stopped;
   bool _isLongPressing = false;
-  bool _isProcessingSpeech = false;
-  double _soundLevel = 0.0;
+  bool _isInitialized = false;
+  ListeningState _listeningState = ListeningState.idle;
   List<dynamic> _availableTtsLanguages = [];
   List<LocaleName> _availableSttLocales = [];
   String _selectedLanguage = 'en-US';
   String _selectedTtsLanguage = 'en-US';
   bool _languagesInitialized = false;
+  SpeakingState _speakingState = SpeakingState.stopped;
+  bool get _isListening => _listeningState == ListeningState.listening;
+  bool get _canStartListening => _listeningState == ListeningState.idle;
+  bool get _isBusyWithSpeech => _listeningState != ListeningState.idle;
 
   @override
   void initState() {
@@ -60,10 +65,19 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
             ]).animate(CurvedAnimation(
                 parent: _dotAnimationController,
                 curve: Interval(index * 0.2, index * 0.2 + 0.6, curve: Curves.linear))));
+    _initializeSpeechComponents();
+  }
 
-    _initSpeech();
-    _initTts();
-    _initSpeechToTextForLocales();
+  Future<void> _initializeSpeechComponents() async {
+    try {
+      await _initSpeech();
+      await _initTts();
+      await _initSpeechToTextForLocales();
+      if (mounted) setState(() => _isInitialized = true);
+    } catch (e) {
+      debugPrint('Failed to initialize speech components: $e');
+      if (mounted) setState(() => _isInitialized = true);
+    }
   }
 
   @override
@@ -78,87 +92,162 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
 
   @override
   void dispose() {
-    _speechController.dispose();
+    _cleanupSpeechResources();
     _tapController.dispose();
     _longPressController.dispose();
     _dotAnimationController.dispose();
     _textController.dispose();
-    _speechMaintenanceTimer?.cancel();
-    _restartTimer?.cancel();
-    _speechToText.stop();
     super.dispose();
   }
 
-  void _initSpeech() {
-    _speechController = ManualSttController(context);
-    _speechController.listen(onListeningStateChanged: (state) {
-      if (mounted) setState(() => _speechState = state);
-      if (state == ManualSttState.stopped && _isLongPressing) {
-        _restartListening();
-      }
-    }, onListeningTextChanged: (recognizedText) {
-      if (mounted) {
-        setState(() {
-          _recognizedText = recognizedText;
-          _finalRecognizedText = recognizedText;
-        });
-      }
-    }, onSoundLevelChanged: (level) {
-      if (mounted) setState(() => _soundLevel = level);
-    });
-
-    _speechController.clearTextOnStart = false;
-    _speechController.localId = _selectedLanguage;
-    _speechController.enableHapticFeedback = true;
-    _speechController.pauseIfMuteFor = const Duration(minutes: 30);
-    _speechController.handlePermanentlyDeniedPermission(() {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Microphone permission is required for voice input',
-                style: $styles.text.body.copyWith(color: $styles.colors.white)),
-            backgroundColor: $styles.colors.greyStrong));
-      }
-    });
-  }
-
-  void _restartListening() {
-    if (!_isLongPressing) return;
-    _restartTimer?.cancel();
-    _restartTimer = Timer(const Duration(milliseconds: 100), () {
-      if (_isLongPressing && _speechState == ManualSttState.stopped) {
-        _speechController.startStt();
-      }
-    });
-  }
-
-  void _initSpeechToTextForLocales() async {
-    _speechToText = SpeechToText();
+  void _cleanupSpeechResources() {
     try {
-      bool available = await _speechToText.initialize();
+      _speechTimeoutTimer?.cancel();
+      _speechTimeoutTimer = null;
+      if (_speechController != null) {
+        _speechController!.stopStt();
+        _speechController!.dispose();
+      }
+      if (_speechToText != null) _speechToText!.stop();
+      _listeningState = ListeningState.idle;
+    } catch (e) {
+      debugPrint('Error during cleanup: $e');
+    }
+  }
+
+  Future<void> _initSpeech() async {
+    try {
+      _speechController = ManualSttController(context);
+      _speechController!.listen(onListeningStateChanged: (state) {
+        debugPrint('Speech state changed: $state');
+        if (mounted) {
+          setState(() {
+            switch (state) {
+              case ManualSttState.listening:
+                if (_listeningState == ListeningState.starting) {
+                  _listeningState = ListeningState.listening;
+                }
+                break;
+              case ManualSttState.stopped:
+                if (_listeningState == ListeningState.stopping) {
+                  _listeningState = ListeningState.idle;
+                }
+                break;
+              default:
+                break;
+            }
+          });
+        }
+      }, onListeningTextChanged: (recognizedText) {
+        if (mounted && _isListening) {
+          setState(() {
+            _recognizedText = recognizedText;
+            _finalRecognizedText = recognizedText;
+          });
+          _resetTimeoutTimer();
+        }
+      });
+      _speechController!.clearTextOnStart = true;
+      _speechController!.localId = _selectedLanguage;
+      _speechController!.enableHapticFeedback = true;
+      _speechController!.pauseIfMuteFor = const Duration(seconds: 30);
+      _speechController!.handlePermanentlyDeniedPermission(() {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Microphone permission is required for voice input',
+                  style: $styles.text.body.copyWith(color: $styles.colors.white)),
+              backgroundColor: $styles.colors.greyStrong));
+        }
+      });
+    } catch (e) {
+      debugPrint('Failed to initialize speech controller: $e');
+    }
+  }
+
+  void _startListening() {
+    debugPrint('_startListening called, current state: $_listeningState, canStart: $_canStartListening');
+    if (_speechController == null || !_canStartListening) {
+      debugPrint('Cannot start listening: controller=${_speechController != null}, canStart=$_canStartListening');
+      return;
+    }
+    try {
+      setState(() {
+        _listeningState = ListeningState.starting;
+        _recognizedText = '';
+        _finalRecognizedText = '';
+      });
+      _speechController!.startStt();
+      _resetTimeoutTimer();
+      debugPrint('Speech recognition started');
+    } catch (e) {
+      debugPrint('Error starting speech recognition: $e');
+      if (mounted) setState(() => _listeningState = ListeningState.idle);
+    }
+  }
+
+  void _stopListening() {
+    debugPrint('_stopListening called, current state: $_listeningState');
+    if (_listeningState == ListeningState.idle) {
+      debugPrint('Already idle, nothing to stop');
+      return;
+    }
+    _speechTimeoutTimer?.cancel();
+    _speechTimeoutTimer = null;
+    if (mounted) setState(() => _listeningState = ListeningState.stopping);
+    if (_speechController != null) {
+      try {
+        _speechController!.stopStt();
+        debugPrint('Speech recognition stopped');
+      } catch (e) {
+        debugPrint('Error stopping speech recognition: $e');
+        if (mounted) setState(() => _listeningState = ListeningState.idle);
+      }
+    } else {
+      if (mounted) setState(() => _listeningState = ListeningState.idle);
+    }
+  }
+
+  void _resetTimeoutTimer() {
+    _speechTimeoutTimer?.cancel();
+    _speechTimeoutTimer = Timer(const Duration(seconds: 60), () {
+      debugPrint('Speech timeout reached');
+      if (_isListening) _stopListening();
+    });
+  }
+
+  Future<void> _initSpeechToTextForLocales() async {
+    try {
+      _speechToText = SpeechToText();
+      bool available = await _speechToText!.initialize();
       if (available) {
-        _availableSttLocales = await _speechToText.locales();
+        _availableSttLocales = await _speechToText!.locales();
         if (mounted) setState(() => _languagesInitialized = true);
         await _setDefaultLanguage();
       } else {
         if (mounted) setState(() => _languagesInitialized = true);
       }
     } catch (e) {
+      debugPrint('Failed to initialize speech to text: $e');
       if (mounted) setState(() => _languagesInitialized = true);
     }
   }
 
-  void _initTts() async {
-    _flutterTts = FlutterTts();
+  Future<void> _initTts() async {
     try {
-      _availableTtsLanguages = await _flutterTts.getLanguages ?? [];
+      _flutterTts = FlutterTts();
+      _availableTtsLanguages = await _flutterTts!.getLanguages ?? [];
       await _setDefaultTtsLanguage();
+      await _flutterTts!.setVolume(1.0);
+      await _flutterTts!.setSpeechRate(0.5);
+      await _flutterTts!.setPitch(1.0);
+      await _flutterTts!.setLanguage(_selectedTtsLanguage);
+      _flutterTts!.setCompletionHandler(() {
+        if (mounted) setState(() => _speakingState = SpeakingState.stopped);
+      });
     } catch (e) {
+      debugPrint('Failed to initialize TTS: $e');
       _selectedTtsLanguage = 'en-US';
     }
-    await _flutterTts.setVolume(1.0);
-    await _flutterTts.setSpeechRate(0.5);
-    await _flutterTts.setPitch(1.0);
-    await _flutterTts.setLanguage(_selectedTtsLanguage);
   }
 
   Future<void> _setDefaultLanguage() async {
@@ -184,7 +273,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
         _selectedLanguage = _availableSttLocales.first.localeId.replaceAll('_', '-');
       }
     }
-    _speechController.localId = _selectedLanguage;
+    _speechController?.localId = _selectedLanguage;
   }
 
   Future<void> _setDefaultTtsLanguage() async {
@@ -205,20 +294,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     return _availableSttLocales.any((locale) => locale.localeId == sttLocaleId);
   }
 
-  void _startListening() {
-    if (_speechState == ManualSttState.stopped) {
-      _speechController.startStt();
-    } else if (_speechState == ManualSttState.paused) {
-      _speechController.resumeStt();
-    }
-  }
-
-  void _stopListening() {
-    _restartTimer?.cancel();
-    _speechMaintenanceTimer?.cancel();
-    if (_speechState != ManualSttState.stopped) _speechController.stopStt();
-  }
-
   Future<void> _changeLanguage(String newLanguage) async {
     if (mounted) {
       setState(() {
@@ -226,14 +301,18 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
         _selectedTtsLanguage = newLanguage;
       });
     }
-    _speechController.localId = newLanguage;
+    _speechController?.localId = newLanguage;
     try {
-      await _flutterTts.setLanguage(newLanguage);
+      await _flutterTts?.setLanguage(newLanguage);
     } catch (e) {
       String altFormat =
           newLanguage.contains('-') ? newLanguage.replaceAll('-', '_') : newLanguage.replaceAll('_', '-');
-      await _flutterTts.setLanguage(altFormat);
-      _selectedTtsLanguage = altFormat;
+      try {
+        await _flutterTts?.setLanguage(altFormat);
+        _selectedTtsLanguage = altFormat;
+      } catch (e2) {
+        debugPrint('Error setting TTS language: $e2');
+      }
     }
   }
 
@@ -302,7 +381,15 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   Future<void> _speak(String text) async {
-    if (text.isNotEmpty) await _flutterTts.speak(text);
+    if (text.isNotEmpty && _flutterTts != null) {
+      try {
+        if (mounted) setState(() => _speakingState = SpeakingState.speaking);
+        await _flutterTts!.speak(text);
+      } catch (exception) {
+        if (mounted) setState(() => _speakingState = SpeakingState.stopped);
+        debugPrint('TTS Error: $exception');
+      }
+    }
   }
 
   Future<void> _sendSpeechMessage() async {
@@ -322,39 +409,49 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     }
   }
 
+  Future<void> _stopSpeaking() async {
+    if (_speakingState == SpeakingState.speaking && _flutterTts != null) {
+      try {
+        await _flutterTts!.stop();
+        if (mounted) setState(() => _speakingState = SpeakingState.stopped);
+      } catch (e) {
+        debugPrint('Error stopping TTS: $e');
+      }
+    }
+  }
+
   void _showChat() {
-    if (_isLongPressing) return;
+    if (_isBusyWithSpeech) return;
     _tapController.forward().then((value) => showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
-            Container(
-                margin: EdgeInsets.symmetric(horizontal: $styles.insets.md, vertical: $styles.insets.sm),
-                child: ElevatedButton.icon(
-                    onPressed: _showLanguageSelector,
-                    icon: Icon(Icons.language, color: $styles.colors.white),
-                    label: Text('Language: ${_getLanguageDisplayNameFromCode(_selectedLanguage)}'),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: $styles.colors.accent1,
-                        foregroundColor: $styles.colors.white,
-                        elevation: 4.0,
-                        padding: EdgeInsets.symmetric(horizontal: $styles.insets.md, vertical: $styles.insets.sm),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular($styles.corners.lg))))),
-            WhatsAppChatScreen(
-                initialMessages: List.from(_messages),
-                textController: _textController,
-                model: _model,
-                dotAnimations: _dotAnimations,
-                onMessagesUpdated: (messages) {
-                  if (mounted) {
-                    setState(() => _messages
-                      ..clear()
-                      ..addAll(messages));
-                  }
-                })
-          ]),
-        ).then((_) => _tapController.reverse()));
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (context) => Column(mainAxisSize: MainAxisSize.min, children: [
+              Container(
+                  margin: EdgeInsets.symmetric(horizontal: $styles.insets.md, vertical: $styles.insets.sm),
+                  child: ElevatedButton.icon(
+                      onPressed: _showLanguageSelector,
+                      icon: Icon(Icons.language, color: $styles.colors.white),
+                      label: Text('Language: ${_getLanguageDisplayNameFromCode(_selectedLanguage)}'),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: $styles.colors.accent1,
+                          foregroundColor: $styles.colors.white,
+                          elevation: 4.0,
+                          padding: EdgeInsets.symmetric(horizontal: $styles.insets.md, vertical: $styles.insets.sm),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular($styles.corners.lg))))),
+              WhatsAppChatScreen(
+                  initialMessages: List.from(_messages),
+                  textController: _textController,
+                  model: _model,
+                  dotAnimations: _dotAnimations,
+                  onMessagesUpdated: (messages) {
+                    if (mounted) {
+                      setState(() => _messages
+                        ..clear()
+                        ..addAll(messages));
+                    }
+                  })
+            ])).then((_) => _tapController.reverse()));
   }
 
   String _getLanguageDisplayNameFromCode(String languageCode) {
@@ -376,55 +473,48 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
         screenSize.width / 2 - position.dx - size.width / 2, screenSize.height / 2 - position.dy - size.height / 2);
   }
 
+  void _handleLongPressStart() {
+    debugPrint('Long press started');
+    if (mounted) setState(() => _isLongPressing = true);
+    _longPressController.forward();
+    _startListening();
+  }
+
+  void _handleLongPressEnd() async {
+    debugPrint('Long press ended');
+    if (mounted) setState(() => _isLongPressing = false);
+    _longPressController.reverse();
+    _stopListening();
+    await Future.delayed(const Duration(milliseconds: 800));
+    if (_finalRecognizedText.isNotEmpty && _listeningState == ListeningState.idle) await _sendSpeechMessage();
+  }
+
+  void _handleLongPressCancel() {
+    debugPrint('Long press cancelled');
+    if (mounted) setState(() => _isLongPressing = false);
+
+    _longPressController.reverse();
+    _stopListening();
+  }
+
   @override
   Widget build(BuildContext context) => GestureDetector(
-      onTap: _showChat,
-      onDoubleTap: _showLanguageSelector,
-      onLongPressStart: (_) {
-        if (mounted) {
-          setState(() {
-            _isLongPressing = true;
-            _recognizedText = '';
-            _finalRecognizedText = '';
-          });
+      onTap: () {
+        debugPrint('Tap detected - speaking: ${_speakingState == SpeakingState.speaking}, busy: $_isBusyWithSpeech');
+        if (_speakingState == SpeakingState.speaking) {
+          _stopSpeaking();
+        } else if (_isBusyWithSpeech) {
+          _stopListening();
+        } else {
+          _showChat();
         }
-        _longPressController.forward();
-        _startListening();
-        _speechMaintenanceTimer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
-          if (_isLongPressing) {
-            if (_speechState == ManualSttState.stopped) _startListening();
-          } else {
-            timer.cancel();
-          }
-        });
       },
-      onLongPressEnd: (_) async {
-        if (mounted) {
-          setState(() {
-            _isLongPressing = false;
-            _isProcessingSpeech = true;
-          });
-        }
-        _longPressController.reverse();
-        _speechMaintenanceTimer?.cancel();
-        _restartTimer?.cancel();
-        _stopListening();
-        await Future.delayed(const Duration(milliseconds: 800));
-        if (_finalRecognizedText.isNotEmpty) await _sendSpeechMessage();
-        if (mounted) setState(() => _isProcessingSpeech = false);
+      onDoubleTap: () {
+        if (_languagesInitialized) _showLanguageSelector();
       },
-      onLongPressCancel: () {
-        if (mounted) {
-          setState(() {
-            _isLongPressing = false;
-            _isProcessingSpeech = false;
-          });
-        }
-        _longPressController.reverse();
-        _speechMaintenanceTimer?.cancel();
-        _restartTimer?.cancel();
-        _stopListening();
-      },
+      onLongPressStart: (_) => _handleLongPressStart(),
+      onLongPressEnd: (_) => _handleLongPressEnd(),
+      onLongPressCancel: () => _handleLongPressCancel(),
       child: Stack(clipBehavior: Clip.none, children: [
         AnimatedBuilder(
             animation: Listenable.merge([_tapController, _longPressController]),
@@ -438,7 +528,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
                       child: Container(
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              boxShadow: _isLongPressing || _speechState == ManualSttState.listening
+                              boxShadow: _isLongPressing || _isListening
                                   ? [
                                       BoxShadow(
                                           color: $styles.colors.accent1.withOpacity(0.4),

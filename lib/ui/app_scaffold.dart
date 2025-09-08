@@ -24,11 +24,9 @@ class _WondersAppScaffoldState extends State<WondersAppScaffold> with TickerProv
   @override
   void initState() {
     super.initState();
-    _inertiaController = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
+    _inertiaController = AnimationController(duration: const Duration(milliseconds: 400), vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 50), () {
-        if (mounted) setState(() => _isOverlayReady = true);
-      });
+      if (mounted) setState(() => _isOverlayReady = true);
     });
   }
 
@@ -48,7 +46,7 @@ class _WondersAppScaffoldState extends State<WondersAppScaffold> with TickerProv
     final screenSize = MediaQuery.of(context).size;
     if (screenSize.width > 0 && screenSize.height > 0) {
       setState(() {
-        _overlayPosition = Offset(screenSize.width - 120, screenSize.height - 120);
+        _overlayPosition = Offset(screenSize.width - 150, screenSize.height - 150);
         _hasInitializedPosition = true;
       });
     }
@@ -56,8 +54,8 @@ class _WondersAppScaffoldState extends State<WondersAppScaffold> with TickerProv
 
   void _handlePanUpdate(DragUpdateDetails details, Size screenSize) {
     setState(() => _overlayPosition = Offset(
-        (_overlayPosition.dx + details.delta.dx).clamp(0.0, screenSize.width - 100),
-        (_overlayPosition.dy + details.delta.dy).clamp(0.0, screenSize.height - 100)));
+        (_overlayPosition.dx + details.delta.dx).clamp(0.0, screenSize.width - 150),
+        (_overlayPosition.dy + details.delta.dy).clamp(0.0, screenSize.height - 150)));
     _lastPanVelocity = details.delta;
   }
 
@@ -68,8 +66,8 @@ class _WondersAppScaffoldState extends State<WondersAppScaffold> with TickerProv
       final inertiaDistance = magnitude * 20;
       final normalizedVelocity = velocity / magnitude;
       final targetPosition = Offset(
-          (_overlayPosition.dx + normalizedVelocity.dx * inertiaDistance).clamp(0.0, screenSize.width - 100),
-          (_overlayPosition.dy + normalizedVelocity.dy * inertiaDistance).clamp(0.0, screenSize.height - 100));
+          (_overlayPosition.dx + normalizedVelocity.dx * inertiaDistance).clamp(0.0, screenSize.width - 150),
+          (_overlayPosition.dy + normalizedVelocity.dy * inertiaDistance).clamp(0.0, screenSize.height - 150));
       _inertiaAnimation = Tween<Offset>(begin: _overlayPosition, end: targetPosition)
           .animate(CurvedAnimation(parent: _inertiaController, curve: Curves.decelerate));
       _inertiaController.reset();
@@ -86,8 +84,8 @@ class _WondersAppScaffoldState extends State<WondersAppScaffold> with TickerProv
     final mq = MediaQuery.of(context);
     final screenSize = mq.size;
     if (_hasInitializedPosition && screenSize.width > 0 && screenSize.height > 0) {
-      final clampedPosition = Offset(_overlayPosition.dx.clamp(0.0, screenSize.width - 100),
-          _overlayPosition.dy.clamp(0.0, screenSize.height - 100));
+      final clampedPosition = Offset(_overlayPosition.dx.clamp(0.0, screenSize.width - 150),
+          _overlayPosition.dy.clamp(0.0, screenSize.height - 150));
       if (clampedPosition != _overlayPosition) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) setState(() => _overlayPosition = clampedPosition);
