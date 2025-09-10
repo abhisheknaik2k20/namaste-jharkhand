@@ -154,23 +154,17 @@ class _WonderEditorialScreenState extends State<WonderEditorialScreen> {
                                 ),
                               ),
 
-                              /// Collapsing App bar, pins to the top of the list
                               SliverAppBar(
-                                pinned: true,
-                                collapsedHeight: minAppBarHeight,
-                                toolbarHeight: minAppBarHeight,
-                                expandedHeight: maxAppBarHeight,
-                                backgroundColor: Colors.transparent,
-                                elevation: 0,
-                                leading: SizedBox.shrink(),
-                                flexibleSpace: SizedBox.expand(
-                                  child: _AppBar(
-                                    widget.data.type,
-                                    scrollPos: _scrollPos,
-                                    sectionIndex: _sectionIndex,
-                                  ),
-                                ),
-                              ),
+                                  pinned: true,
+                                  collapsedHeight: minAppBarHeight,
+                                  toolbarHeight: minAppBarHeight,
+                                  expandedHeight: maxAppBarHeight,
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0,
+                                  leading: SizedBox.shrink(),
+                                  flexibleSpace: SizedBox.expand(
+                                      child: _AppBar(widget.data.type,
+                                          scrollPos: _scrollPos, sectionIndex: _sectionIndex))),
 
                               /// Editorial content (text and images)
                               _ScrollingContent(widget.data, scrollPos: _scrollPos, sectionNotifier: _sectionIndex),

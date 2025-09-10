@@ -1,7 +1,5 @@
 import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/animate_utils.dart';
 import 'package:wonders/logic/common/platform_info.dart';
-import 'package:wonders/logic/common/string_utils.dart';
 import 'package:wonders/logic/data/wonder_data.dart';
 import 'package:wonders/ui/common/app_backdrop.dart';
 import 'package:wonders/ui/common/app_icons.dart';
@@ -53,7 +51,6 @@ class _WonderEventsState extends State<WonderEvents> {
                 ),
               ),
 
-              /// Header w/ TimelineBtn
               TopCenter(
                 child: AppHeader(
                   showBackBtn: false,
@@ -122,7 +119,6 @@ class _WonderEventsState extends State<WonderEvents> {
         width: $styles.sizes.maxContentWidth2,
         child: Stack(
           children: [
-            /// Top content, sits underneath scrolling list
             _WonderImageWithTimeline(height: topHeight, data: _data),
 
             /// EventsList + TimelineBtn

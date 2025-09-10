@@ -20,8 +20,6 @@ class WonderTitleText extends StatelessWidget {
     if (smallText) {
       textStyle = textStyle.copyWith(fontSize: 56 * $styles.scale);
     }
-
-    // First, get a list like: ['the\n', 'great wall']
     final title = data.title.toLowerCase();
     // Split on spaces, later, add either a linebreak or a space back in.
     List<String> pieces = title.split(' ');
@@ -32,28 +30,16 @@ class WonderTitleText extends StatelessWidget {
       int i = pieces.indexOf(text);
       bool addLinebreak = i == 0 && pieces.length > 1;
       bool addSpace = !addLinebreak && i < pieces.length - 1;
-      if (useSmallText == false) {
-        text = StringUtils.capitalize(text);
-      }
+      if (useSmallText == false) text = StringUtils.capitalize(text);
       return TextSpan(
-        text: '$text${addLinebreak ? '\n' : addSpace ? ' ' : ''}',
-        style: useSmallText ? textStyle.copyWith(fontSize: 20 * $styles.scale) : textStyle,
-      );
+          text: '$text${addLinebreak ? '\n' : addSpace ? ' ' : ''}',
+          style: useSmallText ? textStyle.copyWith(fontSize: 20 * $styles.scale) : textStyle);
     }
 
     List<Shadow> shadows = enableShadows ? $styles.shadows.textSoft : [];
     var content = RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        style: textStyle.copyWith(shadows: shadows),
-        children: pieces.map(buildTextSpan).toList(),
-      ),
-    );
-    return enableHero
-        ? Hero(
-            tag: 'wonderTitle-$title',
-            child: content,
-          )
-        : content;
+        textAlign: TextAlign.center,
+        text: TextSpan(style: textStyle.copyWith(shadows: shadows), children: pieces.map(buildTextSpan).toList()));
+    return enableHero ? Hero(tag: 'wonderTitle-$title', child: content) : content;
   }
 }

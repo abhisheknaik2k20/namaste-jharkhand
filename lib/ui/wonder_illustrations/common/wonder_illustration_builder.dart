@@ -52,20 +52,14 @@ class WonderIllustrationBuilderState extends State<WonderIllustrationBuilder> wi
 
   @override
   Widget build(BuildContext context) {
-    // Optimization: no need to return all of these children if the widget is fully invisible.
     if (anim.value == 0 && widget.config.enableAnims) return SizedBox.expand();
     Animation<double> animation = widget.config.enableAnims ? anim : AlwaysStoppedAnimation(1);
-
     return Provider<WonderIllustrationBuilderState>.value(
-      value: this,
-      child: Stack(
-        key: ValueKey(animation.value == 0),
-        children: [
+        value: this,
+        child: Stack(key: ValueKey(animation.value == 0), children: [
           if (widget.config.enableBg) ...widget.bgBuilder(context, animation),
           if (widget.config.enableMg) ...widget.mgBuilder(context, animation),
-          if (widget.config.enableFg) ...widget.fgBuilder(context, animation),
-        ],
-      ),
-    );
+          if (widget.config.enableFg) ...widget.fgBuilder(context, animation)
+        ]));
   }
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 import 'package:lottie/lottie.dart';
 import 'package:manual_speech_to_text/manual_speech_to_text.dart';
@@ -42,6 +43,8 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   String _selectedTtsLanguage = 'en-US';
   bool _languagesInitialized = false;
   SpeakingState _speakingState = SpeakingState.stopped;
+
+  // Getters for cleaner code
   bool get _isListening => _listeningState == ListeningState.listening;
   bool get _canStartListening => _listeningState == ListeningState.idle;
   bool get _isBusyWithSpeech => _listeningState != ListeningState.idle;
@@ -103,11 +106,16 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     try {
       _speechTimeoutTimer?.cancel();
       _speechTimeoutTimer = null;
+
       if (_speechController != null) {
         _speechController!.stopStt();
         _speechController!.dispose();
       }
-      if (_speechToText != null) _speechToText!.stop();
+
+      if (_speechToText != null) {
+        _speechToText!.stop();
+      }
+
       _listeningState = ListeningState.idle;
     } catch (e) {
       debugPrint('Error during cleanup: $e');
@@ -118,6 +126,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     try {
       _speechController = ManualSttController(context);
       _speechController!.listen(onListeningStateChanged: (state) {
+        debugPrint('Speech state changed: $state');
         if (mounted) {
           setState(() {
             switch (state) {
@@ -145,6 +154,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
           _resetTimeoutTimer();
         }
       });
+
       _speechController!.clearTextOnStart = true;
       _speechController!.localId = _selectedLanguage;
       _speechController!.enableHapticFeedback = true;
@@ -163,43 +173,73 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   void _startListening() {
-    if (_speechController == null || !_canStartListening) return;
+    debugPrint('_startListening called, current state: $_listeningState, canStart: $_canStartListening');
+
+    if (_speechController == null || !_canStartListening) {
+      debugPrint('Cannot start listening: controller=${_speechController != null}, canStart=$_canStartListening');
+      return;
+    }
+
     try {
       setState(() {
         _listeningState = ListeningState.starting;
         _recognizedText = '';
         _finalRecognizedText = '';
       });
+
       _speechController!.startStt();
       _resetTimeoutTimer();
+
+      debugPrint('Speech recognition started');
     } catch (e) {
       debugPrint('Error starting speech recognition: $e');
-      if (mounted) setState(() => _listeningState = ListeningState.idle);
+      if (mounted) {
+        setState(() => _listeningState = ListeningState.idle);
+      }
     }
   }
 
   void _stopListening() {
     debugPrint('_stopListening called, current state: $_listeningState');
-    if (_listeningState == ListeningState.idle) return;
+
+    if (_listeningState == ListeningState.idle) {
+      debugPrint('Already idle, nothing to stop');
+      return;
+    }
+
     _speechTimeoutTimer?.cancel();
     _speechTimeoutTimer = null;
-    if (mounted) setState(() => _listeningState = ListeningState.stopping);
+
+    if (mounted) {
+      setState(() => _listeningState = ListeningState.stopping);
+    }
+
     if (_speechController != null) {
       try {
         _speechController!.stopStt();
+        debugPrint('Speech recognition stopped');
       } catch (e) {
         debugPrint('Error stopping speech recognition: $e');
-        if (mounted) setState(() => _listeningState = ListeningState.idle);
+        // Force state to idle if there's an error
+        if (mounted) {
+          setState(() => _listeningState = ListeningState.idle);
+        }
       }
     } else {
-      if (mounted) setState(() => _listeningState = ListeningState.idle);
+      // No controller, just set to idle
+      if (mounted) {
+        setState(() => _listeningState = ListeningState.idle);
+      }
     }
   }
 
   void _resetTimeoutTimer() {
     _speechTimeoutTimer?.cancel();
-    _speechTimeoutTimer = Timer(const Duration(seconds: 60), () {
-      if (_isListening) _stopListening();
+    _speechTimeoutTimer = Timer(const Duration(seconds: 10), () {
+      debugPrint('Speech timeout reached');
+      if (_isListening) {
+        _stopListening();
+      }
     });
   }
 
@@ -229,8 +269,14 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
       await _flutterTts!.setSpeechRate(0.5);
       await _flutterTts!.setPitch(1.0);
       await _flutterTts!.setLanguage(_selectedTtsLanguage);
+
+      // Set up TTS completion handler
       _flutterTts!.setCompletionHandler(() {
-        if (mounted) setState(() => _speakingState = SpeakingState.stopped);
+        if (mounted) {
+          setState(() {
+            _speakingState = SpeakingState.stopped;
+          });
+        }
       });
     } catch (e) {
       debugPrint('Failed to initialize TTS: $e');
@@ -371,10 +417,18 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   Future<void> _speak(String text) async {
     if (text.isNotEmpty && _flutterTts != null) {
       try {
-        if (mounted) setState(() => _speakingState = SpeakingState.speaking);
+        if (mounted) {
+          setState(() {
+            _speakingState = SpeakingState.speaking;
+          });
+        }
         await _flutterTts!.speak(text);
       } catch (exception) {
-        if (mounted) setState(() => _speakingState = SpeakingState.stopped);
+        if (mounted) {
+          setState(() {
+            _speakingState = SpeakingState.stopped;
+          });
+        }
         debugPrint('TTS Error: $exception');
       }
     }
@@ -401,7 +455,11 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     if (_speakingState == SpeakingState.speaking && _flutterTts != null) {
       try {
         await _flutterTts!.stop();
-        if (mounted) setState(() => _speakingState = SpeakingState.stopped);
+        if (mounted) {
+          setState(() {
+            _speakingState = SpeakingState.stopped;
+          });
+        }
       } catch (e) {
         debugPrint('Error stopping TTS: $e');
       }
@@ -462,21 +520,35 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   }
 
   void _handleLongPressStart() {
-    if (mounted) setState(() => _isLongPressing = true);
+    debugPrint('Long press started');
+    if (mounted) {
+      setState(() => _isLongPressing = true);
+    }
     _longPressController.forward();
     _startListening();
   }
 
   void _handleLongPressEnd() async {
-    if (mounted) setState(() => _isLongPressing = false);
+    debugPrint('Long press ended');
+    if (mounted) {
+      setState(() => _isLongPressing = false);
+    }
     _longPressController.reverse();
     _stopListening();
+
+    // Wait for speech recognition to fully stop before processing
     await Future.delayed(const Duration(milliseconds: 800));
-    if (_finalRecognizedText.isNotEmpty && _listeningState == ListeningState.idle) await _sendSpeechMessage();
+
+    if (_finalRecognizedText.isNotEmpty && _listeningState == ListeningState.idle) {
+      await _sendSpeechMessage();
+    }
   }
 
   void _handleLongPressCancel() {
-    if (mounted) setState(() => _isLongPressing = false);
+    debugPrint('Long press cancelled');
+    if (mounted) {
+      setState(() => _isLongPressing = false);
+    }
     _longPressController.reverse();
     _stopListening();
   }
@@ -484,6 +556,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   @override
   Widget build(BuildContext context) => GestureDetector(
       onTap: () {
+        debugPrint('Tap detected - speaking: ${_speakingState == SpeakingState.speaking}, busy: $_isBusyWithSpeech');
         if (_speakingState == SpeakingState.speaking) {
           _stopSpeaking();
         } else if (_isBusyWithSpeech) {
@@ -514,12 +587,14 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
                               boxShadow: _isLongPressing || _isListening
                                   ? [
                                       BoxShadow(
-                                          color: $styles.colors.aiShadowColor.withOpacity(0.4),
+                                          color: $styles.colors.accent1.withOpacity(0.4),
                                           blurRadius: $styles.insets.md,
                                           spreadRadius: $styles.insets.xs)
                                     ]
                                   : null),
-                          child: SizedBox(height: 120, child: Lottie.asset('assets/animations/siri.json')))));
+                          child: SizedBox(
+                              height: MediaQuery.sizeOf(context).height * 0.13,
+                              child: Lottie.asset('assets/animations/siri.json')))));
             })
       ]));
 }

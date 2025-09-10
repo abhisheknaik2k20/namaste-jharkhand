@@ -51,7 +51,6 @@ class _HomeMenuState extends State<HomeMenu> {
     final double gridWidth = _btnSize(context) * 3 * 1.2;
     return Stack(
       children: [
-        /// Backdrop / Underlay
         AppBackdrop(
           strength: .5,
           child: Container(color: $styles.colors.greyStrong.withOpacity(.5)),
@@ -75,7 +74,6 @@ class _HomeMenuState extends State<HomeMenu> {
                       .scale(begin: Offset(.8, .8), curve: Curves.easeOut),
                   Gap($styles.insets.lg),
                   _buildBottomBtns(context),
-                  //Spacer(),
                   Gap($styles.insets.md),
                 ],
               ),

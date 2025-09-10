@@ -10,10 +10,6 @@ class WonderHero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => config.enableHero
-      ? Hero(
-          createRectTween: (begin, end) => RectTween(begin: begin!, end: end!),
-          tag: tag,
-          child: child,
-        )
+      ? Hero(createRectTween: (begin, end) => RectTween(begin: begin!, end: end!), tag: tag, child: child)
       : child;
 }

@@ -4,7 +4,6 @@ import 'package:wonders/logic/common/color_utils.dart';
 export 'wonders_color_extensions.dart';
 
 class AppColors {
-  /// Common
   final Color accent1 = Color(0xFFE4935D);
   final Color accent2 = Color(0xFFBEABA1);
   final Color accent3 = Color(0xFFC47642);
@@ -16,7 +15,6 @@ class AppColors {
   final Color white = Colors.white;
   final Color aiShadowColor = Colors.lightBlueAccent;
   final Color black = const Color(0xFF1E1B18);
-
   final bool isDark = false;
 
   Color shift(Color c, double d) => ColorUtils.shiftHsl(c, d * (isDark ? -1 : 1));

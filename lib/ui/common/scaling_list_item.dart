@@ -8,7 +8,6 @@ class AnimatedListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Use Animate.toggle to build the child twice, this will allow it to properly measure its size and position.
     return Animate().toggle(
       builder: (_, value, __) => ValueListenableBuilder(
         valueListenable: scrollPos,

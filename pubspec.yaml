@@ -136,3 +136,17 @@ flutter:
     - family: B612Mono
       fonts:
         - asset: assets/fonts/B612Mono-Regular.ttf
+  
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#FFFFFF"
+  image: assets/images/_common/app-logo.png
+  android_12:
+    color: "#FFFFFF"
+    color_dark: "#FFFFFF"
+    image: assets/images/_common/app-logo.png
+    icon_background_color: "#FFFFFF"
+    icon_background_color_dark: "#FFFFFF"
+  android: true
+  ios: false
+  web: false
