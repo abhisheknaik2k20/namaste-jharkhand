@@ -48,58 +48,49 @@ class PetraIllustration extends StatelessWidget {
 
   List<Widget> _buildMg(BuildContext context, Animation<double> anim) => [
         FractionallySizedBox(
-          heightFactor: config.shortMode ? 1 : .8,
-          alignment: Alignment.bottomCenter,
-          child: IllustrationPiece(
-            fileName: 'petra.png',
-            heightFactor: .65,
-            minHeight: 500,
-            zoomAmt: config.shortMode ? -0.1 : -1,
-            enableHero: true,
-            fractionalOffset: Offset(0, config.shortMode ? .025 : 0),
-          ),
-        ),
+            heightFactor: config.shortMode ? 1 : .8,
+            alignment: Alignment.bottomCenter,
+            child: IllustrationPiece(
+                fileName: 'petra.png',
+                heightFactor: .3,
+                minHeight: 500,
+                zoomAmt: config.shortMode ? -0.1 : -0.3,
+                enableHero: true,
+                fractionalOffset: Offset(.15, config.shortMode ? .025 : 0.1)))
       ];
 
   List<Widget> _buildFg(BuildContext context, Animation<double> anim) {
     return [
       IllustrationPiece(
-        fileName: 'foreground-left.png',
-        alignment: Alignment.bottomCenter,
-        initialOffset: Offset(-80, 0),
-        heightFactor: 1,
-        fractionalOffset: Offset(-.6, 0),
-        zoomAmt: .03,
-        dynamicHzOffset: -130,
-        bottom: (_) {
-          /// To cover everything behind this piece with a solid color, we scale up a container
-          /// and then offset it in negative space
-          const double scaleX = 5;
-          return FractionalTranslation(
-            translation: Offset(-1 - scaleX / 2, 0),
-            child:
-                Transform.scale(scaleX: 5, child: Container(color: WonderType.petra.fgColor.withOpacity(anim.value))),
-          );
-        },
-      ),
+          fileName: 'foreground-left.png',
+          alignment: Alignment.bottomCenter,
+          initialOffset: Offset(-80, 0),
+          heightFactor: 1,
+          fractionalOffset: Offset(-.6, 0),
+          zoomAmt: .03,
+          dynamicHzOffset: -130,
+          bottom: (_) {
+            const double scaleX = 5;
+            return FractionalTranslation(
+                translation: Offset(-1 - scaleX / 2, 0),
+                child: Transform.scale(
+                    scaleX: 5, child: Container(color: WonderType.petra.fgColor.withOpacity(anim.value))));
+          }),
       IllustrationPiece(
-        fileName: 'foreground-right.png',
-        alignment: Alignment.bottomCenter,
-        initialOffset: Offset(80, 00),
-        heightFactor: 1,
-        fractionalOffset: Offset(.55, 0),
-        zoomAmt: .12,
-        dynamicHzOffset: 130,
-        bottom: (_) {
-          /// To cover everything behind this piece with a solid color, we scale up a container and then offset it in negative space
-          const double scaleX = 5;
-          return FractionalTranslation(
-            translation: Offset(1 + scaleX / 2, 0),
-            child:
-                Transform.scale(scaleX: 5, child: Container(color: WonderType.petra.fgColor.withOpacity(anim.value))),
-          );
-        },
-      ),
+          fileName: 'foreground-right.png',
+          alignment: Alignment.bottomCenter,
+          initialOffset: Offset(80, 00),
+          heightFactor: 1,
+          fractionalOffset: Offset(.55, 0),
+          zoomAmt: .12,
+          dynamicHzOffset: 130,
+          bottom: (_) {
+            const double scaleX = 5;
+            return FractionalTranslation(
+                translation: Offset(1 + scaleX / 2, 0),
+                child: Transform.scale(
+                    scaleX: 5, child: Container(color: WonderType.petra.fgColor.withOpacity(anim.value))));
+          })
     ];
   }
 }

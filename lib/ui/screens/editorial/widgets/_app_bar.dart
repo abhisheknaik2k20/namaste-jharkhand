@@ -41,17 +41,15 @@ class _AppBar extends StatelessWidget {
           AnimatedSwitcher(
             duration: $styles.times.med,
             child: Stack(
-              key: ValueKey(showOverlay),
+              key: ValueKey('appbar_stack_$showOverlay'),
               fit: StackFit.expand,
               children: [
-                /// Masked image
                 BottomCenter(
                   child: SizedBox(
                     width: showOverlay ? double.infinity : $styles.sizes.maxContentWidth1,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 50),
                       child: ClipPath(
-                        // Switch arch type to Rect if we are showing the title bar
                         clipper: showOverlay ? null : ArchClipper(arch),
                         child: ValueListenableBuilder<double>(
                           valueListenable: scrollPos,
@@ -67,7 +65,9 @@ class _AppBar extends StatelessWidget {
                             );
                           },
                         ),
-                      ).maybeAnimate(delay: $styles.times.pageTransition + 500.delayMs).fadeIn(duration: $styles.times.slow),
+                      )
+                          .maybeAnimate(delay: $styles.times.pageTransition + 500.delayMs)
+                          .fadeIn(duration: $styles.times.slow),
                     ),
                   ),
                 ),

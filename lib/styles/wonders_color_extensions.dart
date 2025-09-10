@@ -4,7 +4,7 @@ extension WonderColorExtensions on WonderType {
   Color get bgColor {
     return switch (this) {
       WonderType.pyramidsGiza => const Color(0xFF16184D),
-      WonderType.greatWall => const Color(0xFF642828),
+      WonderType.greatWall => const Color.fromARGB(68, 78, 141, 164),
       WonderType.petra => const Color(0xFF444B9B),
       WonderType.colosseum => const Color(0xFF1E736D),
       WonderType.chichenItza => const Color(0xFF164F2A),

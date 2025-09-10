@@ -50,37 +50,16 @@ class GreatWallIllustration extends StatelessWidget {
     return [
       IllustrationPiece(
         fileName: 'great-wall.png',
-        heightFactor: config.shortMode ? .45 : .65,
+        heightFactor: config.shortMode ? .45 : .95,
         minHeight: 250,
         zoomAmt: .05,
         enableHero: true,
-        fractionalOffset: Offset(0, config.shortMode ? .15 : -.15),
+        fractionalOffset: Offset(0, config.shortMode ? .15 : .16),
       ),
     ];
   }
 
   List<Widget> _buildFg(BuildContext context, Animation<double> anim) {
-    return [
-      IllustrationPiece(
-        fileName: 'foreground-left.png',
-        alignment: Alignment.bottomCenter,
-        initialScale: .9,
-        initialOffset: Offset(-40, 60),
-        heightFactor: .85,
-        fractionalOffset: Offset(-.4, .45),
-        zoomAmt: .25,
-        dynamicHzOffset: -150,
-      ),
-      IllustrationPiece(
-        fileName: 'foreground-right.png',
-        alignment: Alignment.bottomCenter,
-        initialOffset: Offset(20, 40),
-        initialScale: .95,
-        heightFactor: 1,
-        fractionalOffset: Offset(.4, .3),
-        zoomAmt: .1,
-        dynamicHzOffset: 150,
-      ),
-    ];
+    return [];
   }
 }

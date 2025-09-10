@@ -52,10 +52,10 @@ class PyramidsGizaIllustration extends StatelessWidget {
       IllustrationPiece(
         fileName: 'pyramids.png',
         enableHero: true,
-        heightFactor: .5,
+        heightFactor: 1.0,
         minHeight: 300,
         zoomAmt: config.shortMode ? -.2 : -2,
-        fractionalOffset: Offset(config.shortMode ? .015 : 0, config.shortMode ? .17 : -.15),
+        fractionalOffset: Offset(0, -0.1),
       )
     ];
   }
@@ -67,21 +67,21 @@ class PyramidsGizaIllustration extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         initialOffset: Offset(20, 40),
         initialScale: .95,
-        heightFactor: .55,
+        heightFactor: .3,
         fractionalOffset: Offset(.2, -.01),
         zoomAmt: .1,
         dynamicHzOffset: 150,
       ),
-      IllustrationPiece(
-        fileName: 'foreground-front.png',
-        alignment: Alignment.bottomCenter,
-        initialScale: .9,
-        initialOffset: Offset(-40, 60),
-        heightFactor: .55,
-        fractionalOffset: Offset(-.09, 0.02),
-        zoomAmt: .25,
-        dynamicHzOffset: -150,
-      ),
+      // IllustrationPiece(
+      //   fileName: 'foreground-front.png',
+      //   alignment: Alignment.bottomCenter,
+      //   initialScale: .9,
+      //   initialOffset: Offset(-40, 60),
+      //   heightFactor: .55,
+      //   fractionalOffset: Offset(-.09, 0.02),
+      //   zoomAmt: .25,
+      //   dynamicHzOffset: -150,
+      // ),
     ];
   }
 }
