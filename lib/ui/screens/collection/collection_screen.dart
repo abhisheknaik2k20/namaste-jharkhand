@@ -19,9 +19,7 @@ part 'widgets/_newly_discovered_items_btn.dart';
 
 class CollectionScreen extends StatefulWidget with GetItStatefulWidgetMixin {
   CollectionScreen({required this.fromId, super.key});
-
   final String fromId;
-
   @override
   State<CollectionScreen> createState() => _CollectionScreenState();
 }
@@ -47,42 +45,29 @@ class _CollectionScreenState extends State<CollectionScreen> with GetItStateMixi
   void _handleReset() async {
     String msg = $strings.collectionPopupResetConfirm;
     final result = await showModal(context, child: OkCancelModal(msg: msg));
-    if (result == true) {
-      collectiblesLogic.reset();
-    }
+    if (result == true) collectiblesLogic.reset();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Rebuild when collectible states change
     watchX((CollectiblesLogic o) => o.statesById);
     int discovered = collectiblesLogic.discoveredCount;
     int explored = collectiblesLogic.exploredCount;
     int total = collectiblesLogic.all.length;
-
     return ColoredBox(
-      color: $styles.colors.greyStrong,
-      child: Column(
-        children: [
+        color: $styles.colors.greyStrong,
+        child: Column(children: [
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                AppHeader(title: $strings.collectionTitleCollection, isTransparent: true),
-                _NewlyDiscoveredItemsBtn(count: discovered, onPressed: _scrollToTarget),
-                Flexible(
-                  child: _CollectionList(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            AppHeader(title: $strings.collectionTitleCollection, isTransparent: true),
+            _NewlyDiscoveredItemsBtn(count: discovered, onPressed: _scrollToTarget),
+            Flexible(
+                child: _CollectionList(
                     fromId: widget.fromId,
                     scrollKey: _scrollKey,
-                    onReset: discovered + explored > 0 ? _handleReset : null,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          _CollectionFooter(count: discovered + explored, total: total),
-        ],
-      ),
-    );
+                    onReset: discovered + explored > 0 ? _handleReset : null))
+          ])),
+          _CollectionFooter(count: discovered + explored, total: total)
+        ]));
   }
 }

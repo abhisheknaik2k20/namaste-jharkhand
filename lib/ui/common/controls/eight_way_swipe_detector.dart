@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:namste_jharkhand/common_libs.dart';
-import 'package:namste_jharkhand/ui/common/controls/trackpad_listener.dart';
 
 class EightWaySwipeDetector extends StatefulWidget {
   const EightWaySwipeDetector({super.key, required this.child, this.threshold = 50, required this.onSwipe});
@@ -42,10 +41,6 @@ class _EightWaySwipeDetectorState extends State<EightWaySwipeDetector> {
     }
   }
 
-  void _trackpadSwipe(Offset delta) {
-    widget.onSwipe?.call(delta);
-  }
-
   void _handleSwipeStart(DragStartDetails d) {
     _isSwiping = d.kind != null;
     _startPos = _endPos = d.localPosition;
@@ -62,25 +57,17 @@ class _EightWaySwipeDetectorState extends State<EightWaySwipeDetector> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return TrackpadListener(
-      scrollSensitivity: 70,
-      onScroll: _trackpadSwipe,
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onPanStart: _handleSwipeStart,
-        onPanUpdate: _handleSwipeUpdate,
-        onPanCancel: _resetSwipe,
-        onPanEnd: _handleSwipeEnd,
-        supportedDevices: const {
-          // Purposely omitting PointerDeviceKind.trackpad.
-          PointerDeviceKind.mouse,
-          PointerDeviceKind.stylus,
-          PointerDeviceKind.touch,
-          PointerDeviceKind.unknown,
-        },
-        child: widget.child,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onPanStart: _handleSwipeStart,
+      onPanUpdate: _handleSwipeUpdate,
+      onPanCancel: _resetSwipe,
+      onPanEnd: _handleSwipeEnd,
+      supportedDevices: const {
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.stylus,
+        PointerDeviceKind.touch,
+        PointerDeviceKind.unknown
+      },
+      child: widget.child);
 }

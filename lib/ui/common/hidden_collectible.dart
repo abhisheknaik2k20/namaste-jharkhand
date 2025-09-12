@@ -17,9 +17,7 @@ class HiddenCollectible extends StatelessWidget with GetItMixin {
   Widget build(BuildContext context) {
     final data = collectiblesLogic.forWonder(currentWonder);
     assert(data.length == 3, 'Each wonder should have exactly 3 collectibles');
-    if (matches.isNotEmpty && matches.contains(currentWonder) == false) {
-      return SizedBox.shrink();
-    }
+    if (matches.isNotEmpty && matches.contains(currentWonder) == false) return SizedBox.shrink();
     return CollectibleItem(data[index], size: size, focus: focus);
   }
 }

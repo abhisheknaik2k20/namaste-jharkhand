@@ -21,7 +21,6 @@ class ScreenPaths {
   static String video(String id) => _appendToCurrentPath('/video/$id');
   static String search(WonderType type) => _appendToCurrentPath('/search/${type.name}');
   static String maps(WonderType type) => _appendToCurrentPath('/maps/${type.name}');
-  static String timeline(WonderType? type) => _appendToCurrentPath('/timeline?type=${type?.name ?? ''}');
   static String artifact(String id, {bool append = true}) =>
       append ? _appendToCurrentPath('/artifact/$id') : '/artifact/$id';
   static String collection(String id) => _appendToCurrentPath('/collection${id.isEmpty ? '' : '?id=$id'}');
@@ -36,74 +35,37 @@ class ScreenPaths {
   }
 }
 
-// Routes that are used multiple times
-AppRoute get _artifactRoute => AppRoute(
-      'artifact/:artifactId',
-      (s) => ArtifactDetailsScreen(artifactId: s.pathParameters['artifactId']!),
-    );
+AppRoute get _artifactRoute =>
+    AppRoute('artifact/:artifactId', (s) => ArtifactDetailsScreen(artifactId: s.pathParameters['artifactId']!));
 
-AppRoute get _collectionRoute => AppRoute(
-      'collection',
-      (s) => CollectionScreen(fromId: s.uri.queryParameters['id'] ?? ''),
-      routes: [_artifactRoute],
-    );
-
-/// Routing table, matches string paths to UI Screens, optionally parses params from the paths
+AppRoute get _collectionRoute =>
+    AppRoute('collection', (s) => CollectionScreen(fromId: s.uri.queryParameters['id'] ?? ''),
+        routes: [_artifactRoute]);
 final appRouter = GoRouter(
-  redirect: _handleRedirect,
-  errorPageBuilder: (context, state) => MaterialPage(child: PageNotFound(state.uri.toString())),
-  routes: [
-    ShellRoute(
-        builder: (context, router, navigator) {
-          return WondersAppScaffold(child: navigator);
-        },
-        routes: [
-          AppRoute(ScreenPaths.splash, (_) => Container(color: $styles.colors.greyStrong)), // This will be hidden
-          AppRoute(ScreenPaths.intro, (_) => IntroScreen()),
-          AppRoute(ScreenPaths.home, (_) => HomeScreen(), routes: [
+    redirect: _handleRedirect,
+    errorPageBuilder: (context, state) => MaterialPage(child: PageNotFound(state.uri.toString())),
+    routes: [
+      ShellRoute(builder: (context, router, navigator) => WondersAppScaffold(child: navigator), routes: [
+        AppRoute(ScreenPaths.splash, (_) => Container(color: $styles.colors.greyStrong)), // This will be hidden
+        AppRoute(ScreenPaths.intro, (_) => IntroScreen()),
+        AppRoute(ScreenPaths.home, (_) => HomeScreen(), routes: [
+          _collectionRoute,
+          AppRoute('wonder/:detailsType', (s) {
+            int tab = int.tryParse(s.uri.queryParameters['t'] ?? '') ?? 0;
+            return WonderDetailsScreen(type: _parseWonderType(s.pathParameters['detailsType']), tabIndex: tab);
+          }, useFade: true, routes: [
             _collectionRoute,
+            _artifactRoute,
+            AppRoute('video/:videoId', (s) => FullscreenVideoViewer(id: s.pathParameters['videoId']!), useFade: true),
+            AppRoute('search/:searchType',
+                (s) => ArtifactSearchScreen(type: _parseWonderType(s.pathParameters['searchType'])),
+                routes: [_artifactRoute]),
             AppRoute(
-              'wonder/:detailsType',
-              (s) {
-                int tab = int.tryParse(s.uri.queryParameters['t'] ?? '') ?? 0;
-                return WonderDetailsScreen(
-                  type: _parseWonderType(s.pathParameters['detailsType']),
-                  tabIndex: tab,
-                );
-              },
-              useFade: true,
-              // Wonder sub-routes
-              routes: [
-                _collectionRoute,
-                _artifactRoute,
-                // Youtube Video
-                AppRoute('video/:videoId', (s) {
-                  return FullscreenVideoViewer(id: s.pathParameters['videoId']!);
-                }, useFade: true),
-
-                // Search
-                AppRoute(
-                  'search/:searchType',
-                  (s) {
-                    return ArtifactSearchScreen(type: _parseWonderType(s.pathParameters['searchType']));
-                  },
-                  routes: [
-                    _artifactRoute,
-                  ],
-                ),
-
-                // Maps
-                AppRoute(
-                    'maps/:mapsType',
-                    (s) => FullscreenMapsViewer(
-                          type: _parseWonderType(s.pathParameters['mapsType']),
-                        )),
-              ],
-            ),
-          ]),
-        ]),
-  ],
-);
+                'maps/:mapsType', (s) => FullscreenMapsViewer(type: _parseWonderType(s.pathParameters['mapsType'])))
+          ])
+        ])
+      ])
+    ]);
 
 class AppRoute extends GoRoute {
   AppRoute(String path, Widget Function(GoRouterState s) builder,

@@ -24,32 +24,13 @@ class _FullscreenVideoViewerState extends State<FullscreenVideoViewer> {
   void initState() {
     super.initState();
     appLogic.supportedOrientationsOverride = [Axis.horizontal, Axis.vertical];
-    RawKeyboard.instance.addListener(_handleKeyDown);
   }
 
   @override
   void dispose() {
     // when view closes, remove the override
     appLogic.supportedOrientationsOverride = null;
-    RawKeyboard.instance.removeListener(_handleKeyDown);
     super.dispose();
-  }
-
-  Future<void> _handleKeyDown(RawKeyEvent value) async {
-    if (value.repeat) return;
-    if (value is RawKeyDownEvent) {
-      final k = value.logicalKey;
-      if (k == LogicalKeyboardKey.enter || k == LogicalKeyboardKey.space) {
-        if (_enableVideo) {
-          final state = await _controller.playerState;
-          if (state == PlayerState.playing) {
-            _controller.pauseVideo();
-          } else {
-            _controller.playVideo();
-          }
-        }
-      }
-    }
   }
 
   @override

@@ -51,9 +51,6 @@ class AppLogic {
     // Wonders Data
     wondersLogic.init();
 
-    // Events
-    timelineLogic.init();
-
     // Collectibles
     collectiblesLogic.init();
     await collectiblesLogic.load();

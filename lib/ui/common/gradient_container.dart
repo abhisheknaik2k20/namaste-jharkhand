@@ -24,23 +24,19 @@ class GradientContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IgnorePointer(
-    child: Container(
-      width: width,
-      height: height,
-      alignment: alignment,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: begin ?? Alignment.centerLeft,
-          end: end ?? Alignment.centerRight,
-          colors: colors,
-          stops: stops,
-        ),
-        backgroundBlendMode: blendMode,
-        borderRadius: borderRadius,
-      ),
-      child: child,
-    ),
-  );
+      child: Container(
+          width: width,
+          height: height,
+          alignment: alignment,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: begin ?? Alignment.centerLeft,
+                  end: end ?? Alignment.centerRight,
+                  colors: colors,
+                  stops: stops),
+              backgroundBlendMode: blendMode,
+              borderRadius: borderRadius),
+          child: child));
 }
 
 class HzGradient extends GradientContainer {

@@ -1,7 +1,6 @@
 import 'package:home_widget/home_widget.dart';
 import 'package:namste_jharkhand/logic/common/platform_info.dart';
 
-/// Small facade for the HomeWidget package
 class NativeWidgetService {
   static const _iosAppGroupId = 'group.com.gskinner.flutter.wonders.widget';
   static const _iosAppName = 'WonderousWidget';

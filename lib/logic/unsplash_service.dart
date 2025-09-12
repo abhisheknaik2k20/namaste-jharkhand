@@ -8,10 +8,7 @@ String unsplashSecretKey = 'yTDPsxt6soBmcym7shd24t4vlYYDcOnzWyJ07O3UyEY';
 class UnsplashService {
   final client = UnsplashClient(
     settings: ClientSettings(
-      credentials: AppCredentials(
-        accessKey: unsplashAccessKey,
-        secretKey: unsplashSecretKey,
-      ),
+      credentials: AppCredentials(accessKey: unsplashAccessKey, secretKey: unsplashSecretKey),
     ),
   );
 

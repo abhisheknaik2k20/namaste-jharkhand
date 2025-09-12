@@ -5,14 +5,11 @@ class IgnorePointerKeepSemantics extends SingleChildRenderObjectWidget {
   const IgnorePointerKeepSemantics({super.key, super.child});
 
   @override
-  RenderIgnorePointerKeepSemantics createRenderObject(BuildContext context) {
-    return RenderIgnorePointerKeepSemantics();
-  }
+  RenderIgnorePointerKeepSemantics createRenderObject(BuildContext context) => RenderIgnorePointerKeepSemantics();
 }
 
 class RenderIgnorePointerKeepSemantics extends RenderProxyBox {
   RenderIgnorePointerKeepSemantics();
-
   @override
   bool hitTest(BoxHitTestResult result, {required Offset position}) => false;
 }
@@ -22,7 +19,5 @@ class IgnorePointerAndSemantics extends StatelessWidget {
   const IgnorePointerAndSemantics({super.key, required this.child});
 
   @override
-  Widget build(BuildContext context) {
-    return ExcludeSemantics(child: IgnorePointer(child: child));
-  }
+  Widget build(BuildContext context) => ExcludeSemantics(child: IgnorePointer(child: child));
 }

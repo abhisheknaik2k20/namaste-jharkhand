@@ -7,10 +7,8 @@ import 'package:namste_jharkhand/logic/artifact_api_service.dart';
 import 'package:namste_jharkhand/logic/collectibles_logic.dart';
 import 'package:namste_jharkhand/logic/locale_logic.dart';
 import 'package:namste_jharkhand/logic/native_widget_service.dart';
-import 'package:namste_jharkhand/logic/timeline_logic.dart';
 import 'package:namste_jharkhand/logic/unsplash_logic.dart';
 import 'package:namste_jharkhand/logic/wonders_logic.dart';
-import 'package:namste_jharkhand/ui/common/app_shortcuts.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +39,6 @@ class _WondersAppState extends State<WondersApp> with GetItStateMixin {
         locale: locale == null ? null : Locale(locale),
         debugShowCheckedModeBanner: false,
         routerDelegate: appRouter.routerDelegate,
-        shortcuts: AppShortcuts.defaults,
         theme: ThemeData(fontFamily: $styles.text.body.fontFamily, useMaterial3: true),
         color: $styles.colors.black,
         localizationsDelegates: const [
@@ -57,7 +54,6 @@ class _WondersAppState extends State<WondersApp> with GetItStateMixin {
 void registerSingletons() {
   GetIt.I.registerLazySingleton<AppLogic>(() => AppLogic());
   GetIt.I.registerLazySingleton<WondersLogic>(() => WondersLogic());
-  GetIt.I.registerLazySingleton<TimelineLogic>(() => TimelineLogic());
   GetIt.I.registerLazySingleton<ArtifactAPILogic>(() => ArtifactAPILogic());
   GetIt.I.registerLazySingleton<ArtifactAPIService>(() => ArtifactAPIService());
   GetIt.I.registerLazySingleton<SettingsLogic>(() => SettingsLogic());
@@ -69,7 +65,6 @@ void registerSingletons() {
 
 AppLogic get appLogic => GetIt.I.get<AppLogic>();
 WondersLogic get wondersLogic => GetIt.I.get<WondersLogic>();
-TimelineLogic get timelineLogic => GetIt.I.get<TimelineLogic>();
 SettingsLogic get settingsLogic => GetIt.I.get<SettingsLogic>();
 UnsplashLogic get unsplashLogic => GetIt.I.get<UnsplashLogic>();
 ArtifactAPILogic get artifactLogic => GetIt.I.get<ArtifactAPILogic>();

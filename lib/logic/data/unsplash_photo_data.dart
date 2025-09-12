@@ -3,15 +3,10 @@ import 'package:namste_jharkhand/logic/common/platform_info.dart';
 enum UnsplashPhotoSize { med, large, xl }
 
 class UnsplashPhotoData {
-  UnsplashPhotoData({
-    required this.id,
-    required this.url,
-  });
+  UnsplashPhotoData({required this.id, required this.url});
   final String id;
   final String url;
-
   String getUnsplashUrl(int size) => '$url?q=90&fm=jpg&w=$size&fit=max';
-
   static String getSelfHostedUrl(String id, UnsplashPhotoSize targetSize) {
     int size = switch (targetSize) {
       UnsplashPhotoSize.med => 400,

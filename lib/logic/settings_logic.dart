@@ -18,7 +18,6 @@ class SettingsLogic with ThrottledSaveLoadMixin {
     currentLocale.value = value.languageCode;
     await localeLogic.loadIfChanged(value);
     wondersLogic.init();
-    timelineLogic.init();
   }
 
   @override

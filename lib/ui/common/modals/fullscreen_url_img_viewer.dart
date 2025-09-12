@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:namste_jharkhand/common_libs.dart';
 import 'package:namste_jharkhand/ui/common/app_icons.dart';
 import 'package:namste_jharkhand/ui/common/controls/app_header.dart';
-import 'package:namste_jharkhand/ui/common/fullscreen_keyboard_listener.dart';
 import 'package:namste_jharkhand/ui/common/utils/app_haptics.dart';
 
 class FullscreenUrlImgViewer extends StatefulWidget {
@@ -28,25 +25,6 @@ class _FullscreenUrlImgViewerState extends State<FullscreenUrlImgViewer> {
     super.dispose();
   }
 
-  bool _handleKeyDown(KeyDownEvent event) {
-    int dir = 0;
-    if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
-      dir = -1;
-    }
-    if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-      dir = 1;
-    }
-    if (dir != 0) {
-      final focus = FocusManager.instance.primaryFocus;
-      _animateToPage(_currentPage.value + dir);
-      scheduleMicrotask(() {
-        focus?.requestFocus();
-      });
-      return true;
-    }
-    return false;
-  }
-
   void _handlePageChanged() => _currentPage.value = _controller.page!.round();
 
   void _handleBackPressed() => Navigator.pop(context, _controller.page!.round());
@@ -64,62 +42,57 @@ class _FullscreenUrlImgViewerState extends State<FullscreenUrlImgViewer> {
       builder: (_, __) {
         final bool enableSwipe = !_isZoomed.value && widget.urls.length > 1;
         return PageView.builder(
-          physics: enableSwipe ? PageScrollPhysics() : NeverScrollableScrollPhysics(),
-          controller: _controller,
-          itemCount: widget.urls.length,
-          itemBuilder: (_, index) => _Viewer(widget.urls[index], _isZoomed),
-          onPageChanged: (_) => AppHaptics.lightImpact(),
-        );
+            physics: enableSwipe ? PageScrollPhysics() : NeverScrollableScrollPhysics(),
+            controller: _controller,
+            itemCount: widget.urls.length,
+            itemBuilder: (_, index) => _Viewer(widget.urls[index], _isZoomed),
+            onPageChanged: (_) => AppHaptics.lightImpact());
       },
     );
 
     content = Semantics(
-      label: $strings.fullscreenImageViewerSemanticFull,
-      container: true,
-      image: true,
-      child: ExcludeSemantics(child: content),
-    );
+        label: $strings.fullscreenImageViewerSemanticFull,
+        container: true,
+        image: true,
+        child: ExcludeSemantics(child: content));
 
-    return FullscreenKeyboardListener(
-      onKeyDown: _handleKeyDown,
-      child: Container(
-        color: $styles.colors.black,
-        child: Stack(
-          children: [
-            Positioned.fill(child: content),
-            AppHeader(onBack: _handleBackPressed, isTransparent: true),
-            // Show next/previous btns if there are more than one image
-            if (widget.urls.length > 1) ...{
-              BottomCenter(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: $styles.insets.md),
-                  child: ValueListenableBuilder(
-                    valueListenable: _currentPage,
-                    builder: (_, int page, __) {
-                      return Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CircleIconBtn(
-                            icon: AppIcons.prev,
-                            onPressed: page == 0 ? null : () => _animateToPage(page - 1),
-                            semanticLabel: $strings.semanticsPrevious(''),
-                          ),
-                          Gap($styles.insets.xs),
-                          CircleIconBtn(
-                            icon: AppIcons.prev,
-                            flipIcon: true,
-                            onPressed: page == widget.urls.length - 1 ? null : () => _animateToPage(page + 1),
-                            semanticLabel: $strings.semanticsNext(''),
-                          )
-                        ],
-                      );
-                    },
-                  ),
+    return Container(
+      color: $styles.colors.black,
+      child: Stack(
+        children: [
+          Positioned.fill(child: content),
+          AppHeader(onBack: _handleBackPressed, isTransparent: true),
+          // Show next/previous btns if there are more than one image
+          if (widget.urls.length > 1) ...{
+            BottomCenter(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: $styles.insets.md),
+                child: ValueListenableBuilder(
+                  valueListenable: _currentPage,
+                  builder: (_, int page, __) {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircleIconBtn(
+                          icon: AppIcons.prev,
+                          onPressed: page == 0 ? null : () => _animateToPage(page - 1),
+                          semanticLabel: $strings.semanticsPrevious(''),
+                        ),
+                        Gap($styles.insets.xs),
+                        CircleIconBtn(
+                          icon: AppIcons.prev,
+                          flipIcon: true,
+                          onPressed: page == widget.urls.length - 1 ? null : () => _animateToPage(page + 1),
+                          semanticLabel: $strings.semanticsNext(''),
+                        )
+                      ],
+                    );
+                  },
                 ),
-              )
-            }
-          ],
-        ),
+              ),
+            )
+          }
+        ],
       ),
     );
   }

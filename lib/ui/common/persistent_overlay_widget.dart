@@ -24,7 +24,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   final _textController = TextEditingController();
   final _messages = <ChatMessage>[];
   late final _tapController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
-  late final _longPressController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
+  late final _longPressController = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
   late final GenerativeModel _model;
   late AnimationController _dotAnimationController;
   late List<Animation<double>> _dotAnimations;
@@ -487,7 +487,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     if (mounted) setState(() => _isLongPressing = false);
     _longPressController.reverse();
     _stopListening();
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 100));
     if (_finalRecognizedText.isNotEmpty && _listeningState == ListeningState.idle) await _sendSpeechMessage();
   }
 

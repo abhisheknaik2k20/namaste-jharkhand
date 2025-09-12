@@ -31,40 +31,31 @@ class _WonderEventsState extends State<WonderEvents> {
 
   @override
   Widget build(BuildContext context) {
-    void handleTimelineBtnPressed() => context.go(ScreenPaths.timeline(widget.type));
     final twoColumnAspect = PlatformInfo.isMobile ? .85 : 1;
     bool useTwoColumnLayout = context.mq.size.aspectRatio > twoColumnAspect;
 
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
-        color: $styles.colors.black,
-        child: SafeArea(
-          bottom: false,
-          child: Stack(
-            children: [
-              /// Main view
-              Positioned.fill(
-                top: $styles.insets.sm,
-                child: Padding(
-                  padding: widget.contentPadding,
-                  child: useTwoColumnLayout ? _buildTwoColumn(context) : _buildSingleColumn(),
-                ),
-              ),
+          color: $styles.colors.black,
+          child: SafeArea(
+              bottom: false,
+              child: Stack(children: [
+                /// Main view
+                Positioned.fill(
+                    top: $styles.insets.sm,
+                    child: Padding(
+                        padding: widget.contentPadding,
+                        child: useTwoColumnLayout ? _buildTwoColumn(context) : _buildSingleColumn())),
 
-              TopCenter(
-                child: AppHeader(
-                  showBackBtn: false,
-                  isTransparent: true,
-                  trailing: (_) => CircleIconBtn(
-                      icon: AppIcons.timeline,
-                      onPressed: handleTimelineBtnPressed,
-                      semanticLabel: $strings.eventsListButtonOpenGlobal),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+                TopCenter(
+                    child: AppHeader(
+                        showBackBtn: false,
+                        isTransparent: true,
+                        trailing: (_) => CircleIconBtn(
+                            icon: AppIcons.timeline,
+                            onPressed: () {},
+                            semanticLabel: $strings.eventsListButtonOpenGlobal)))
+              ])));
     });
   }
 
@@ -75,7 +66,6 @@ class _WonderEventsState extends State<WonderEvents> {
       padding: EdgeInsets.symmetric(vertical: $styles.insets.lg, horizontal: $styles.insets.sm),
       child: Row(
         children: [
-          /// WonderImage w/ Timeline btn
           Expanded(
             child: CenteredBox(
               width: $styles.sizes.maxContentWidth3,

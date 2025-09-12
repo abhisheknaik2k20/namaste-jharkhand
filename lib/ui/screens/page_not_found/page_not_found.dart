@@ -1,7 +1,7 @@
 import 'package:namste_jharkhand/common_libs.dart';
 import 'package:namste_jharkhand/logic/common/platform_info.dart';
 import 'package:namste_jharkhand/ui/common/themed_text.dart';
-import 'package:namste_jharkhand/ui/common/wonderous_logo.dart';
+import 'package:namste_jharkhand/ui/common/namaste_jharkhand_logo.dart';
 
 class PageNotFound extends StatelessWidget {
   const PageNotFound(this.url, {super.key});
@@ -18,7 +18,7 @@ class PageNotFound extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            WonderousLogo(),
+            APPLOGO(),
             Gap(10),
             Text(
               'Wonderous',

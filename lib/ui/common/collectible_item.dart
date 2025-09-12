@@ -9,7 +9,6 @@ import 'package:namste_jharkhand/ui/screens/collectible_found/collectible_found_
 
 class CollectibleItem extends StatelessWidget with GetItMixin {
   CollectibleItem(this.collectible, {this.size = 64.0, super.key, this.focus}) {
-    // pre-fetch the image, so it's ready if we show the collectible found screen.
     _imageProvider = NetworkImage(collectible.imageUrl);
     _imageProvider.resolve(ImageConfiguration()).addListener(ImageStreamListener((_, __) {}));
   }
@@ -23,8 +22,6 @@ class CollectibleItem extends StatelessWidget with GetItMixin {
     final screen = CollectibleFoundScreen(collectible: collectible, imageProvider: _imageProvider);
     appLogic.showFullscreenDialogRoute(context, screen, transparent: true);
     AppHaptics.mediumImpact();
-
-    // wait to update the state, to ensure the hero works properly:
     await Future.delayed($styles.times.pageTransition);
     collectiblesLogic.setState(collectible.id, CollectibleState.discovered);
   }
@@ -33,13 +30,11 @@ class CollectibleItem extends StatelessWidget with GetItMixin {
   Widget build(BuildContext context) {
     final states = watchX((CollectiblesLogic c) => c.statesById);
     bool isLost = states[collectible.id] == CollectibleState.lost;
-    // Use an OpeningCard to let the collectible smoothly collapse its size once it has been found
     return SizedBox(
       height: isLost ? size : null,
       child: RepaintBoundary(
         child: OpeningCard(
           isOpen: isLost,
-          // Note: In order for the collapse animation to run properly, we must return a non-zero height or width.
           closedBuilder: (_) => SizedBox(width: 1, height: 0),
           openBuilder: (_) => AppBtn.basic(
             focusNode: focus,

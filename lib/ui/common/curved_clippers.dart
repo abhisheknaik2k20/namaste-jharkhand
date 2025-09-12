@@ -9,7 +9,6 @@ class ArchClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final pts = _getArchPts(size, type);
-    // Points start at bottom left corner, and go clock-wise
     var clip = Path()..moveTo(pts[0].pos.dx, pts[0].pos.dy);
     for (var i = 1; i < pts.length; i++) {
       final p = pts[i];
@@ -29,13 +28,8 @@ class ArchPoint {
   }
   final Offset pos;
   late final Offset control;
-
-  static ArchPoint lerp(ArchPoint ptA, ArchPoint ptB, double t) {
-    return ArchPoint(
-      Offset.lerp(ptA.pos, ptB.pos, t) ?? Offset.zero,
-      Offset.lerp(ptA.control, ptB.control, t) ?? Offset.zero,
-    );
-  }
+  static ArchPoint lerp(ArchPoint ptA, ArchPoint ptB, double t) => ArchPoint(
+      Offset.lerp(ptA.pos, ptB.pos, t) ?? Offset.zero, Offset.lerp(ptA.control, ptB.control, t) ?? Offset.zero);
 }
 
 List<ArchPoint> _getArchPts(Size size, ArchType type) {
@@ -46,21 +40,21 @@ List<ArchPoint> _getArchPts(Size size, ArchType type) {
         ArchPoint(Offset(0, distanceFromTop)),
         ArchPoint(Offset(size.width / 2, 0)),
         ArchPoint(Offset(size.width, distanceFromTop)),
-        ArchPoint(Offset(size.width, size.height)),
+        ArchPoint(Offset(size.width, size.height))
       ],
     ArchType.spade => [
         ArchPoint(Offset(0, size.height)),
         ArchPoint(Offset(0, distanceFromTop)),
         ArchPoint(Offset(size.width / 2, 0), Offset(0, distanceFromTop * .66)),
         ArchPoint(Offset(size.width, distanceFromTop), Offset(size.width, distanceFromTop * .66)),
-        ArchPoint(Offset(size.width, size.height)),
+        ArchPoint(Offset(size.width, size.height))
       ],
     ArchType.arch => [
         ArchPoint(Offset(0, size.height)),
         ArchPoint(Offset(0, size.width / 2)),
         ArchPoint(Offset(size.width / 2, 0), Offset(0, 0)),
         ArchPoint(Offset(size.width, size.width / 2), Offset(size.width, 0)),
-        ArchPoint(Offset(size.width, size.height)),
+        ArchPoint(Offset(size.width, size.height))
       ],
     ArchType.wideArch => [
         ArchPoint(Offset(0, size.height)),
@@ -69,7 +63,7 @@ List<ArchPoint> _getArchPts(Size size, ArchType type) {
         ArchPoint(Offset(size.width / 2, 0), Offset(0, 0)),
         ArchPoint(Offset(size.width, distanceFromTop), Offset(size.width, 0)),
         ArchPoint(Offset(size.width, size.width / 2)),
-        ArchPoint(Offset(size.width, size.height)),
+        ArchPoint(Offset(size.width, size.height))
       ],
     ArchType.flatPyramid => [
         ArchPoint(Offset(0, size.height)),
@@ -77,7 +71,7 @@ List<ArchPoint> _getArchPts(Size size, ArchType type) {
         ArchPoint(Offset(size.width * 0.8 / 2, 0)),
         ArchPoint(Offset(size.width * 1.2 / 2, 0)),
         ArchPoint(Offset(size.width, distanceFromTop)),
-        ArchPoint(Offset(size.width, size.height)),
+        ArchPoint(Offset(size.width, size.height))
       ]
   };
 }
@@ -91,22 +85,15 @@ class CurvedTopClipper extends CustomClipper<Path> {
     double radius = size.width / 2;
     var path = Path();
     if (flip) {
-      // path.addOval(Rect.fromCircle(center: Offset.zero, radius: 40));
       path.lineTo(0, size.height - radius);
-      path.arcToPoint(
-        Offset(size.width, size.height - radius),
-        radius: Radius.circular(size.width / 2),
-        clockwise: false,
-      );
+      path.arcToPoint(Offset(size.width, size.height - radius),
+          radius: Radius.circular(size.width / 2), clockwise: false);
       path.lineTo(size.width, 0);
       path.lineTo(0, 0);
     } else {
       path.lineTo(0, 0);
       path.lineTo(0, radius);
-      path.arcToPoint(
-        Offset(size.width, radius),
-        radius: Radius.circular(radius / 2),
-      );
+      path.arcToPoint(Offset(size.width, radius), radius: Radius.circular(radius / 2));
       path.lineTo(size.width, size.height);
       path.lineTo(0, size.height);
     }

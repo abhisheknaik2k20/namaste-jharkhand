@@ -1,6 +1,5 @@
 import 'package:namste_jharkhand/common_libs.dart';
 import 'package:namste_jharkhand/ui/common/app_icons.dart';
-import 'package:namste_jharkhand/ui/common/fullscreen_keyboard_listener.dart';
 
 class CircleBtn extends StatelessWidget {
   const CircleBtn({
@@ -39,20 +38,17 @@ class CircleBtn extends StatelessWidget {
 }
 
 class CircleIconBtn extends StatelessWidget {
-  const CircleIconBtn({
-    super.key,
-    required this.icon,
-    required this.onPressed,
-    this.border,
-    this.bgColor,
-    this.color,
-    this.size,
-    this.iconSize,
-    this.flipIcon = false,
-    required this.semanticLabel,
-  });
-
-  //TODO: Reduce size if design re-exports icon-images without padding
+  const CircleIconBtn(
+      {super.key,
+      required this.icon,
+      required this.onPressed,
+      this.border,
+      this.bgColor,
+      this.color,
+      this.size,
+      this.iconSize,
+      this.flipIcon = false,
+      required this.semanticLabel});
   static double defaultSize = 28;
 
   final AppIcons icon;
@@ -70,30 +66,21 @@ class CircleIconBtn extends StatelessWidget {
     Color defaultColor = $styles.colors.greyStrong;
     Color iconColor = color ?? $styles.colors.offWhite;
     return CircleBtn(
-      onPressed: onPressed,
-      border: border,
-      size: size,
-      bgColor: bgColor ?? defaultColor,
-      semanticLabel: semanticLabel,
-      child: Transform.scale(
-        scaleX: flipIcon ? -1 : 1,
-        child: AppIcon(icon, size: iconSize ?? defaultSize, color: iconColor),
-      ),
-    );
+        onPressed: onPressed,
+        border: border,
+        size: size,
+        bgColor: bgColor ?? defaultColor,
+        semanticLabel: semanticLabel,
+        child: Transform.scale(
+            scaleX: flipIcon ? -1 : 1, child: AppIcon(icon, size: iconSize ?? defaultSize, color: iconColor)));
   }
 
   Widget safe() => _SafeAreaWithPadding(child: this);
 }
 
 class BackBtn extends StatelessWidget {
-  const BackBtn({
-    super.key,
-    this.icon = AppIcons.prev,
-    this.onPressed,
-    this.semanticLabel,
-    this.bgColor,
-    this.iconColor,
-  });
+  const BackBtn(
+      {super.key, this.icon = AppIcons.prev, this.onPressed, this.semanticLabel, this.bgColor, this.iconColor});
 
   final Color? bgColor;
   final Color? iconColor;
@@ -110,35 +97,21 @@ class BackBtn extends StatelessWidget {
             bgColor: bgColor,
             iconColor: iconColor);
 
-  bool _handleKeyDown(BuildContext context, KeyDownEvent event) {
-    if (event.logicalKey == LogicalKeyboardKey.escape) {
-      _handleOnPressed(context);
-      return true;
-    }
-    return false;
-  }
-
   @override
-  Widget build(BuildContext context) {
-    return FullscreenKeyboardListener(
-      onKeyDown: (event) => _handleKeyDown(context, event),
-      child: CircleIconBtn(
-        icon: icon,
-        bgColor: bgColor,
-        color: iconColor,
-        onPressed: onPressed ??
-            () {
-              final nav = Navigator.of(context);
-              if (nav.canPop()) {
-                Navigator.pop(context);
-              } else {
-                context.go(ScreenPaths.home);
-              }
-            },
-        semanticLabel: semanticLabel ?? $strings.circleButtonsSemanticBack,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => CircleIconBtn(
+      icon: icon,
+      bgColor: bgColor,
+      color: iconColor,
+      onPressed: onPressed ??
+          () {
+            final nav = Navigator.of(context);
+            if (nav.canPop()) {
+              Navigator.pop(context);
+            } else {
+              context.go(ScreenPaths.home);
+            }
+          },
+      semanticLabel: semanticLabel ?? $strings.circleButtonsSemanticBack);
 
   Widget safe() => _SafeAreaWithPadding(child: this);
 
@@ -157,17 +130,8 @@ class BackBtn extends StatelessWidget {
 
 class _SafeAreaWithPadding extends StatelessWidget {
   const _SafeAreaWithPadding({required this.child});
-
   final Widget child;
-
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: Padding(
-        padding: EdgeInsets.all($styles.insets.sm),
-        child: child,
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      SafeArea(bottom: false, child: Padding(padding: EdgeInsets.all($styles.insets.sm), child: child));
 }

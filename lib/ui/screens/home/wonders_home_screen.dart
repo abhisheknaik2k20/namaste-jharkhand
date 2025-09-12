@@ -4,7 +4,6 @@ import 'package:namste_jharkhand/logic/data/wonder_data.dart';
 import 'package:namste_jharkhand/ui/common/app_icons.dart';
 import 'package:namste_jharkhand/ui/common/controls/app_header.dart';
 import 'package:namste_jharkhand/ui/common/controls/app_page_indicator.dart';
-import 'package:namste_jharkhand/ui/common/controls/trackpad_listener.dart';
 import 'package:namste_jharkhand/ui/common/gradient_container.dart';
 import 'package:namste_jharkhand/ui/common/ignore_pointer.dart';
 import 'package:namste_jharkhand/ui/common/previous_next_navigation.dart';
@@ -97,12 +96,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   void _handlePageIndicatorDotPressed(int index) => _setPageIndex(index);
-
   void _handlePrevNext(int i) => _setPageIndex(_wonderIndex + i, animate: true);
-
   void _setPageIndex(int index, {bool animate = false}) {
     if (index == _wonderIndex) return;
-    // To support infinite scrolling, we can't jump directly to the pressed index. Instead, make it relative to our current position.
     final pos = ((_pageController.page ?? 0) / _numWonders).floor() * _numWonders;
     final newIndex = pos + index;
     if (animate == true) {
@@ -134,46 +130,21 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     }
   }
 
-  void _handleTrackpadScroll(Offset direction) {
-    if (direction.dy < 0) {
-      _showDetailsPage();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     if (_fadeInOnNextBuild == true) {
       _startDelayedFgFade();
       _fadeInOnNextBuild = false;
     }
-
     return _swipeController.wrapGestureDetector(Container(
-      color: $styles.colors.black,
-      child: TrackpadListener(
-        scrollSensitivity: 60,
-        onScroll: _handleTrackpadScroll,
+        color: $styles.colors.black,
         child: PreviousNextNavigation(
-          listenToMouseWheel: false,
-          onPreviousPressed: () => _handlePrevNext(-1),
-          onNextPressed: () => _handlePrevNext(1),
-          child: Stack(
-            children: [
-              /// Background
-              ..._buildBgAndClouds(),
-
-              /// Wonders Illustrations (main content)
-              _buildMgPageView(),
-
-              /// Foreground illustrations and gradients
-              _buildFgAndGradients(),
-
-              /// Controls that float on top of the various illustrations
-              _buildFloatingUi(),
-            ],
-          ).maybeAnimate().fadeIn(),
-        ),
-      ),
-    ));
+            listenToMouseWheel: false,
+            onPreviousPressed: () => _handlePrevNext(-1),
+            onNextPressed: () => _handlePrevNext(1),
+            child: Stack(
+              children: [..._buildBgAndClouds(), _buildMgPageView(), _buildFgAndGradients(), _buildFloatingUi()],
+            ).maybeAnimate().fadeIn())));
   }
 
   @override
@@ -182,94 +153,60 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  Widget _buildMgPageView() {
-    return ExcludeSemantics(
+  Widget _buildMgPageView() => ExcludeSemantics(
       child: PageView.builder(
-        controller: _pageController,
-        onPageChanged: _handlePageChanged,
-        itemBuilder: (_, index) {
-          final wonder = _wonders[index % _wonders.length];
-          final wonderType = wonder.type;
-          bool isShowing = _isSelected(wonderType);
-          return _swipeController.buildListener(
-            builder: (swipeAmt, _, child) {
-              final config = WonderIllustrationConfig.mg(
-                isShowing: isShowing,
-                zoom: .05 * swipeAmt,
-              );
+          controller: _pageController,
+          onPageChanged: _handlePageChanged,
+          itemBuilder: (_, index) {
+            final wonder = _wonders[index % _wonders.length];
+            final wonderType = wonder.type;
+            bool isShowing = _isSelected(wonderType);
+            return _swipeController.buildListener(builder: (swipeAmt, _, child) {
+              final config = WonderIllustrationConfig.mg(isShowing: isShowing, zoom: .05 * swipeAmt);
               return WonderIllustration(wonderType, config: config);
-            },
-          );
-        },
-      ),
-    );
-  }
+            });
+          }));
 
   List<Widget> _buildBgAndClouds() {
     return [
-      // Background
       ..._wonders.map((e) {
         final config = WonderIllustrationConfig.bg(isShowing: _isSelected(e.type));
         return WonderIllustration(e.type, config: config);
       }),
-      // Clouds
       FractionallySizedBox(
-        widthFactor: 1,
-        heightFactor: .5,
-        child: AnimatedClouds(wonderType: currentWonder.type, opacity: 1),
-      )
+          widthFactor: 1, heightFactor: .5, child: AnimatedClouds(wonderType: currentWonder.type, opacity: 1))
     ];
   }
 
   Widget _buildFgAndGradients() {
-    Widget buildSwipeableBgGradient(Color fgColor) {
-      return _swipeController.buildListener(builder: (swipeAmt, isPointerDown, _) {
-        return IgnorePointerAndSemantics(
-          child: FractionallySizedBox(
-            heightFactor: .6,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    fgColor.withOpacity(0),
-                    fgColor.withOpacity(.5 + fgColor.opacity * .25 + (isPointerDown ? .05 : 0) + swipeAmt * .20),
-                  ],
-                  stops: const [0, 1],
-                ),
-              ),
-            ),
-          ),
-        );
-      });
-    }
+    Widget buildSwipeableBgGradient(Color fgColor) => _swipeController.buildListener(
+        builder: (swipeAmt, isPointerDown, _) => IgnorePointerAndSemantics(
+            child: FractionallySizedBox(
+                heightFactor: .6,
+                child: Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                  fgColor.withOpacity(0),
+                  fgColor.withOpacity(.5 + fgColor.opacity * .25 + (isPointerDown ? .05 : 0) + swipeAmt * .20)
+                ], stops: const [
+                  0,
+                  1
+                ]))))));
 
     final gradientColor = currentWonder.type.bgColor;
     return Stack(children: [
-      /// Foreground gradient-1, gets darker when swiping up
-      BottomCenter(
-        child: buildSwipeableBgGradient(gradientColor.withOpacity(.65)),
-      ),
-
-      /// Foreground decorators
+      BottomCenter(child: buildSwipeableBgGradient(gradientColor.withOpacity(.65))),
       ..._wonders.map((e) {
         return _swipeController.buildListener(builder: (swipeAmt, _, child) {
-          final config = WonderIllustrationConfig.fg(
-            isShowing: _isSelected(e.type),
-            zoom: .4 * (_swipeOverride ?? swipeAmt),
-          );
+          final config =
+              WonderIllustrationConfig.fg(isShowing: _isSelected(e.type), zoom: .4 * (_swipeOverride ?? swipeAmt));
           return Animate(
               effects: const [FadeEffect()],
               onPlay: _handleFadeAnimInit,
               child: IgnorePointerAndSemantics(child: WonderIllustration(e.type, config: config)));
         });
       }),
-
-      /// Foreground gradient-2, gets darker when swiping up
-      BottomCenter(
-        child: buildSwipeableBgGradient(gradientColor),
-      ),
+      BottomCenter(child: buildSwipeableBgGradient(gradientColor))
     ]);
   }
 

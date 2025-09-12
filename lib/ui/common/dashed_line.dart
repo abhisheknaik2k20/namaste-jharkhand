@@ -5,19 +5,15 @@ class DashedLine extends StatelessWidget {
   final bool vertical;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
+  Widget build(BuildContext context) => SizedBox(
       width: vertical ? 2 : double.infinity,
       height: vertical ? double.infinity : 2,
-      child: CustomPaint(painter: _DashedLinePainter(vertical)),
-    );
-  }
+      child: CustomPaint(painter: _DashedLinePainter(vertical)));
 }
 
 class _DashedLinePainter extends CustomPainter {
   _DashedLinePainter(this.vertical);
   final bool vertical;
-
   @override
   void paint(Canvas canvas, Size size) {
     double dashPx = 3, gapPx = 3, pos = 0;
