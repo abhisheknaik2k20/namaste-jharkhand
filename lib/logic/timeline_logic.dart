@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/timeline_data.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/logic/data/timeline_data.dart';
 
 class TimelineLogic {
   List<TimelineEvent> events = [];

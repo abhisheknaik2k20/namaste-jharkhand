@@ -1,15 +1,15 @@
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/platform_info.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/controls/app_page_indicator.dart';
-import 'package:wonders/ui/common/gradient_container.dart';
-import 'package:wonders/ui/common/ignore_pointer.dart';
-import 'package:wonders/ui/common/previous_next_navigation.dart';
-import 'package:wonders/ui/common/static_text_scale.dart';
-import 'package:wonders/ui/common/themed_text.dart';
-import 'package:wonders/ui/common/utils/app_haptics.dart';
-import 'package:wonders/ui/common/utils/duration_utils.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/logic/common/platform_info.dart';
+import 'package:namste_jharkhand/ui/common/app_icons.dart';
+import 'package:namste_jharkhand/ui/common/controls/app_page_indicator.dart';
+import 'package:namste_jharkhand/ui/common/gradient_container.dart';
+import 'package:namste_jharkhand/ui/common/ignore_pointer.dart';
+import 'package:namste_jharkhand/ui/common/previous_next_navigation.dart';
+import 'package:namste_jharkhand/ui/common/static_text_scale.dart';
+import 'package:namste_jharkhand/ui/common/themed_text.dart';
+import 'package:namste_jharkhand/ui/common/utils/app_haptics.dart';
+import 'package:namste_jharkhand/ui/common/utils/duration_utils.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});

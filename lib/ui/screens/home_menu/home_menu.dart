@@ -1,16 +1,16 @@
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/animate_utils.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/ui/common/app_backdrop.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/controls/locale_switcher.dart';
-import 'package:wonders/ui/common/pop_navigator_underlay.dart';
-import 'package:wonders/ui/common/utils/duration_utils.dart';
-import 'package:wonders/ui/common/wonderous_logo.dart';
-import 'package:wonders/ui/screens/home_menu/about_dialog_content.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/logic/common/animate_utils.dart';
+import 'package:namste_jharkhand/logic/data/wonder_data.dart';
+import 'package:namste_jharkhand/ui/common/app_backdrop.dart';
+import 'package:namste_jharkhand/ui/common/app_icons.dart';
+import 'package:namste_jharkhand/ui/common/controls/app_header.dart';
+import 'package:namste_jharkhand/ui/common/controls/locale_switcher.dart';
+import 'package:namste_jharkhand/ui/common/pop_navigator_underlay.dart';
+import 'package:namste_jharkhand/ui/common/utils/duration_utils.dart';
+import 'package:namste_jharkhand/ui/common/wonderous_logo.dart';
+import 'package:namste_jharkhand/ui/screens/home_menu/about_dialog_content.dart';
 
 class HomeMenu extends StatefulWidget {
   const HomeMenu({super.key, required this.data});

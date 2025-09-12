@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/utils/context_utils.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/ui/common/utils/context_utils.dart';
 
 class AnimatedListItem extends StatelessWidget {
   const AnimatedListItem({super.key, required this.scrollPos, required this.builder});

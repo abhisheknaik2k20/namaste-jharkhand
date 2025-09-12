@@ -1,14 +1,12 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/app_scroll_behavior.dart';
-import 'package:wonders/ui/common/persistent_overlay_widget.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/ui/common/app_scroll_behavior.dart';
+import 'package:namste_jharkhand/ui/common/persistent_overlay_widget.dart';
 
 class WondersAppScaffold extends StatefulWidget {
   const WondersAppScaffold({super.key, required this.child});
   final Widget child;
-
   static AppStyle get style => _style;
   static AppStyle _style = AppStyle();
-
   @override
   State<WondersAppScaffold> createState() => _WondersAppScaffoldState();
 }
@@ -78,7 +76,6 @@ class _WondersAppScaffoldState extends State<WondersAppScaffold> with TickerProv
   void _handlePanEnd(Size screenSize) {
     final velocity = _lastPanVelocity;
     final magnitude = velocity.distance;
-
     if (magnitude > 2.0) {
       final inertiaDistance = magnitude * 20;
       final normalizedVelocity = velocity / magnitude;

@@ -1,13 +1,13 @@
 import 'dart:ui';
 
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/animate_utils.dart';
-import 'package:wonders/logic/data/highlight_data.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/controls/app_page_indicator.dart';
-import 'package:wonders/ui/common/ignore_pointer.dart';
-import 'package:wonders/ui/common/static_text_scale.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/logic/common/animate_utils.dart';
+import 'package:namste_jharkhand/logic/data/highlight_data.dart';
+import 'package:namste_jharkhand/ui/common/app_icons.dart';
+import 'package:namste_jharkhand/ui/common/controls/app_header.dart';
+import 'package:namste_jharkhand/ui/common/controls/app_page_indicator.dart';
+import 'package:namste_jharkhand/ui/common/ignore_pointer.dart';
+import 'package:namste_jharkhand/ui/common/static_text_scale.dart';
 
 part 'widgets/_blurred_image_bg.dart';
 part 'widgets/_bottom_text_content.dart';

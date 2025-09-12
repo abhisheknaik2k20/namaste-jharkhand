@@ -6,7 +6,7 @@ import 'package:markdown_widget/widget/blocks/leaf/link.dart';
 import 'package:markdown_widget/widget/blocks/leaf/paragraph.dart';
 import 'package:markdown_widget/widget/inlines/code.dart';
 import 'package:markdown_widget/widget/markdown.dart';
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 
 class ChatMessage {
   final String text;

@@ -1,4 +1,4 @@
-import 'package:wonders/logic/data/artifact_data.dart';
+import 'package:namste_jharkhand/logic/data/artifact_data.dart';
 
 class SearchData {
   const SearchData(this.year, this.id, this.title, this.keywords, [this.aspectRatio = 0]);

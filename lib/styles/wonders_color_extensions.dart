@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 
 extension WonderColorExtensions on WonderType {
   Color get bgColor {

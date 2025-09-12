@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/app_icons.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/ui/common/app_icons.dart';
 
 class AppHeader extends StatelessWidget {
   const AppHeader(

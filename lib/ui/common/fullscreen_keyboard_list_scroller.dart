@@ -1,6 +1,6 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/throttler.dart';
-import 'package:wonders/ui/common/fullscreen_keyboard_listener.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/logic/common/throttler.dart';
+import 'package:namste_jharkhand/ui/common/fullscreen_keyboard_listener.dart';
 
 class FullscreenKeyboardListScroller extends StatelessWidget {
   FullscreenKeyboardListScroller({super.key, required this.child, required this.scrollController});

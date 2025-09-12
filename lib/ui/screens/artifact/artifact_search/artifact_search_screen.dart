@@ -1,11 +1,11 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/logic/data/wonders_data/search/search_data.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/static_text_scale.dart';
-import 'package:wonders/ui/common/utils/app_haptics.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/logic/data/wonder_data.dart';
+import 'package:namste_jharkhand/logic/data/wonders_data/search/search_data.dart';
+import 'package:namste_jharkhand/ui/common/app_icons.dart';
+import 'package:namste_jharkhand/ui/common/controls/app_header.dart';
+import 'package:namste_jharkhand/ui/common/static_text_scale.dart';
+import 'package:namste_jharkhand/ui/common/utils/app_haptics.dart';
 
 part 'widgets/_result_tile.dart';
 part 'widgets/_results_grid.dart';

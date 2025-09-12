@@ -1,16 +1,16 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/l10n/app_localizations.dart';
-import 'package:wonders/logic/artifact_api_logic.dart';
-import 'package:wonders/logic/artifact_api_service.dart';
-import 'package:wonders/logic/collectibles_logic.dart';
-import 'package:wonders/logic/locale_logic.dart';
-import 'package:wonders/logic/native_widget_service.dart';
-import 'package:wonders/logic/timeline_logic.dart';
-import 'package:wonders/logic/unsplash_logic.dart';
-import 'package:wonders/logic/wonders_logic.dart';
-import 'package:wonders/ui/common/app_shortcuts.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/l10n/app_localizations.dart';
+import 'package:namste_jharkhand/logic/artifact_api_logic.dart';
+import 'package:namste_jharkhand/logic/artifact_api_service.dart';
+import 'package:namste_jharkhand/logic/collectibles_logic.dart';
+import 'package:namste_jharkhand/logic/locale_logic.dart';
+import 'package:namste_jharkhand/logic/native_widget_service.dart';
+import 'package:namste_jharkhand/logic/timeline_logic.dart';
+import 'package:namste_jharkhand/logic/unsplash_logic.dart';
+import 'package:namste_jharkhand/logic/wonders_logic.dart';
+import 'package:namste_jharkhand/ui/common/app_shortcuts.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -31,27 +31,26 @@ class WondersApp extends StatefulWidget with GetItStatefulWidgetMixin {
 class _WondersAppState extends State<WondersApp> with GetItStateMixin {
   @override
   void didChangeDependencies() => super.didChangeDependencies();
-
   @override
   Widget build(BuildContext context) {
     final locale = watchX((SettingsLogic s) => s.currentLocale);
     return MaterialApp.router(
-      routeInformationProvider: appRouter.routeInformationProvider,
-      routeInformationParser: appRouter.routeInformationParser,
-      locale: locale == null ? null : Locale(locale),
-      debugShowCheckedModeBanner: false,
-      routerDelegate: appRouter.routerDelegate,
-      shortcuts: AppShortcuts.defaults,
-      theme: ThemeData(fontFamily: $styles.text.body.fontFamily, useMaterial3: true),
-      color: $styles.colors.black,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
-    );
+        title: 'Namaste Jharkhand',
+        routeInformationProvider: appRouter.routeInformationProvider,
+        routeInformationParser: appRouter.routeInformationParser,
+        locale: locale == null ? null : Locale(locale),
+        debugShowCheckedModeBanner: false,
+        routerDelegate: appRouter.routerDelegate,
+        shortcuts: AppShortcuts.defaults,
+        theme: ThemeData(fontFamily: $styles.text.body.fontFamily, useMaterial3: true),
+        color: $styles.colors.black,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: AppLocalizations.supportedLocales);
   }
 }
 

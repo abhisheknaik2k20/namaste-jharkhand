@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
 
 /// Combines [Align], [FractionalBoxWithMinSize], [Image] and [Transform.translate]
 /// to standardize behavior across the various wonder illustrations

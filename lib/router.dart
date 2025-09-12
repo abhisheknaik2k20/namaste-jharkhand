@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/modals//fullscreen_video_viewer.dart';
-import 'package:wonders/ui/common/modals/fullscreen_maps_viewer.dart';
-import 'package:wonders/ui/screens/artifact/artifact_details/artifact_details_screen.dart';
-import 'package:wonders/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
-import 'package:wonders/ui/screens/collection/collection_screen.dart';
-import 'package:wonders/ui/screens/home/wonders_home_screen.dart';
-import 'package:wonders/ui/screens/intro/intro_screen.dart';
-import 'package:wonders/ui/screens/page_not_found/page_not_found.dart';
-import 'package:wonders/ui/screens/wonder_details/wonders_details_screen.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/ui/common/modals//fullscreen_video_viewer.dart';
+import 'package:namste_jharkhand/ui/common/modals/fullscreen_maps_viewer.dart';
+import 'package:namste_jharkhand/ui/screens/artifact/artifact_details/artifact_details_screen.dart';
+import 'package:namste_jharkhand/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
+import 'package:namste_jharkhand/ui/screens/collection/collection_screen.dart';
+import 'package:namste_jharkhand/ui/screens/home/wonders_home_screen.dart';
+import 'package:namste_jharkhand/ui/screens/intro/intro_screen.dart';
+import 'package:namste_jharkhand/ui/screens/page_not_found/page_not_found.dart';
+import 'package:namste_jharkhand/ui/screens/wonder_details/wonders_details_screen.dart';
 
 /// Shared paths / urls used across the app
 class ScreenPaths {

@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 
 class TimelineEvent {
   TimelineEvent(this.year, this.description);

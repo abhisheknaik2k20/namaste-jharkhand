@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/measurable_widget.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/ui/common/measurable_widget.dart';
 
 class OpeningCard extends StatefulWidget {
   const OpeningCard(

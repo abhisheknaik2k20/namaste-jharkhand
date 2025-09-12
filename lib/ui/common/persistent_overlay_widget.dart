@@ -3,12 +3,12 @@
 import 'dart:async';
 import 'package:lottie/lottie.dart';
 import 'package:manual_speech_to_text/manual_speech_to_text.dart';
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import 'package:wonders/logic/api_keys.dart';
-import 'package:wonders/ui/common/chat_screen.dart';
+import 'package:namste_jharkhand/logic/api_keys.dart';
+import 'package:namste_jharkhand/ui/common/chat_screen.dart';
 
 enum SpeakingState { speaking, paused, stopped }
 
@@ -43,12 +43,9 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   String _selectedTtsLanguage = 'en-US';
   bool _languagesInitialized = false;
   SpeakingState _speakingState = SpeakingState.stopped;
-
-  // Getters for cleaner code
   bool get _isListening => _listeningState == ListeningState.listening;
   bool get _canStartListening => _listeningState == ListeningState.idle;
   bool get _isBusyWithSpeech => _listeningState != ListeningState.idle;
-
   @override
   void initState() {
     super.initState();
@@ -106,16 +103,11 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     try {
       _speechTimeoutTimer?.cancel();
       _speechTimeoutTimer = null;
-
       if (_speechController != null) {
         _speechController!.stopStt();
         _speechController!.dispose();
       }
-
-      if (_speechToText != null) {
-        _speechToText!.stop();
-      }
-
+      if (_speechToText != null) _speechToText!.stop();
       _listeningState = ListeningState.idle;
     } catch (e) {
       debugPrint('Error during cleanup: $e');
@@ -131,14 +123,10 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
           setState(() {
             switch (state) {
               case ManualSttState.listening:
-                if (_listeningState == ListeningState.starting) {
-                  _listeningState = ListeningState.listening;
-                }
+                if (_listeningState == ListeningState.starting) _listeningState = ListeningState.listening;
                 break;
               case ManualSttState.stopped:
-                if (_listeningState == ListeningState.stopping) {
-                  _listeningState = ListeningState.idle;
-                }
+                if (_listeningState == ListeningState.stopping) _listeningState = ListeningState.idle;
                 break;
               default:
                 break;
@@ -154,7 +142,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
           _resetTimeoutTimer();
         }
       });
-
       _speechController!.clearTextOnStart = true;
       _speechController!.localId = _selectedLanguage;
       _speechController!.enableHapticFeedback = true;
@@ -174,22 +161,18 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
 
   void _startListening() {
     debugPrint('_startListening called, current state: $_listeningState, canStart: $_canStartListening');
-
     if (_speechController == null || !_canStartListening) {
       debugPrint('Cannot start listening: controller=${_speechController != null}, canStart=$_canStartListening');
       return;
     }
-
     try {
       setState(() {
         _listeningState = ListeningState.starting;
         _recognizedText = '';
         _finalRecognizedText = '';
       });
-
       _speechController!.startStt();
       _resetTimeoutTimer();
-
       debugPrint('Speech recognition started');
     } catch (e) {
       debugPrint('Error starting speech recognition: $e');
@@ -206,30 +189,19 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
       debugPrint('Already idle, nothing to stop');
       return;
     }
-
     _speechTimeoutTimer?.cancel();
     _speechTimeoutTimer = null;
-
-    if (mounted) {
-      setState(() => _listeningState = ListeningState.stopping);
-    }
-
+    if (mounted) setState(() => _listeningState = ListeningState.stopping);
     if (_speechController != null) {
       try {
         _speechController!.stopStt();
         debugPrint('Speech recognition stopped');
       } catch (e) {
         debugPrint('Error stopping speech recognition: $e');
-        // Force state to idle if there's an error
-        if (mounted) {
-          setState(() => _listeningState = ListeningState.idle);
-        }
+        if (mounted) setState(() => _listeningState = ListeningState.idle);
       }
     } else {
-      // No controller, just set to idle
-      if (mounted) {
-        setState(() => _listeningState = ListeningState.idle);
-      }
+      if (mounted) setState(() => _listeningState = ListeningState.idle);
     }
   }
 
@@ -237,9 +209,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     _speechTimeoutTimer?.cancel();
     _speechTimeoutTimer = Timer(const Duration(seconds: 10), () {
       debugPrint('Speech timeout reached');
-      if (_isListening) {
-        _stopListening();
-      }
+      if (_isListening) _stopListening();
     });
   }
 
@@ -269,8 +239,6 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
       await _flutterTts!.setSpeechRate(0.5);
       await _flutterTts!.setPitch(1.0);
       await _flutterTts!.setLanguage(_selectedTtsLanguage);
-
-      // Set up TTS completion handler
       _flutterTts!.setCompletionHandler(() {
         if (mounted) {
           setState(() {
@@ -417,18 +385,10 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
   Future<void> _speak(String text) async {
     if (text.isNotEmpty && _flutterTts != null) {
       try {
-        if (mounted) {
-          setState(() {
-            _speakingState = SpeakingState.speaking;
-          });
-        }
+        if (mounted) setState(() => _speakingState = SpeakingState.speaking);
         await _flutterTts!.speak(text);
       } catch (exception) {
-        if (mounted) {
-          setState(() {
-            _speakingState = SpeakingState.stopped;
-          });
-        }
+        if (mounted) setState(() => _speakingState = SpeakingState.stopped);
         debugPrint('TTS Error: $exception');
       }
     }
@@ -455,11 +415,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
     if (_speakingState == SpeakingState.speaking && _flutterTts != null) {
       try {
         await _flutterTts!.stop();
-        if (mounted) {
-          setState(() {
-            _speakingState = SpeakingState.stopped;
-          });
-        }
+        if (mounted) setState(() => _speakingState = SpeakingState.stopped);
       } catch (e) {
         debugPrint('Error stopping TTS: $e');
       }
@@ -521,34 +477,23 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
 
   void _handleLongPressStart() {
     debugPrint('Long press started');
-    if (mounted) {
-      setState(() => _isLongPressing = true);
-    }
+    if (mounted) setState(() => _isLongPressing = true);
     _longPressController.forward();
     _startListening();
   }
 
   void _handleLongPressEnd() async {
     debugPrint('Long press ended');
-    if (mounted) {
-      setState(() => _isLongPressing = false);
-    }
+    if (mounted) setState(() => _isLongPressing = false);
     _longPressController.reverse();
     _stopListening();
-
-    // Wait for speech recognition to fully stop before processing
-    await Future.delayed(const Duration(milliseconds: 800));
-
-    if (_finalRecognizedText.isNotEmpty && _listeningState == ListeningState.idle) {
-      await _sendSpeechMessage();
-    }
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (_finalRecognizedText.isNotEmpty && _listeningState == ListeningState.idle) await _sendSpeechMessage();
   }
 
   void _handleLongPressCancel() {
     debugPrint('Long press cancelled');
-    if (mounted) {
-      setState(() => _isLongPressing = false);
-    }
+    if (mounted) setState(() => _isLongPressing = false);
     _longPressController.reverse();
     _stopListening();
   }
@@ -587,7 +532,7 @@ class _PersistentOverlayWidgetState extends State<PersistentOverlayWidget> with 
                               boxShadow: _isLongPressing || _isListening
                                   ? [
                                       BoxShadow(
-                                          color: $styles.colors.accent1.withOpacity(0.4),
+                                          color: $styles.colors.aiShadowColor.withOpacity(0.4),
                                           blurRadius: $styles.insets.md,
                                           spreadRadius: $styles.insets.xs)
                                     ]

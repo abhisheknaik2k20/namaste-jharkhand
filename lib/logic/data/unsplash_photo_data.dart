@@ -1,4 +1,4 @@
-import 'package:wonders/logic/common/platform_info.dart';
+import 'package:namste_jharkhand/logic/common/platform_info.dart';
 
 enum UnsplashPhotoSize { med, large, xl }
 

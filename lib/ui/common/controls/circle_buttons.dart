@@ -1,6 +1,6 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/fullscreen_keyboard_listener.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/ui/common/app_icons.dart';
+import 'package:namste_jharkhand/ui/common/fullscreen_keyboard_listener.dart';
 
 class CircleBtn extends StatelessWidget {
   const CircleBtn({

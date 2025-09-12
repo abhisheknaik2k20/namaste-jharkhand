@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 
 class DashedLine extends StatelessWidget {
   const DashedLine({super.key, this.vertical = false});

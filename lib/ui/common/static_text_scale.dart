@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 
 class StaticTextScale extends StatelessWidget {
   const StaticTextScale({super.key, required this.child, this.scale = 1});

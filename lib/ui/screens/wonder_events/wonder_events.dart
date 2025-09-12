@@ -1,15 +1,15 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/platform_info.dart';
-import 'package:wonders/logic/data/wonder_data.dart';
-import 'package:wonders/ui/common/app_backdrop.dart';
-import 'package:wonders/ui/common/app_icons.dart';
-import 'package:wonders/ui/common/centered_box.dart';
-import 'package:wonders/ui/common/controls/app_header.dart';
-import 'package:wonders/ui/common/curved_clippers.dart';
-import 'package:wonders/ui/common/hidden_collectible.dart';
-import 'package:wonders/ui/common/list_gradient.dart';
-import 'package:wonders/ui/common/themed_text.dart';
-import 'package:wonders/ui/wonder_illustrations/common/wonder_title_text.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/logic/common/platform_info.dart';
+import 'package:namste_jharkhand/logic/data/wonder_data.dart';
+import 'package:namste_jharkhand/ui/common/app_backdrop.dart';
+import 'package:namste_jharkhand/ui/common/app_icons.dart';
+import 'package:namste_jharkhand/ui/common/centered_box.dart';
+import 'package:namste_jharkhand/ui/common/controls/app_header.dart';
+import 'package:namste_jharkhand/ui/common/curved_clippers.dart';
+import 'package:namste_jharkhand/ui/common/hidden_collectible.dart';
+import 'package:namste_jharkhand/ui/common/list_gradient.dart';
+import 'package:namste_jharkhand/ui/common/themed_text.dart';
+import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_title_text.dart';
 
 part 'widgets/_events_list.dart';
 part 'widgets/_wonder_image_with_timeline.dart';

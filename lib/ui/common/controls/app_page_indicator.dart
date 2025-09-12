@@ -1,5 +1,5 @@
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 
 class AppPageIndicator extends StatefulWidget {
   AppPageIndicator({

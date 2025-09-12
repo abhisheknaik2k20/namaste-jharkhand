@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 
 enum ArchType { spade, pyramid, arch, wideArch, flatPyramid }
 

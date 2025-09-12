@@ -1,5 +1,5 @@
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/ui/common/collectible_item.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/ui/common/collectible_item.dart';
 
 /// Shows a [CollectibleItem], for a specific set of wonders.
 /// The item is looked up via index, and expects that 3 items always exist for each wonder.

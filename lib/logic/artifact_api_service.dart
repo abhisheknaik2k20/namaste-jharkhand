@@ -1,5 +1,5 @@
-import 'package:wonders/logic/common/http_client.dart';
-import 'package:wonders/logic/data/artifact_data.dart';
+import 'package:namste_jharkhand/logic/common/http_client.dart';
+import 'package:namste_jharkhand/logic/data/artifact_data.dart';
 
 class ArtifactAPIService {
   final String _baseMETUrl = 'https://collectionapi.metmuseum.org/public/collection/v1';

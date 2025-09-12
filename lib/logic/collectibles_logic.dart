@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:wonders/common_libs.dart';
-import 'package:wonders/logic/common/save_load_mixin.dart';
-import 'package:wonders/logic/data/collectible_data.dart';
-import 'package:wonders/logic/native_widget_service.dart';
+import 'package:namste_jharkhand/common_libs.dart';
+import 'package:namste_jharkhand/logic/common/save_load_mixin.dart';
+import 'package:namste_jharkhand/logic/data/collectible_data.dart';
+import 'package:namste_jharkhand/logic/native_widget_service.dart';
 
 class CollectiblesLogic with ThrottledSaveLoadMixin {
   @override

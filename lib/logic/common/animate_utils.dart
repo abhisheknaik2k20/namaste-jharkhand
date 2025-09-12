@@ -1,4 +1,4 @@
-import 'package:wonders/common_libs.dart';
+import 'package:namste_jharkhand/common_libs.dart';
 
 // ignore: must_be_immutable
 class NeverAnimate extends Animate {
@@ -26,20 +26,21 @@ extension MaybeAnimateExtension on Widget {
     Adapter? adapter,
     double? target,
     double? value,
-  }) => $styles.disableAnimations
-    ? NeverAnimate(child: this)
-    : Animate(
-        key: key,
-        effects: effects,
-        onInit: onInit,
-        onPlay: onPlay,
-        onComplete: onComplete,
-        autoPlay: autoPlay,
-        delay: delay,
-        controller: controller,
-        adapter: adapter,
-        target: target,
-        value: value,
-        child: this,
-      );
+  }) =>
+      $styles.disableAnimations
+          ? NeverAnimate(child: this)
+          : Animate(
+              key: key,
+              effects: effects,
+              onInit: onInit,
+              onPlay: onPlay,
+              onComplete: onComplete,
+              autoPlay: autoPlay,
+              delay: delay,
+              controller: controller,
+              adapter: adapter,
+              target: target,
+              value: value,
+              child: this,
+            );
 }
