@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:namste_jharkhand/common_libs.dart';
 import 'package:namste_jharkhand/ui/common/modals//fullscreen_video_viewer.dart';
 import 'package:namste_jharkhand/ui/common/modals/fullscreen_maps_viewer.dart';
@@ -7,16 +8,18 @@ import 'package:namste_jharkhand/ui/screens/artifact/artifact_details/artifact_d
 import 'package:namste_jharkhand/ui/screens/artifact/artifact_search/artifact_search_screen.dart';
 import 'package:namste_jharkhand/ui/screens/collection/collection_screen.dart';
 import 'package:namste_jharkhand/ui/screens/home/wonders_home_screen.dart';
-import 'package:namste_jharkhand/ui/screens/intro/intro_screen.dart';
+import 'package:namste_jharkhand/ui/screens/login/login_screen.dart';
 import 'package:namste_jharkhand/ui/screens/page_not_found/page_not_found.dart';
 import 'package:namste_jharkhand/ui/screens/wonder_details/wonders_details_screen.dart';
+import 'package:namste_jharkhand/map/views/google_maps_style_screen.dart';
+import 'package:namste_jharkhand/map/services/app_state.dart';
 
-/// Shared paths / urls used across the app
 class ScreenPaths {
   static String splash = '/';
-  static String intro = '/welcome';
+  static String login = '/login';
   static String home = '/home';
   static String settings = '/settings';
+  static String mapExplorer = '/map-explorer';
   static String wonderDetails(WonderType type, {required int tabIndex}) => '$home/wonder/${type.name}?t=$tabIndex';
   static String video(String id) => _appendToCurrentPath('/video/$id');
   static String search(WonderType type) => _appendToCurrentPath('/search/${type.name}');
@@ -38,58 +41,85 @@ class ScreenPaths {
 AppRoute get _artifactRoute =>
     AppRoute('artifact/:artifactId', (s) => ArtifactDetailsScreen(artifactId: s.pathParameters['artifactId']!));
 
-AppRoute get _collectionRoute =>
-    AppRoute('collection', (s) => CollectionScreen(fromId: s.uri.queryParameters['id'] ?? ''),
-        routes: [_artifactRoute]);
+AppRoute get _collectionRoute => AppRoute(
+  'collection',
+  (s) => CollectionScreen(fromId: s.uri.queryParameters['id'] ?? ''),
+  routes: [_artifactRoute],
+);
 final appRouter = GoRouter(
-    redirect: _handleRedirect,
-    errorPageBuilder: (context, state) => MaterialPage(child: PageNotFound(state.uri.toString())),
-    routes: [
-      ShellRoute(builder: (context, router, navigator) => WondersAppScaffold(child: navigator), routes: [
-        AppRoute(ScreenPaths.splash, (_) => Container(color: $styles.colors.greyStrong)), // This will be hidden
-        AppRoute(ScreenPaths.intro, (_) => IntroScreen()),
-        AppRoute(ScreenPaths.home, (_) => HomeScreen(), routes: [
-          _collectionRoute,
-          AppRoute('wonder/:detailsType', (s) {
-            int tab = int.tryParse(s.uri.queryParameters['t'] ?? '') ?? 0;
-            return WonderDetailsScreen(type: _parseWonderType(s.pathParameters['detailsType']), tabIndex: tab);
-          }, useFade: true, routes: [
+  redirect: _handleRedirect,
+  errorPageBuilder: (context, state) => MaterialPage(child: PageNotFound(state.uri.toString())),
+  routes: [
+    AppRoute(ScreenPaths.login, (_) => const LoginSignupScreen()),
+    ShellRoute(
+      builder: (context, router, navigator) => WondersAppScaffold(child: navigator),
+      routes: [
+        AppRoute(ScreenPaths.splash, (_) => Container(color: $styles.colors.greyStrong)),
+        AppRoute(
+          ScreenPaths.mapExplorer,
+          (_) => AppStateScope(notifier: AppState(), child: const GoogleMapsStyleMapScreen()),
+        ),
+        AppRoute(
+          ScreenPaths.home,
+          (_) => HomeScreen(),
+          routes: [
             _collectionRoute,
-            _artifactRoute,
-            AppRoute('video/:videoId', (s) => FullscreenVideoViewer(id: s.pathParameters['videoId']!), useFade: true),
-            AppRoute('search/:searchType',
-                (s) => ArtifactSearchScreen(type: _parseWonderType(s.pathParameters['searchType'])),
-                routes: [_artifactRoute]),
             AppRoute(
-                'maps/:mapsType', (s) => FullscreenMapsViewer(type: _parseWonderType(s.pathParameters['mapsType'])))
-          ])
-        ])
-      ])
-    ]);
+              'wonder/:detailsType',
+              (s) {
+                int tab = int.tryParse(s.uri.queryParameters['t'] ?? '') ?? 0;
+                return WonderDetailsScreen(type: _parseWonderType(s.pathParameters['detailsType']), tabIndex: tab);
+              },
+              useFade: true,
+              routes: [
+                _collectionRoute,
+                _artifactRoute,
+                AppRoute(
+                  'video/:videoId',
+                  (s) => FullscreenVideoViewer(id: s.pathParameters['videoId']!),
+                  useFade: true,
+                ),
+                AppRoute(
+                  'search/:searchType',
+                  (s) => ArtifactSearchScreen(type: _parseWonderType(s.pathParameters['searchType'])),
+                  routes: [_artifactRoute],
+                ),
+                AppRoute(
+                  'maps/:mapsType',
+                  (s) => FullscreenMapsViewer(type: _parseWonderType(s.pathParameters['mapsType'])),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
 
 class AppRoute extends GoRoute {
-  AppRoute(String path, Widget Function(GoRouterState s) builder,
-      {List<GoRoute> routes = const [], this.useFade = false})
-      : super(
-          path: path,
-          routes: routes,
-          pageBuilder: (context, state) {
-            final pageContent = Scaffold(
-              body: builder(state),
-              resizeToAvoidBottomInset: false,
-            );
-            if (useFade || $styles.disableAnimations) {
-              return CustomTransitionPage(
-                key: state.pageKey,
-                child: pageContent,
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                  return FadeTransition(opacity: animation, child: child);
-                },
-              );
-            }
-            return CupertinoPage(child: pageContent);
-          },
-        );
+  AppRoute(
+    String path,
+    Widget Function(GoRouterState s) builder, {
+    List<GoRoute> routes = const [],
+    this.useFade = false,
+  }) : super(
+         path: path,
+         routes: routes,
+         pageBuilder: (context, state) {
+           final pageContent = Scaffold(body: builder(state), resizeToAvoidBottomInset: false);
+           if (useFade || $styles.disableAnimations) {
+             return CustomTransitionPage(
+               key: state.pageKey,
+               child: pageContent,
+               transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                 return FadeTransition(opacity: animation, child: child);
+               },
+             );
+           }
+           return CupertinoPage(child: pageContent);
+         },
+       );
   final bool useFade;
 }
 
@@ -97,18 +127,34 @@ String? get initialDeeplink => _initialDeeplink;
 String? _initialDeeplink;
 
 String? _handleRedirect(BuildContext context, GoRouterState state) {
-  // Prevent anyone from navigating away from `/` if app is starting up.
+  final currentUser = FirebaseAuth.instance.currentUser;
+  final isAuthenticated = currentUser != null;
   if (!appLogic.isBootstrapComplete && state.uri.path != ScreenPaths.splash) {
     debugPrint('Redirecting from ${state.uri.path} to ${ScreenPaths.splash}.');
     _initialDeeplink ??= state.uri.toString();
     return ScreenPaths.splash;
   }
-  if (appLogic.isBootstrapComplete && state.uri.path == ScreenPaths.splash) {
-    debugPrint('Redirecting from ${state.uri.path} to ${ScreenPaths.home}');
+  if (!isAuthenticated &&
+      state.uri.path != ScreenPaths.login &&
+      state.uri.path != ScreenPaths.splash &&
+      appLogic.isBootstrapComplete) {
+    debugPrint('Redirecting unauthenticated user from ${state.uri.path} to ${ScreenPaths.login}');
+    return ScreenPaths.login;
+  }
+  if (isAuthenticated && state.uri.path == ScreenPaths.login) {
     return ScreenPaths.home;
   }
+  if (appLogic.isBootstrapComplete && state.uri.path == ScreenPaths.splash) {
+    if (isAuthenticated) {
+      debugPrint('Redirecting from ${state.uri.path} to ${ScreenPaths.home}');
+      return ScreenPaths.home;
+    } else {
+      debugPrint('Redirecting from ${state.uri.path} to ${ScreenPaths.login}');
+      return ScreenPaths.login;
+    }
+  }
   if (!kIsWeb) debugPrint('Navigate to: ${state.uri}');
-  return null; // do nothing
+  return null;
 }
 
 WonderType _parseWonderType(String? value) {

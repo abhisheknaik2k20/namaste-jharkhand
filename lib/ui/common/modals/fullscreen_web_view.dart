@@ -15,9 +15,7 @@ class FullscreenWebView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
-        body: WebViewWidget(
-          controller: controller,
-        ),
+        body: WebViewWidget(controller: controller),
       ),
     );
   }

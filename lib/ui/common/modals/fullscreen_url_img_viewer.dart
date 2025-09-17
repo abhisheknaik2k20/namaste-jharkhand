@@ -123,24 +123,18 @@ class _ViewerState extends State<_Viewer> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onDoubleTap: _handleDoubleTap,
-      child: InteractiveViewer(
-        transformationController: _controller,
-        onInteractionEnd: (_) => widget.isZoomed.value = _controller.value.getMaxScaleOnAxis() > 1,
-        minScale: 1,
-        maxScale: 5,
-        child: Hero(
-          tag: widget.url,
-          child: AppImage(
-            image: NetworkImage(
-              widget.url,
-            ),
-            fit: BoxFit.contain,
-            scale: FullscreenUrlImgViewer.imageScale,
-            progress: true,
-          ),
-        ),
-      ),
-    );
+        onDoubleTap: _handleDoubleTap,
+        child: InteractiveViewer(
+            transformationController: _controller,
+            onInteractionEnd: (_) => widget.isZoomed.value = _controller.value.getMaxScaleOnAxis() > 1,
+            minScale: 1,
+            maxScale: 5,
+            child: Hero(
+                tag: widget.url,
+                child: AppImage(
+                    image: NetworkImage(widget.url),
+                    fit: BoxFit.contain,
+                    scale: FullscreenUrlImgViewer.imageScale,
+                    progress: true))));
   }
 }

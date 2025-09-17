@@ -3,6 +3,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:namste_jharkhand/common_libs.dart';
 import 'package:namste_jharkhand/logic/common/animate_utils.dart';
 import 'package:namste_jharkhand/logic/data/wonder_data.dart';
+import 'package:namste_jharkhand/logic/login_logic.dart';
+import 'package:namste_jharkhand/main.dart';
 import 'package:namste_jharkhand/ui/common/app_backdrop.dart';
 import 'package:namste_jharkhand/ui/common/app_icons.dart';
 import 'package:namste_jharkhand/ui/common/controls/app_header.dart';
@@ -42,6 +44,11 @@ class _HomeMenuState extends State<HomeMenu> {
 
   void _handleCollectionPressed(BuildContext context) => context.go(ScreenPaths.collection(''));
   void _handleWonderPressed(BuildContext context, WonderData data) => Navigator.pop(context, data.type);
+
+  void _handleLogoutPressed(BuildContext context) async {
+    final authManager = AuthManager(loadingProvider: authLoadingProvider);
+    await authManager.logout(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +117,11 @@ class _HomeMenuState extends State<HomeMenu> {
               label: $strings.homeMenuButtonAbout,
               icon: AppIcons.info,
               onPressed: () => _handleAboutPressed(context),
+            ),
+            _MenuTextBtn(
+              label: $strings.loginLogout,
+              icon: AppIcons.close,
+              onPressed: () => _handleLogoutPressed(context),
             ),
           ]
               .animate(interval: 50.delayMs)

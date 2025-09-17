@@ -4,40 +4,27 @@ import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustrat
 /// Combines [Align], [FractionalBoxWithMinSize], [Image] and [Transform.translate]
 /// to standardize behavior across the various wonder illustrations
 class IllustrationPiece extends StatefulWidget {
-  const IllustrationPiece({
-    super.key,
-    required this.fileName,
-    required this.heightFactor,
-    this.alignment = Alignment.center,
-    this.minHeight,
-    this.offset = Offset.zero,
-    this.fractionalOffset,
-    this.zoomAmt = 0,
-    this.initialOffset = Offset.zero,
-    this.enableHero = false,
-    this.initialScale = 1,
-    this.dynamicHzOffset = 0,
-    this.top,
-    this.bottom,
-  });
-
+  const IllustrationPiece(
+      {super.key,
+      required this.fileName,
+      required this.heightFactor,
+      this.alignment = Alignment.center,
+      this.minHeight,
+      this.offset = Offset.zero,
+      this.fractionalOffset,
+      this.zoomAmt = 0,
+      this.initialOffset = Offset.zero,
+      this.enableHero = false,
+      this.initialScale = 1,
+      this.dynamicHzOffset = 0,
+      this.top,
+      this.bottom});
   final String fileName;
-
   final Alignment alignment;
-
-  /// Will animate from this position to Offset.zero, eg is value is Offset(0, 100), the piece will slide up vertically 100px as it enters the screen
   final Offset initialOffset;
-
-  /// Will animate from this scale to 1, eg if scale is .7, the piece will scale from .7 to 1.0 as it enters the screen.
   final double initialScale;
-
-  /// % height, will be overridden by minHeight
   final double heightFactor;
-
-  /// min height in pixels, piece will not be allowed to go below this height in px, unless it has to (available height is too small)
   final double? minHeight;
-
-  /// px offset for this piece
   final Offset offset;
 
   /// offset based on a fraction of the piece size

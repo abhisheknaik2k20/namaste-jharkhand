@@ -21,7 +21,7 @@ class PetraData extends WonderData {
           artifactCulture: $strings.petraArtifactCulture,
           artifactGeolocation: $strings.petraArtifactGeolocation,
           lat: 19.9991394,
-          lng: 73.8151994,
+          lng: 73.8151994, 
           unsplashCollectionId: 'qWQJbDvCMW8',
           pullQuote1Top: $strings.petraPullQuote1Top,
           pullQuote1Bottom: $strings.petraPullQuote1Bottom,

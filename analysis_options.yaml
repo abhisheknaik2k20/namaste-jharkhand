@@ -11,6 +11,7 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   errors:
+    deprecated_member_use: ignore
     prefer_const_constructors: ignore
     unused_element: ignore # mostly because of super.key
     use_build_context_synchronously: ignore

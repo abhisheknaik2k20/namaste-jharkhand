@@ -1519,4 +1519,85 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get speechLongPressToTalk => 'बोलने के लिए लंबा दबाएं';
+
+  @override
+  String get loginWelcomeBack => 'वापसी पर स्वागत है!';
+
+  @override
+  String get loginCreateAccount => 'खाता बनाएं';
+
+  @override
+  String get loginEmailLabel => 'ईमेल';
+
+  @override
+  String get loginPasswordLabel => 'पासवर्ड';
+
+  @override
+  String get loginConfirmPasswordLabel => 'पासवर्ड की पुष्टि करें';
+
+  @override
+  String get loginSignInButton => 'साइन इन करें';
+
+  @override
+  String get loginSignUpButton => 'साइन अप करें';
+
+  @override
+  String get loginOrDivider => 'या';
+
+  @override
+  String get loginGoogleButton => 'Google के साथ जारी रखें';
+
+  @override
+  String get loginSwitchToSignUp => 'खाता नहीं है? साइन अप करें';
+
+  @override
+  String get loginSwitchToSignIn => 'पहले से खाता है? साइन इन करें';
+
+  @override
+  String get loginForgotPassword => 'पासवर्ड भूल गए?';
+
+  @override
+  String get loginLogout => 'लॉग आउट';
+
+  @override
+  String get loginLoggingIn => 'लॉग इन हो रहे हैं...';
+
+  @override
+  String get loginSigningUp => 'साइन अप हो रहे हैं...';
+
+  @override
+  String get loginErrorInvalidEmail => 'कृपया एक वैध ईमेल पता दर्ज करें';
+
+  @override
+  String get loginErrorWeakPassword => 'पासवर्ड कम से कम 6 अक्षर का होना चाहिए';
+
+  @override
+  String get loginErrorPasswordMismatch => 'पासवर्ड मेल नहीं खाते';
+
+  @override
+  String get loginErrorGeneric => 'एक त्रुटि हुई। कृपया पुनः प्रयास करें।';
+
+  @override
+  String get loginSuccessWelcome => 'वंडरस में आपका स्वागत है!';
+
+  @override
+  String get loginFullNameLabel => 'पूरा नाम';
+
+  @override
+  String get loginPhoneLabel => 'फोन दर्ज करें';
+
+  @override
+  String get loginUserRoleLabel => 'उपयोगकर्ता भूमिका चुनें';
+
+  @override
+  String get loginRoleCustomer => 'ग्राहक';
+
+  @override
+  String get loginRoleGuide => 'गाइड';
+
+  @override
+  String get loginRoleMerchant => 'व्यापारी';
+
+  @override
+  String get loginRoleAdmin => 'एडमिन';
 }

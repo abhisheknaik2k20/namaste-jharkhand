@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "100332084816",
+    "project_id": "sihh-56d5b",
+    "storage_bucket": "sihh-56d5b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100332084816:android:b90fd8ea54d3fa7b22bb55",
+        "android_client_info": {
+          "package_name": "com.example.namaste_jharkhand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100332084816-gvdsnhtc9e00su5o2reljfilhr1a28p1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC2AzRbno4axkOoGM85chEcux3dRkvxtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "100332084816-gvdsnhtc9e00su5o2reljfilhr1a28p1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

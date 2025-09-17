@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
-
-import 'package:desktop_window/desktop_window.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:namste_jharkhand/common_libs.dart';
-import 'package:namste_jharkhand/logic/common/platform_info.dart';
 import 'package:namste_jharkhand/ui/common/modals/fullscreen_video_viewer.dart';
 import 'package:namste_jharkhand/ui/common/utils/page_routes.dart';
 
@@ -13,9 +10,6 @@ class AppLogic {
   Size _appSize = Size.zero;
   bool isBootstrapComplete = false;
   List<Axis> supportedOrientations = [Axis.vertical, Axis.horizontal];
-
-  /// Allow a view to override the currently supported orientations. For example, [FullscreenVideoViewer] always wants to enable both landscape and portrait.
-  /// If a view sets this override, they are responsible for setting it back to null when finished.
   List<Axis>? _supportedOrientationsOverride;
   set supportedOrientationsOverride(List<Axis>? value) {
     if (_supportedOrientationsOverride != value) {
@@ -24,61 +18,29 @@ class AppLogic {
     }
   }
 
-  /// Initialize the app and all main actors.
-  /// Loads settings, sets up services etc.
   Future<void> bootstrap() async {
-    debugPrint('bootstrap start...');
-    // Set min-sizes for desktop apps
-    // TODO: Test on Linux and confirm whether it's safe to call there, according to issue #183 its not.
-    if (!kIsWeb && (PlatformInfo.isWindows || PlatformInfo.isMacOS)) {
-      await DesktopWindow.setMinWindowSize($styles.sizes.minAppSize);
-    }
-
-    if (kIsWeb) {
-      print(
-        '''Thanks for checking out Wonderous on the web!
-        If you encounter any issues please report them at https://github.com/gskinnerTeam/flutter-wonderous-app/issues.''',
-      );
-      WidgetsFlutterBinding.ensureInitialized().ensureSemantics();
-    }
     await AppBitmaps.init();
-    if (!kIsWeb && PlatformInfo.isAndroid) {
-      await FlutterDisplayMode.setHighRefreshRate();
-    }
+    await FlutterDisplayMode.setHighRefreshRate();
     await settingsLogic.load();
     await localeLogic.load();
-
-    // Wonders Data
     wondersLogic.init();
-
-    // Collectibles
     collectiblesLogic.init();
     await collectiblesLogic.load();
-
-    // Wait at least 1 frame to give GoRouter time to catch the initial deeplink
     await Future.delayed(1.milliseconds);
-
-    // Flag bootStrap as complete
     isBootstrapComplete = true;
-
-    // Load initial view (replace empty initial view which is covered by a native splash screen)
-    bool showIntro = settingsLogic.hasCompletedOnboarding.value == false;
-    if (showIntro) {
-      appRouter.go(ScreenPaths.intro);
-    } else {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final isAuthenticated = currentUser != null;
+    if (isAuthenticated) {
       appRouter.go(initialDeeplink ?? ScreenPaths.home);
+    } else {
+      appRouter.go(ScreenPaths.login);
     }
   }
 
-  Future<T?> showFullscreenDialogRoute<T>(BuildContext context, Widget child, {bool transparent = false}) async {
-    return await Navigator.of(context).push<T>(
-      PageRoutes.dialog<T>(child, duration: $styles.times.pageTransition),
-    );
-  }
+  Future<T?> showFullscreenDialogRoute<T>(BuildContext context, Widget child, {bool transparent = false}) async =>
+      await Navigator.of(context).push<T>(PageRoutes.dialog<T>(child, duration: $styles.times.pageTransition));
 
-  /// Called from the UI layer once a MediaQuery has been obtained
   void handleAppSizeChanged(Size appSize) {
-    /// Disable landscape layout on smaller form factors
     bool isSmall = display.size.shortestSide / display.devicePixelRatio < 600;
     supportedOrientations = isSmall ? [Axis.vertical] : [Axis.vertical, Axis.horizontal];
     _updateSystemOrientation();
@@ -86,12 +48,9 @@ class AppLogic {
   }
 
   Display get display => PlatformDispatcher.instance.displays.first;
-
   bool shouldUseNavRail() => _appSize.width > _appSize.height && _appSize.height > 250;
-
   void _updateSystemOrientation() {
     final axisList = _supportedOrientationsOverride ?? supportedOrientations;
-    //debugPrint('updateDeviceOrientation, supportedAxis: $axisList');
     final orientations = <DeviceOrientation>[];
     if (axisList.contains(Axis.vertical)) {
       orientations.addAll([
@@ -110,6 +69,7 @@ class AppLogic {
 
   void precacheWonderImages(BuildContext context) {
     final List<String> urls = [
+      'assets/images/_common/google.png',
       'assets/images/chichen_itza/chichen.png',
       'assets/images/chichen_itza/foreground-left.png',
       'assets/images/chichen_itza/foreground-right.png',
@@ -133,9 +93,8 @@ class AppLogic {
       'assets/images/pyramids/foreground-front.png',
       'assets/images/taj_mahal/taj-mahal.png',
       'assets/images/taj_mahal/foreground-left.png',
-      'assets/images/taj_mahal/foreground-right.png',
+      'assets/images/taj_mahal/foreground-right.png'
     ];
-
     for (var url in urls) {
       precacheImage(AssetImage(url), context, onError: (error, stackTrace) {});
     }
@@ -145,7 +104,7 @@ class AppLogic {
 class AppImageCache extends WidgetsFlutterBinding {
   @override
   ImageCache createImageCache() {
-    this.imageCache.maximumSizeBytes = 250 << 20; // 250mb
+    this.imageCache.maximumSizeBytes = 250 << 20;
     return super.createImageCache();
   }
 }

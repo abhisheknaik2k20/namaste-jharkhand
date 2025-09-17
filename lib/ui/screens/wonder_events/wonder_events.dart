@@ -34,32 +34,42 @@ class _WonderEventsState extends State<WonderEvents> {
     final twoColumnAspect = PlatformInfo.isMobile ? .85 : 1;
     bool useTwoColumnLayout = context.mq.size.aspectRatio > twoColumnAspect;
 
-    return LayoutBuilder(builder: (context, constraints) {
-      return Container(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
           color: $styles.colors.black,
           child: SafeArea(
-              bottom: false,
-              child: Stack(children: [
+            bottom: false,
+            child: Stack(
+              children: [
                 /// Main view
                 Positioned.fill(
-                    top: $styles.insets.sm,
-                    child: Padding(
-                        padding: widget.contentPadding,
-                        child: useTwoColumnLayout ? _buildTwoColumn(context) : _buildSingleColumn())),
+                  top: $styles.insets.sm,
+                  child: Padding(
+                    padding: widget.contentPadding,
+                    child: useTwoColumnLayout ? _buildTwoColumn(context) : _buildSingleColumn(),
+                  ),
+                ),
 
                 TopCenter(
-                    child: AppHeader(
-                        showBackBtn: false,
-                        isTransparent: true,
-                        trailing: (_) => CircleIconBtn(
-                            icon: AppIcons.timeline,
-                            onPressed: () {},
-                            semanticLabel: $strings.eventsListButtonOpenGlobal)))
-              ])));
-    });
+                  child: AppHeader(
+                    showBackBtn: false,
+                    isTransparent: true,
+                    trailing: (_) => CircleIconBtn(
+                      icon: AppIcons.timeline,
+                      onPressed: () {},
+                      semanticLabel: $strings.eventsListButtonOpenGlobal,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
-  /// Landscape layout is a row, with the WonderImage on left and EventsList on the right
   Widget _buildTwoColumn(BuildContext context) {
     final double timelineImageSize = (context.heightPx - 350).clamp(200, 500);
     return Padding(
@@ -101,38 +111,36 @@ class _WonderEventsState extends State<WonderEvents> {
     );
   }
 
-  /// Portrait layout is a stack with the EventsList scrolling overtop of the WonderImage
   Widget _buildSingleColumn() {
-    return LayoutBuilder(builder: (_, constraints) {
-      double topHeight = max(constraints.maxHeight * .55, 200);
-      return CenteredBox(
-        width: $styles.sizes.maxContentWidth2,
-        child: Stack(
-          children: [
-            _WonderImageWithTimeline(height: topHeight, data: _data),
-
-            /// EventsList + TimelineBtn
-            Column(
-              children: [
-                Expanded(
-                  /// EventsList
-                  child: _EventsList(
-                    key: _eventsListKey,
-                    data: _data,
-                    topHeight: topHeight,
-                    blurOnScroll: true,
-                    showTopGradient: false,
-                    onScroll: _handleScroll,
-                    initialScrollOffset: _scrollPos,
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        double topHeight = max(constraints.maxHeight * .55, 200);
+        return CenteredBox(
+          width: $styles.sizes.maxContentWidth2,
+          child: Stack(
+            children: [
+              _WonderImageWithTimeline(height: topHeight, data: _data),
+              Column(
+                children: [
+                  Expanded(
+                    child: _EventsList(
+                      key: _eventsListKey,
+                      data: _data,
+                      topHeight: topHeight,
+                      blurOnScroll: true,
+                      showTopGradient: false,
+                      onScroll: _handleScroll,
+                      initialScrollOffset: _scrollPos,
+                    ),
                   ),
-                ),
-                Gap($styles.insets.lg),
-                Gap($styles.insets.lg),
-              ],
-            ),
-          ],
-        ),
-      );
-    });
+                  Gap($styles.insets.lg),
+                  Gap($styles.insets.lg),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

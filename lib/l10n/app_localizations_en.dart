@@ -1520,4 +1520,86 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get speechLongPressToTalk => 'Long press to talk';
+
+  @override
+  String get loginWelcomeBack => 'Welcome Back!';
+
+  @override
+  String get loginCreateAccount => 'Create Account';
+
+  @override
+  String get loginEmailLabel => 'Email';
+
+  @override
+  String get loginPasswordLabel => 'Password';
+
+  @override
+  String get loginConfirmPasswordLabel => 'Confirm Password';
+
+  @override
+  String get loginSignInButton => 'Sign In';
+
+  @override
+  String get loginSignUpButton => 'Sign Up';
+
+  @override
+  String get loginOrDivider => 'or';
+
+  @override
+  String get loginGoogleButton => 'Continue with Google';
+
+  @override
+  String get loginSwitchToSignUp => 'Don\'t have an account? Sign up';
+
+  @override
+  String get loginSwitchToSignIn => 'Already have an account? Sign in';
+
+  @override
+  String get loginForgotPassword => 'Forgot Password?';
+
+  @override
+  String get loginLogout => 'Logout';
+
+  @override
+  String get loginLoggingIn => 'Logging in...';
+
+  @override
+  String get loginSigningUp => 'Signing up...';
+
+  @override
+  String get loginErrorInvalidEmail => 'Please enter a valid email address';
+
+  @override
+  String get loginErrorWeakPassword =>
+      'Password should be at least 6 characters';
+
+  @override
+  String get loginErrorPasswordMismatch => 'Passwords do not match';
+
+  @override
+  String get loginErrorGeneric => 'An error occurred. Please try again.';
+
+  @override
+  String get loginSuccessWelcome => 'Welcome to Wonderous!';
+
+  @override
+  String get loginFullNameLabel => 'Full Name';
+
+  @override
+  String get loginPhoneLabel => 'Enter Phone';
+
+  @override
+  String get loginUserRoleLabel => 'Select User Role';
+
+  @override
+  String get loginRoleCustomer => 'Customer';
+
+  @override
+  String get loginRoleGuide => 'Guide';
+
+  @override
+  String get loginRoleMerchant => 'Merchant';
+
+  @override
+  String get loginRoleAdmin => 'Admin';
 }

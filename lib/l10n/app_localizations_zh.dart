@@ -1432,4 +1432,85 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get speechLongPressToTalk => '长按说话';
+
+  @override
+  String get loginWelcomeBack => '欢迎回来！';
+
+  @override
+  String get loginCreateAccount => '创建账户';
+
+  @override
+  String get loginEmailLabel => '电子邮件';
+
+  @override
+  String get loginPasswordLabel => '密码';
+
+  @override
+  String get loginConfirmPasswordLabel => '确认密码';
+
+  @override
+  String get loginSignInButton => '登录';
+
+  @override
+  String get loginSignUpButton => '注册';
+
+  @override
+  String get loginOrDivider => '或';
+
+  @override
+  String get loginGoogleButton => '使用Google继续';
+
+  @override
+  String get loginSwitchToSignUp => '没有账户？注册';
+
+  @override
+  String get loginSwitchToSignIn => '已有账户？登录';
+
+  @override
+  String get loginForgotPassword => '忘记密码？';
+
+  @override
+  String get loginLogout => '注销';
+
+  @override
+  String get loginLoggingIn => '正在登录...';
+
+  @override
+  String get loginSigningUp => '正在注册...';
+
+  @override
+  String get loginErrorInvalidEmail => '请输入有效的电子邮件地址';
+
+  @override
+  String get loginErrorWeakPassword => '密码至少应为6个字符';
+
+  @override
+  String get loginErrorPasswordMismatch => '密码不匹配';
+
+  @override
+  String get loginErrorGeneric => '发生错误，请重试。';
+
+  @override
+  String get loginSuccessWelcome => '欢迎使用Wonderous！';
+
+  @override
+  String get loginFullNameLabel => '全名';
+
+  @override
+  String get loginPhoneLabel => '输入电话';
+
+  @override
+  String get loginUserRoleLabel => '选择用户角色';
+
+  @override
+  String get loginRoleCustomer => '客户';
+
+  @override
+  String get loginRoleGuide => '导游';
+
+  @override
+  String get loginRoleMerchant => '商家';
+
+  @override
+  String get loginRoleAdmin => '管理员';
 }

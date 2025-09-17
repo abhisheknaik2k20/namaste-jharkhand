@@ -4,6 +4,7 @@ import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_circular_text/circular_text.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:namste_jharkhand/common_libs.dart';
 import 'package:namste_jharkhand/logic/common/animate_utils.dart';
 import 'package:namste_jharkhand/logic/common/platform_info.dart';
@@ -40,7 +41,6 @@ part 'widgets/_top_illustration.dart';
 class WonderEditorialScreen extends StatefulWidget {
   const WonderEditorialScreen(this.data, {super.key, required this.contentPadding});
   final WonderData data;
-  //final void Function(double scrollPos) onScroll;
   final EdgeInsets contentPadding;
 
   @override
@@ -66,74 +66,94 @@ class _WonderEditorialScreenState extends State<WonderEditorialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (_, constraints) {
-      bool shortMode = constraints.biggest.height < 700;
-      double illustrationHeight = shortMode ? 250 : 280;
-      double minAppBarHeight = shortMode ? 80 : 150;
-      double maxAppBarHeight = min(context.widthPx, $styles.sizes.maxContentWidth1) * 1.2;
-      final backBtnAlign = appLogic.shouldUseNavRail() ? Alignment.topRight : Alignment.topLeft;
-      return PopRouterOnOverScroll(
+    return LayoutBuilder(
+      builder: (_, constraints) {
+        bool shortMode = constraints.biggest.height < 700;
+        double illustrationHeight = shortMode ? 250 : 280;
+        double minAppBarHeight = shortMode ? 80 : 150;
+        double maxAppBarHeight = min(context.widthPx, $styles.sizes.maxContentWidth1) * 1.2;
+        final backBtnAlign = appLogic.shouldUseNavRail() ? Alignment.topRight : Alignment.topLeft;
+        return PopRouterOnOverScroll(
           controller: _scroller,
           child: ColoredBox(
-              color: $styles.colors.offWhite,
-              child: Stack(children: [
+            color: $styles.colors.offWhite,
+            child: Stack(
+              children: [
                 Positioned.fill(child: ColoredBox(color: widget.data.type.bgColor)),
                 SizedBox(
-                    height: illustrationHeight,
-                    child: ValueListenableBuilder<double>(
-                        valueListenable: _scrollPos,
-                        builder: (_, value, child) {
-                          double opacity = (1 - value / 700).clamp(0, 1);
-                          return Opacity(opacity: opacity, child: child);
-                        },
-                        child: RepaintBoundary(
-                            child: _TopIllustration(widget.data.type,
-                                fgOffset: Offset(widget.contentPadding.left / 2, 0))))),
+                  height: illustrationHeight,
+                  child: ValueListenableBuilder<double>(
+                    valueListenable: _scrollPos,
+                    builder: (_, value, child) {
+                      double opacity = (1 - value / 700).clamp(0, 1);
+                      return Opacity(opacity: opacity, child: child);
+                    },
+                    child: RepaintBoundary(
+                      child: _TopIllustration(widget.data.type, fgOffset: Offset(widget.contentPadding.left / 2, 0)),
+                    ),
+                  ),
+                ),
                 TopCenter(
-                    child: Padding(
-                        padding: widget.contentPadding,
-                        child: SizedBox(
-                            child: FocusTraversalGroup(
-                                child: CustomScrollView(
-                                    controller: _scroller,
-                                    scrollBehavior: ScrollConfiguration.of(context).copyWith(),
-                                    key: PageStorageKey('editorial'),
-                                    slivers: [
-                              SliverToBoxAdapter(child: SizedBox(height: illustrationHeight)),
-                              SliverToBoxAdapter(
-                                  child: ValueListenableBuilder<double>(
-                                      valueListenable: _scrollPos,
-                                      builder: (_, value, child) {
-                                        double offsetAmt = max(0, value * .3);
-                                        double opacity = (1 - offsetAmt / 150).clamp(0, 1);
-                                        return Transform.translate(
-                                            offset: Offset(0, offsetAmt),
-                                            child: Opacity(opacity: opacity, child: child));
-                                      },
-                                      child: _TitleText(widget.data, scroller: _scroller))),
-                              SliverAppBar(
-                                  pinned: true,
-                                  collapsedHeight: minAppBarHeight,
-                                  toolbarHeight: minAppBarHeight,
-                                  expandedHeight: maxAppBarHeight,
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0,
-                                  leading: SizedBox.shrink(),
-                                  flexibleSpace: SizedBox.expand(
-                                      child: _AppBar(widget.data.type,
-                                          scrollPos: _scrollPos, sectionIndex: _sectionIndex))),
-                              _ScrollingContent(widget.data, scrollPos: _scrollPos, sectionNotifier: _sectionIndex)
-                            ]))))),
+                  child: Padding(
+                    padding: widget.contentPadding,
+                    child: SizedBox(
+                      child: FocusTraversalGroup(
+                        child: CustomScrollView(
+                          controller: _scroller,
+                          scrollBehavior: ScrollConfiguration.of(context).copyWith(),
+                          key: PageStorageKey('editorial'),
+                          slivers: [
+                            SliverToBoxAdapter(child: SizedBox(height: illustrationHeight)),
+                            SliverToBoxAdapter(
+                              child: ValueListenableBuilder<double>(
+                                valueListenable: _scrollPos,
+                                builder: (_, value, child) {
+                                  double offsetAmt = max(0, value * .3);
+                                  double opacity = (1 - offsetAmt / 150).clamp(0, 1);
+                                  return Transform.translate(
+                                    offset: Offset(0, offsetAmt),
+                                    child: Opacity(opacity: opacity, child: child),
+                                  );
+                                },
+                                child: _TitleText(widget.data, scroller: _scroller),
+                              ),
+                            ),
+                            SliverAppBar(
+                              pinned: true,
+                              collapsedHeight: minAppBarHeight,
+                              toolbarHeight: minAppBarHeight,
+                              expandedHeight: maxAppBarHeight,
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
+                              leading: SizedBox.shrink(),
+                              flexibleSpace: SizedBox.expand(
+                                child: _AppBar(widget.data.type, scrollPos: _scrollPos, sectionIndex: _sectionIndex),
+                              ),
+                            ),
+                            _ScrollingContent(widget.data, scrollPos: _scrollPos, sectionNotifier: _sectionIndex),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 AnimatedBuilder(
-                    animation: _scroller,
-                    builder: (_, child) => AnimatedOpacity(
-                        opacity: _scrollPos.value > 0 ? 0 : 1, duration: $styles.times.med, child: child),
-                    child: Align(
-                        alignment: backBtnAlign,
-                        child: Padding(
-                            padding: EdgeInsets.all($styles.insets.sm),
-                            child: BackBtn(icon: AppIcons.north, onPressed: _handleBackPressed))))
-              ])));
-    });
+                  animation: _scroller,
+                  builder: (_, child) =>
+                      AnimatedOpacity(opacity: _scrollPos.value > 0 ? 0 : 1, duration: $styles.times.med, child: child),
+                  child: Align(
+                    alignment: backBtnAlign,
+                    child: Padding(
+                      padding: EdgeInsets.all($styles.insets.sm),
+                      child: BackBtn(icon: AppIcons.north, onPressed: _handleBackPressed),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

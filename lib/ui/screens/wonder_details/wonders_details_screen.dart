@@ -18,11 +18,8 @@ class WonderDetailsScreen extends StatefulWidget with GetItStatefulWidgetMixin {
 
 class _WonderDetailsScreenState extends State<WonderDetailsScreen>
     with GetItStateMixin, SingleTickerProviderStateMixin {
-  late final _tabController = TabController(
-    length: 4,
-    vsync: this,
-    initialIndex: _clampIndex(widget.tabIndex),
-  )..addListener(_handleTabChanged);
+  late final _tabController = TabController(length: 4, vsync: this, initialIndex: _clampIndex(widget.tabIndex))
+    ..addListener(_handleTabChanged);
   AnimationController? _fade;
 
   double? _tabBarSize;
@@ -82,18 +79,17 @@ class _WonderDetailsScreenState extends State<WonderDetailsScreen>
               WonderEvents(type: widget.type, contentPadding: menuPadding),
             ],
           ),
-
-          /// Tab menu
           Align(
             alignment: _useNavRail ? Alignment.centerLeft : Alignment.bottomCenter,
             child: MeasurableWidget(
               onChange: _handleTabMenuSized,
               child: WonderDetailsTabMenu(
-                  tabController: _tabController,
-                  onTap: _handleTabTapped,
-                  wonderType: wonder.type,
-                  showBg: showTabBarBg,
-                  axis: _useNavRail ? Axis.vertical : Axis.horizontal),
+                tabController: _tabController,
+                onTap: _handleTabTapped,
+                wonderType: wonder.type,
+                showBg: showTabBarBg,
+                axis: _useNavRail ? Axis.vertical : Axis.horizontal,
+              ),
             ),
           ),
         ],

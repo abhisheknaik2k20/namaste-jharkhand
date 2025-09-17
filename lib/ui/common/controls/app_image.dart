@@ -1,22 +1,20 @@
-import 'package:flutter/foundation.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:namste_jharkhand/common_libs.dart';
 import 'package:namste_jharkhand/logic/common/retry_image.dart';
 import 'package:namste_jharkhand/ui/common/controls/app_loading_indicator.dart';
 
 class AppImage extends StatefulWidget {
-  const AppImage({
-    super.key,
-    required this.image,
-    this.fit = BoxFit.scaleDown,
-    this.alignment = Alignment.center,
-    this.duration,
-    this.syncDuration,
-    this.distractor = false,
-    this.progress = false,
-    this.color,
-    this.scale,
-  });
+  const AppImage(
+      {super.key,
+      required this.image,
+      this.fit = BoxFit.scaleDown,
+      this.alignment = Alignment.center,
+      this.duration,
+      this.syncDuration,
+      this.distractor = false,
+      this.progress = false,
+      this.color,
+      this.scale});
 
   final ImageProvider? image;
   final BoxFit fit;
@@ -55,8 +53,7 @@ class _AppImageState extends State<AppImage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ImageFade(
+  Widget build(BuildContext context) => ImageFade(
       image: _displayImage,
       fit: widget.fit,
       alignment: widget.alignment,
@@ -67,30 +64,18 @@ class _AppImageState extends State<AppImage> {
         return Center(child: AppLoadingIndicator(value: widget.progress ? value : null, color: widget.color));
       },
       errorBuilder: (_, __) => Container(
-        padding: EdgeInsets.all($styles.insets.xs),
-        alignment: Alignment.center,
-        child: LayoutBuilder(builder: (_, constraints) {
-          double size = min(constraints.biggest.width, constraints.biggest.height);
-          if (size < 16) return SizedBox();
-          return Icon(
-            Icons.image_not_supported_outlined,
-            color: $styles.colors.white.withOpacity(0.1),
-            size: min(size, $styles.insets.lg),
-          );
-        }),
-      ),
-    );
-  }
+          padding: EdgeInsets.all($styles.insets.xs),
+          alignment: Alignment.center,
+          child: LayoutBuilder(builder: (_, constraints) {
+            double size = min(constraints.biggest.width, constraints.biggest.height);
+            if (size < 16) return SizedBox();
+            return Icon(Icons.image_not_supported_outlined,
+                color: $styles.colors.white.withOpacity(0.1), size: min(size, $styles.insets.lg));
+          })));
 
-  ImageProvider? _addRetry(ImageProvider? image) {
-    return image == null ? image : RetryImage(image);
-  }
+  ImageProvider? _addRetry(ImageProvider? image) => image == null ? image : RetryImage(image);
 
   ImageProvider? _capImageSize(ImageProvider? image) {
-    // Disable resizing for web as it is currently single-threaded and causes the UI to lock up when resizing large images
-    if (kIsWeb) {
-      return image; // TODO: Remove this when the web engine is updated to support non-blocking image resizing
-    }
     if (image == null || widget.scale == null) return image;
     final MediaQueryData mq = MediaQuery.of(context);
     final Size screenSize = mq.size * mq.devicePixelRatio * widget.scale!;

@@ -64,7 +64,7 @@ import 'app_localizations_zh.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -87,17 +87,17 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('hi'),
-    Locale('zh')
+    Locale('zh'),
   ];
 
   /// No description provided for @appName.
@@ -2703,6 +2703,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Long press to talk'**
   String get speechLongPressToTalk;
+
+  /// No description provided for @loginWelcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back!'**
+  String get loginWelcomeBack;
+
+  /// No description provided for @loginCreateAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get loginCreateAccount;
+
+  /// No description provided for @loginEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get loginEmailLabel;
+
+  /// No description provided for @loginPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get loginPasswordLabel;
+
+  /// No description provided for @loginConfirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get loginConfirmPasswordLabel;
+
+  /// No description provided for @loginSignInButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get loginSignInButton;
+
+  /// No description provided for @loginSignUpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get loginSignUpButton;
+
+  /// No description provided for @loginOrDivider.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get loginOrDivider;
+
+  /// No description provided for @loginGoogleButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get loginGoogleButton;
+
+  /// No description provided for @loginSwitchToSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? Sign up'**
+  String get loginSwitchToSignUp;
+
+  /// No description provided for @loginSwitchToSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Sign in'**
+  String get loginSwitchToSignIn;
+
+  /// No description provided for @loginForgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get loginForgotPassword;
+
+  /// No description provided for @loginLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get loginLogout;
+
+  /// No description provided for @loginLoggingIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging in...'**
+  String get loginLoggingIn;
+
+  /// No description provided for @loginSigningUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Signing up...'**
+  String get loginSigningUp;
+
+  /// No description provided for @loginErrorInvalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get loginErrorInvalidEmail;
+
+  /// No description provided for @loginErrorWeakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password should be at least 6 characters'**
+  String get loginErrorWeakPassword;
+
+  /// No description provided for @loginErrorPasswordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get loginErrorPasswordMismatch;
+
+  /// No description provided for @loginErrorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred. Please try again.'**
+  String get loginErrorGeneric;
+
+  /// No description provided for @loginSuccessWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Wonderous!'**
+  String get loginSuccessWelcome;
+
+  /// No description provided for @loginFullNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get loginFullNameLabel;
+
+  /// No description provided for @loginPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Phone'**
+  String get loginPhoneLabel;
+
+  /// No description provided for @loginUserRoleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select User Role'**
+  String get loginUserRoleLabel;
+
+  /// No description provided for @loginRoleCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer'**
+  String get loginRoleCustomer;
+
+  /// No description provided for @loginRoleGuide.
+  ///
+  /// In en, this message translates to:
+  /// **'Guide'**
+  String get loginRoleGuide;
+
+  /// No description provided for @loginRoleMerchant.
+  ///
+  /// In en, this message translates to:
+  /// **'Merchant'**
+  String get loginRoleMerchant;
+
+  /// No description provided for @loginRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get loginRoleAdmin;
 }
 
 class _AppLocalizationsDelegate
@@ -2734,8 +2896,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }
