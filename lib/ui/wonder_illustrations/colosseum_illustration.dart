@@ -5,11 +5,11 @@ import 'package:namste_jharkhand/ui/wonder_illustrations/common/paint_textures.d
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_config.dart';
 
-class ColosseumIllustration extends StatelessWidget {
-  ColosseumIllustration({super.key, required this.config});
+class ParasnathHillIllustration extends StatelessWidget {
+  ParasnathHillIllustration({super.key, required this.config});
   final WonderIllustrationConfig config;
-  final String assetPath = WonderType.colosseum.assetPath;
-  final bgColor = WonderType.colosseum.bgColor;
+  final String assetPath = WonderType.ParasnathHill.assetPath;
+  final bgColor = WonderType.ParasnathHill.bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ColosseumIllustration extends StatelessWidget {
       bgBuilder: _buildBg,
       mgBuilder: _buildMg,
       fgBuilder: _buildFg,
-      wonderType: WonderType.colosseum,
+      wonderType: WonderType.ParasnathHill,
     );
   }
 
@@ -47,13 +47,13 @@ class ColosseumIllustration extends StatelessWidget {
   List<Widget> _buildMg(BuildContext context, Animation<double> anim) {
     return [
       IllustrationPiece(
-        fileName: 'colosseum.png',
+        fileName: 'ParasnathHill.png',
         enableHero: true,
         heightFactor: 1.0,
         minHeight: 200,
         zoomAmt: .15,
         fractionalOffset: Offset(0, config.shortMode ? .10 : .02),
-      )
+      ),
     ];
   }
 

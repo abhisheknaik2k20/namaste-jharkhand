@@ -5,12 +5,12 @@ import 'package:namste_jharkhand/ui/wonder_illustrations/common/paint_textures.d
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_config.dart';
 
-class GreatWallIllustration extends StatelessWidget {
-  GreatWallIllustration({super.key, required this.config});
+class PatratuValleyIllustration extends StatelessWidget {
+  PatratuValleyIllustration({super.key, required this.config});
   final WonderIllustrationConfig config;
-  final String assetPath = WonderType.greatWall.assetPath;
-  final fgColor = WonderType.greatWall.fgColor;
-  final bgColor = WonderType.greatWall.bgColor;
+  final String assetPath = WonderType.PatratuValley.assetPath;
+  final fgColor = WonderType.PatratuValley.fgColor;
+  final bgColor = WonderType.PatratuValley.bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class GreatWallIllustration extends StatelessWidget {
       bgBuilder: _buildBg,
       mgBuilder: _buildMg,
       fgBuilder: _buildFg,
-      wonderType: WonderType.greatWall,
+      wonderType: WonderType.PatratuValley,
     );
   }
 

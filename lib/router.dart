@@ -158,7 +158,7 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
 }
 
 WonderType _parseWonderType(String? value) {
-  const fallback = WonderType.chichenItza;
+  const fallback = WonderType.JagannathTemple;
   if (value == null) return fallback;
   return _tryParseWonderType(value) ?? fallback;
 }

@@ -5,11 +5,11 @@ import 'package:namste_jharkhand/ui/wonder_illustrations/common/paint_textures.d
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_config.dart';
 
-class ChichenItzaIllustration extends StatelessWidget {
-  ChichenItzaIllustration({super.key, required this.config});
+class JagannathTempleIllustration extends StatelessWidget {
+  JagannathTempleIllustration({super.key, required this.config});
   final WonderIllustrationConfig config;
-  final assetPath = WonderType.chichenItza.assetPath;
-  final fgColor = WonderType.chichenItza.fgColor;
+  final assetPath = WonderType.JagannathTemple.assetPath;
+  final fgColor = WonderType.JagannathTemple.fgColor;
   @override
   Widget build(BuildContext context) {
     return WonderIllustrationBuilder(
@@ -17,7 +17,7 @@ class ChichenItzaIllustration extends StatelessWidget {
       bgBuilder: _buildBg,
       mgBuilder: _buildMg,
       fgBuilder: _buildFg,
-      wonderType: WonderType.chichenItza,
+      wonderType: WonderType.JagannathTemple,
     );
   }
 

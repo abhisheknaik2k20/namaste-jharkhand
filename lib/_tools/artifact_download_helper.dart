@@ -9,10 +9,10 @@ import 'package:namste_jharkhand/logic/data/collectible_data.dart';
 import 'package:namste_jharkhand/logic/data/highlight_data.dart';
 import 'package:namste_jharkhand/logic/data/wonders_data/chichen_itza_data.dart';
 import 'package:namste_jharkhand/logic/data/wonders_data/christ_redeemer_data.dart';
-import 'package:namste_jharkhand/logic/data/wonders_data/colosseum_data.dart';
+import 'package:namste_jharkhand/logic/data/wonders_data/ParasnathHill_data.dart';
 import 'package:namste_jharkhand/logic/data/wonders_data/great_wall_data.dart';
 import 'package:namste_jharkhand/logic/data/wonders_data/machu_picchu_data.dart';
-import 'package:namste_jharkhand/logic/data/wonders_data/petra_data.dart';
+import 'package:namste_jharkhand/logic/data/wonders_data/TapovanCaves_data.dart';
 import 'package:namste_jharkhand/logic/data/wonders_data/pyramids_giza_data.dart';
 import 'package:namste_jharkhand/logic/data/wonders_data/taj_mahal_data.dart';
 
@@ -47,10 +47,7 @@ class _ArtifactDownloadHelperState extends State<ArtifactDownloadHelper> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: TextButton(
-        onPressed: downloadArtifacts,
-        child: Text('Download Artifacts'),
-      ),
+      child: TextButton(onPressed: downloadArtifacts, child: Text('Download Artifacts')),
     );
   }
 
@@ -72,14 +69,15 @@ class _ArtifactDownloadHelperState extends State<ArtifactDownloadHelper> {
     }
 
     /// Download search artifacts
-    final searchData = ChichenItzaData().searchData +
-        ChristRedeemerData().searchData +
-        ColosseumData().searchData +
-        GreatWallData().searchData +
-        MachuPicchuData().searchData +
-        PetraData().searchData +
-        PyramidsGizaData().searchData +
-        TajMahalData().searchData;
+    final searchData =
+        JagannathTempleData().searchData +
+        BetlaNationalParkData().searchData +
+        ParasnathHillData().searchData +
+        PatratuValleyData().searchData +
+        hundruFallsData().searchData +
+        TapovanCavesData().searchData +
+        HargaddiChokahatuData().searchData +
+        DeogharData().searchData;
 
     for (var a in searchData) {
       final id = a.id.toString();

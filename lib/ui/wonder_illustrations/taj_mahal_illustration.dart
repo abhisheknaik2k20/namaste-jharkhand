@@ -5,13 +5,13 @@ import 'package:namste_jharkhand/ui/wonder_illustrations/common/paint_textures.d
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_config.dart';
 
-class TajMahalIllustration extends StatelessWidget {
-  TajMahalIllustration({super.key, required this.config});
+class DeogharIllustration extends StatelessWidget {
+  DeogharIllustration({super.key, required this.config});
   final WonderIllustrationConfig config;
 
-  final fgColor = WonderType.tajMahal.fgColor;
-  final bgColor = WonderType.tajMahal.bgColor;
-  final assetPath = WonderType.tajMahal.assetPath;
+  final fgColor = WonderType.Deoghar.fgColor;
+  final bgColor = WonderType.Deoghar.bgColor;
+  final assetPath = WonderType.Deoghar.assetPath;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class TajMahalIllustration extends StatelessWidget {
       bgBuilder: _buildBg,
       mgBuilder: _buildMg,
       fgBuilder: _buildFg,
-      wonderType: WonderType.tajMahal,
+      wonderType: WonderType.Deoghar,
     );
   }
 
@@ -52,20 +52,21 @@ class TajMahalIllustration extends StatelessWidget {
 
   List<Widget> _buildMg(BuildContext context, Animation<double> anim) {
     return [
-      LayoutBuilder(builder: (_, constraints) {
-        const double minHeight = 230, heightFactor = .6, poolScale = 1;
-        return Stack(
-          children: [
-            IllustrationPiece(
-              fileName: 'taj-mahal.png',
-              heightFactor: heightFactor,
-              minHeight: minHeight,
-              enableHero: true,
-              zoomAmt: .05,
-              fractionalOffset: Offset(0, config.shortMode ? .12 : -.15),
-              top: config.shortMode
-                  ? null
-                  : (_) => FractionalTranslation(
+      LayoutBuilder(
+        builder: (_, constraints) {
+          const double minHeight = 230, heightFactor = .6, poolScale = 1;
+          return Stack(
+            children: [
+              IllustrationPiece(
+                fileName: 'taj-mahal.png',
+                heightFactor: heightFactor,
+                minHeight: minHeight,
+                enableHero: true,
+                zoomAmt: .05,
+                fractionalOffset: Offset(0, config.shortMode ? .12 : -.15),
+                top: config.shortMode
+                    ? null
+                    : (_) => FractionalTranslation(
                         translation: Offset(0, heightFactor),
                         child: IllustrationPiece(
                           fileName: 'pool.png',
@@ -74,10 +75,11 @@ class TajMahalIllustration extends StatelessWidget {
                           zoomAmt: .05,
                         ),
                       ),
-            ),
-          ],
-        );
-      }),
+              ),
+            ],
+          );
+        },
+      ),
     ];
   }
 

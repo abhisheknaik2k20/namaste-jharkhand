@@ -79,10 +79,10 @@ class _PhotoGalleryState extends State<PhotoGallery> {
   /// Used for hiding collectibles around the photo grid.
   int _getCollectibleIndex() {
     return switch (widget.wonderType) {
-      WonderType.chichenItza || WonderType.petra => 0,
-      WonderType.colosseum || WonderType.pyramidsGiza => _gridSize - 1,
-      WonderType.christRedeemer || WonderType.machuPicchu => _imgCount - 1,
-      WonderType.greatWall || WonderType.tajMahal => _imgCount - _gridSize
+      WonderType.JagannathTemple || WonderType.TapovanCaves => 0,
+      WonderType.ParasnathHill || WonderType.HargaddiChokahatu => _gridSize - 1,
+      WonderType.BetlaNationalPark || WonderType.hundruFalls => _imgCount - 1,
+      WonderType.PatratuValley || WonderType.Deoghar => _imgCount - _gridSize,
     };
   }
 
@@ -104,8 +104,10 @@ class _PhotoGalleryState extends State<PhotoGallery> {
       final urls = _photoIds.value.map((e) {
         return UnsplashPhotoData.getSelfHostedUrl(e, UnsplashPhotoSize.xl);
       }).toList();
-      int? newIndex =
-          await appLogic.showFullscreenDialogRoute(context, FullscreenUrlImgViewer(urls: urls, index: _index));
+      int? newIndex = await appLogic.showFullscreenDialogRoute(
+        context,
+        FullscreenUrlImgViewer(urls: urls, index: _index),
+      );
       if (newIndex != null) _setIndex(newIndex, skipAnimation: true);
     } else {
       _setIndex(index);
@@ -121,103 +123,120 @@ class _PhotoGalleryState extends State<PhotoGallery> {
 
   @override
   Widget build(BuildContext context) => ValueListenableBuilder<List<String>>(
-      valueListenable: _photoIds,
-      builder: (_, value, __) {
-        if (value.isEmpty) return Center(child: AppLoadingIndicator());
-        Size imgSize = context.isLandscape
-            ? Size(context.widthPx * .5, context.heightPx * .66)
-            : Size(context.widthPx * .66, context.heightPx * .5);
-        imgSize = (widget.imageSize ?? imgSize) * _scale;
-        final padding = $styles.insets.md;
-        var gridOffset = _calculateCurrentOffset(padding, imgSize);
-        gridOffset += Offset(0, -context.mq.padding.top / 2);
-        final offsetTweenDuration = _skipNextOffsetTween ? Duration.zero : swipeDuration;
-        final cutoutTweenDuration = _skipNextOffsetTween ? Duration.zero : swipeDuration * .5;
-        return _AnimatedCutoutOverlay(
-            animationKey: ValueKey(_index),
-            cutoutSize: imgSize,
-            swipeDir: _lastSwipeDir,
-            duration: cutoutTweenDuration,
-            opacity: _scale == 1 ? .7 : .5,
-            enabled: useClipPathWorkAroundForWeb == false,
-            child: SafeArea(
-                bottom: false,
-                child: OverflowBox(
-                    maxWidth: _gridSize * imgSize.width + padding * (_gridSize - 1),
-                    maxHeight: _gridSize * imgSize.height + padding * (_gridSize - 1),
-                    alignment: Alignment.center,
-                    child: EightWaySwipeDetector(
-                        onSwipe: _handleSwipe,
-                        threshold: 30,
-                        child: TweenAnimationBuilder<Offset>(
-                            tween: Tween(begin: gridOffset, end: gridOffset),
-                            duration: offsetTweenDuration,
-                            curve: Curves.easeOut,
-                            builder: (_, value, child) => Transform.translate(offset: value, child: child),
-                            child: FocusTraversalGroup(
-                                child: GridView.count(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    crossAxisCount: _gridSize,
-                                    childAspectRatio: imgSize.aspectRatio,
-                                    mainAxisSpacing: padding,
-                                    crossAxisSpacing: padding,
-                                    children:
-                                        List.generate(_imgCount, (i) => _buildImage(i, swipeDuration, imgSize)))))))));
-      });
+    valueListenable: _photoIds,
+    builder: (_, value, __) {
+      if (value.isEmpty) return Center(child: AppLoadingIndicator());
+      Size imgSize = context.isLandscape
+          ? Size(context.widthPx * .5, context.heightPx * .66)
+          : Size(context.widthPx * .66, context.heightPx * .5);
+      imgSize = (widget.imageSize ?? imgSize) * _scale;
+      final padding = $styles.insets.md;
+      var gridOffset = _calculateCurrentOffset(padding, imgSize);
+      gridOffset += Offset(0, -context.mq.padding.top / 2);
+      final offsetTweenDuration = _skipNextOffsetTween ? Duration.zero : swipeDuration;
+      final cutoutTweenDuration = _skipNextOffsetTween ? Duration.zero : swipeDuration * .5;
+      return _AnimatedCutoutOverlay(
+        animationKey: ValueKey(_index),
+        cutoutSize: imgSize,
+        swipeDir: _lastSwipeDir,
+        duration: cutoutTweenDuration,
+        opacity: _scale == 1 ? .7 : .5,
+        enabled: useClipPathWorkAroundForWeb == false,
+        child: SafeArea(
+          bottom: false,
+          child: OverflowBox(
+            maxWidth: _gridSize * imgSize.width + padding * (_gridSize - 1),
+            maxHeight: _gridSize * imgSize.height + padding * (_gridSize - 1),
+            alignment: Alignment.center,
+            child: EightWaySwipeDetector(
+              onSwipe: _handleSwipe,
+              threshold: 30,
+              child: TweenAnimationBuilder<Offset>(
+                tween: Tween(begin: gridOffset, end: gridOffset),
+                duration: offsetTweenDuration,
+                curve: Curves.easeOut,
+                builder: (_, value, child) => Transform.translate(offset: value, child: child),
+                child: FocusTraversalGroup(
+                  child: GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    crossAxisCount: _gridSize,
+                    childAspectRatio: imgSize.aspectRatio,
+                    mainAxisSpacing: padding,
+                    crossAxisSpacing: padding,
+                    children: List.generate(_imgCount, (i) => _buildImage(i, swipeDuration, imgSize)),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
 
   Widget _buildImage(int index, Duration swipeDuration, Size imgSize) {
     return FocusTraversalOrder(
-        order: NumericFocusOrder(index.toDouble()),
-        child: ValueListenableBuilder(
-            valueListenable: collectiblesLogic.statesById,
-            builder: (_, __, ___) {
-              bool isSelected = index == _index;
-              final imgUrl = _photoIds.value[index];
-              late String semanticLbl;
-              if (_checkCollectibleIndex(index)) {
-                semanticLbl = $strings.collectibleItemSemanticCollectible;
-              } else {
-                semanticLbl = !isSelected
-                    ? $strings.photoGallerySemanticFocus(index + 1, _imgCount)
-                    : $strings.photoGallerySemanticFullscreen(index + 1, _imgCount);
-              }
-              final photoWidget = TweenAnimationBuilder<double>(
-                  duration: $styles.times.med,
-                  curve: Curves.easeOut,
-                  tween: Tween(begin: 1, end: isSelected ? 1.15 : 1),
-                  builder: (_, value, child) => Transform.scale(scale: value, child: child),
-                  child: UnsplashPhoto(imgUrl, fit: BoxFit.cover, size: UnsplashPhotoSize.large).maybeAnimate().fade());
-              return MergeSemantics(
-                  child: Semantics(
-                      focused: isSelected,
-                      image: !_checkCollectibleIndex(index),
-                      liveRegion: isSelected,
-                      onIncrease: () => _handleImageTapped(_index + 1, false),
-                      onDecrease: () => _handleImageTapped(_index - 1, false),
-                      child: _checkCollectibleIndex(index)
-                          ? Center(
-                              child:
-                                  HiddenCollectible(widget.wonderType, index: 1, size: 100, focus: _focusNodes[index]))
-                          : AppBtn.basic(
-                              semanticLabel: semanticLbl,
-                              focusNode: _focusNodes[index],
-                              onFocusChanged: (isFocused) => _handleImageFocusChanged(index, isFocused),
-                              onPressed: () => _handleImageTapped(index, isSelected),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: SizedBox(
-                                      width: imgSize.width,
-                                      height: imgSize.height,
-                                      child: (useClipPathWorkAroundForWeb == false)
-                                          ? photoWidget
-                                          : Stack(children: [
-                                              photoWidget,
-                                              Positioned.fill(
-                                                  child: AnimatedOpacity(
-                                                      duration: $styles.times.med,
-                                                      opacity: isSelected ? 0 : ($styles.highContrast ? 0.4 : 0.7),
-                                                      child: ColoredBox(color: $styles.colors.black)))
-                                            ]))))));
-            }));
+      order: NumericFocusOrder(index.toDouble()),
+      child: ValueListenableBuilder(
+        valueListenable: collectiblesLogic.statesById,
+        builder: (_, __, ___) {
+          bool isSelected = index == _index;
+          final imgUrl = _photoIds.value[index];
+          late String semanticLbl;
+          if (_checkCollectibleIndex(index)) {
+            semanticLbl = $strings.collectibleItemSemanticCollectible;
+          } else {
+            semanticLbl = !isSelected
+                ? $strings.photoGallerySemanticFocus(index + 1, _imgCount)
+                : $strings.photoGallerySemanticFullscreen(index + 1, _imgCount);
+          }
+          final photoWidget = TweenAnimationBuilder<double>(
+            duration: $styles.times.med,
+            curve: Curves.easeOut,
+            tween: Tween(begin: 1, end: isSelected ? 1.15 : 1),
+            builder: (_, value, child) => Transform.scale(scale: value, child: child),
+            child: UnsplashPhoto(imgUrl, fit: BoxFit.cover, size: UnsplashPhotoSize.large).maybeAnimate().fade(),
+          );
+          return MergeSemantics(
+            child: Semantics(
+              focused: isSelected,
+              image: !_checkCollectibleIndex(index),
+              liveRegion: isSelected,
+              onIncrease: () => _handleImageTapped(_index + 1, false),
+              onDecrease: () => _handleImageTapped(_index - 1, false),
+              child: _checkCollectibleIndex(index)
+                  ? Center(child: HiddenCollectible(widget.wonderType, index: 1, size: 100, focus: _focusNodes[index]))
+                  : AppBtn.basic(
+                      semanticLabel: semanticLbl,
+                      focusNode: _focusNodes[index],
+                      onFocusChanged: (isFocused) => _handleImageFocusChanged(index, isFocused),
+                      onPressed: () => _handleImageTapped(index, isSelected),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: SizedBox(
+                          width: imgSize.width,
+                          height: imgSize.height,
+                          child: (useClipPathWorkAroundForWeb == false)
+                              ? photoWidget
+                              : Stack(
+                                  children: [
+                                    photoWidget,
+                                    Positioned.fill(
+                                      child: AnimatedOpacity(
+                                        duration: $styles.times.med,
+                                        opacity: isSelected ? 0 : ($styles.highContrast ? 0.4 : 0.7),
+                                        child: ColoredBox(color: $styles.colors.black),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ),
+                    ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

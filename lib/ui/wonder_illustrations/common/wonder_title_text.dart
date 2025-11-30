@@ -13,10 +13,8 @@ class WonderTitleText extends StatelessWidget {
   final bool enableHero;
   @override
   Widget build(BuildContext context) {
-    var textStyle = $styles.text.wonderTitle.copyWith(
-      color: $styles.colors.offWhite,
-    );
-    bool smallText = [WonderType.christRedeemer, WonderType.colosseum].contains(data.type);
+    var textStyle = $styles.text.wonderTitle.copyWith(color: $styles.colors.offWhite);
+    bool smallText = [WonderType.BetlaNationalPark, WonderType.ParasnathHill].contains(data.type);
     if (smallText) {
       textStyle = textStyle.copyWith(fontSize: 56 * $styles.scale);
     }
@@ -32,14 +30,24 @@ class WonderTitleText extends StatelessWidget {
       bool addSpace = !addLinebreak && i < pieces.length - 1;
       if (useSmallText == false) text = StringUtils.capitalize(text);
       return TextSpan(
-          text: '$text${addLinebreak ? '\n' : addSpace ? ' ' : ''}',
-          style: useSmallText ? textStyle.copyWith(fontSize: 20 * $styles.scale) : textStyle);
+        text:
+            '$text${addLinebreak
+                ? '\n'
+                : addSpace
+                ? ' '
+                : ''}',
+        style: useSmallText ? textStyle.copyWith(fontSize: 20 * $styles.scale) : textStyle,
+      );
     }
 
     List<Shadow> shadows = enableShadows ? $styles.shadows.textSoft : [];
     var content = RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(style: textStyle.copyWith(shadows: shadows), children: pieces.map(buildTextSpan).toList()));
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: textStyle.copyWith(shadows: shadows),
+        children: pieces.map(buildTextSpan).toList(),
+      ),
+    );
     return enableHero ? Hero(tag: 'wonderTitle-$title', child: content) : content;
   }
 }

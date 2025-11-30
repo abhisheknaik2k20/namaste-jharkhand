@@ -63,8 +63,7 @@ import 'app_localizations_zh.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -72,8 +71,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -85,20 +83,15 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-    Locale('hi'),
-    Locale('zh'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('hi'), Locale('zh')];
 
   /// No description provided for @appName.
   ///
@@ -772,1505 +765,1505 @@ abstract class AppLocalizations {
   /// **'wonder'**
   String get homeSemanticWonder;
 
-  /// No description provided for @chichenItzaTitle.
+  /// No description provided for @JagannathTempleTitle.
   ///
   /// In en, this message translates to:
   /// **'Jagannath Temple'**
-  String get chichenItzaTitle;
+  String get JagannathTempleTitle;
 
-  /// No description provided for @chichenItzaSubTitle.
+  /// No description provided for @JagannathTempleSubTitle.
   ///
   /// In en, this message translates to:
   /// **'Lord of the Universe'**
-  String get chichenItzaSubTitle;
+  String get JagannathTempleSubTitle;
 
-  /// No description provided for @chichenItzaRegionTitle.
+  /// No description provided for @JagannathTempleRegionTitle.
   ///
   /// In en, this message translates to:
   /// **'Puri, Odisha'**
-  String get chichenItzaRegionTitle;
+  String get JagannathTempleRegionTitle;
 
-  /// No description provided for @chichenItzaArtifactCulture.
+  /// No description provided for @JagannathTempleArtifactCulture.
   ///
   /// In en, this message translates to:
   /// **'Hindu'**
-  String get chichenItzaArtifactCulture;
+  String get JagannathTempleArtifactCulture;
 
-  /// No description provided for @chichenItzaArtifactGeolocation.
+  /// No description provided for @JagannathTempleArtifactGeolocation.
   ///
   /// In en, this message translates to:
   /// **'Eastern India'**
-  String get chichenItzaArtifactGeolocation;
+  String get JagannathTempleArtifactGeolocation;
 
-  /// No description provided for @chichenItzaPullQuote1Top.
+  /// No description provided for @JagannathTemplePullQuote1Top.
   ///
   /// In en, this message translates to:
   /// **'The Divine Connection Between'**
-  String get chichenItzaPullQuote1Top;
+  String get JagannathTemplePullQuote1Top;
 
-  /// No description provided for @chichenItzaPullQuote1Bottom.
+  /// No description provided for @JagannathTemplePullQuote1Bottom.
   ///
   /// In en, this message translates to:
   /// **'Earth and the Sacred Realm'**
-  String get chichenItzaPullQuote1Bottom;
+  String get JagannathTemplePullQuote1Bottom;
 
-  /// No description provided for @chichenItzaPullQuote2.
+  /// No description provided for @JagannathTemplePullQuote2.
   ///
   /// In en, this message translates to:
   /// **'The Jagannath Temple represents the eternal bond between devotion and divinity, where millions find spiritual solace and divine blessings.'**
-  String get chichenItzaPullQuote2;
+  String get JagannathTemplePullQuote2;
 
-  /// No description provided for @chichenItzaPullQuote2Author.
+  /// No description provided for @JagannathTemplePullQuote2Author.
   ///
   /// In en, this message translates to:
   /// **'Devotional Scripture'**
-  String get chichenItzaPullQuote2Author;
+  String get JagannathTemplePullQuote2Author;
 
-  /// No description provided for @chichenItzaCallout1.
+  /// No description provided for @JagannathTempleCallout1.
   ///
   /// In en, this message translates to:
   /// **'The temple exhibits the magnificent Kalinga architectural style, featuring a towering spire that dominates the skyline of Puri and serves as a beacon for pilgrims.'**
-  String get chichenItzaCallout1;
+  String get JagannathTempleCallout1;
 
-  /// No description provided for @chichenItzaCallout2.
+  /// No description provided for @JagannathTempleCallout2.
   ///
   /// In en, this message translates to:
   /// **'The temple complex covers a substantial area and houses the famous wooden deities of Lord Jagannath, Balabhadra, and Subhadra on the jeweled throne (Ratna Simhasana).'**
-  String get chichenItzaCallout2;
+  String get JagannathTempleCallout2;
 
-  /// No description provided for @chichenItzaVideoCaption.
+  /// No description provided for @JagannathTempleVideoCaption.
   ///
   /// In en, this message translates to:
   /// **'Jagannath Temple: Sacred Journey and Divine Architecture of Puri'**
-  String get chichenItzaVideoCaption;
+  String get JagannathTempleVideoCaption;
 
-  /// No description provided for @chichenItzaMapCaption.
+  /// No description provided for @JagannathTempleMapCaption.
   ///
   /// In en, this message translates to:
   /// **'Map showing location of Jagannath Temple in Puri, Odisha, on the eastern coast of India.'**
-  String get chichenItzaMapCaption;
+  String get JagannathTempleMapCaption;
 
-  /// No description provided for @chichenItzaHistoryInfo1.
+  /// No description provided for @JagannathTempleHistoryInfo1.
   ///
   /// In en, this message translates to:
   /// **'The Jagannath Temple is a Hindu temple dedicated to Lord Jagannath, a form of Vishnu, located in Puri, Odisha. The present temple was constructed in the 12th century by King Anantavarman Chodaganga Deva of the Eastern Ganga dynasty. According to temple records, the original temple was built by the legendary King Indradyumna of Avanti.'**
-  String get chichenItzaHistoryInfo1;
+  String get JagannathTempleHistoryInfo1;
 
-  /// No description provided for @chichenItzaHistoryInfo2.
+  /// No description provided for @JagannathTempleHistoryInfo2.
   ///
   /// In en, this message translates to:
   /// **'The temple is one of the four sacred Char Dham pilgrimage sites in Hinduism, along with Dwarka, Badrinath, and Rameswaram. It has been a major center of Vaishnavism for over a thousand years and attracts millions of devotees annually, especially during the world-famous Rath Yatra festival.'**
-  String get chichenItzaHistoryInfo2;
+  String get JagannathTempleHistoryInfo2;
 
-  /// No description provided for @chichenItzaConstructionInfo1.
+  /// No description provided for @JagannathTempleConstructionInfo1.
   ///
   /// In en, this message translates to:
   /// **'The temple showcases the classic Kalinga architectural style with its towering spire (vimana) built in the Nagara style Rekha deula and the assembly hall (jagamohana) in Pidha deula style. The main structure stands on a raised platform in the center of an inner courtyard and features intricate stone carvings.'**
-  String get chichenItzaConstructionInfo1;
+  String get JagannathTempleConstructionInfo1;
 
-  /// No description provided for @chichenItzaConstructionInfo2.
+  /// No description provided for @JagannathTempleConstructionInfo2.
   ///
   /// In en, this message translates to:
   /// **'The temple complex includes the main shrine housing the wooden deities on the Ratna Simhasana (jeweled throne), along with multiple smaller temples and structures. The famous wooden idols of Jagannath, Balabhadra, and Subhadra are unique in their abstract, stylized forms and are renewed in a sacred ceremony called Nabakalebara.'**
-  String get chichenItzaConstructionInfo2;
+  String get JagannathTempleConstructionInfo2;
 
-  /// No description provided for @chichenItzaLocationInfo1.
+  /// No description provided for @JagannathTempleLocationInfo1.
   ///
   /// In en, this message translates to:
   /// **'The Jagannath Temple is located in Puri, a coastal city in Odisha state on India\'s eastern seaboard. The temple sits near the Bay of Bengal, making it easily accessible to pilgrims from across India and beyond.'**
-  String get chichenItzaLocationInfo1;
+  String get JagannathTempleLocationInfo1;
 
-  /// No description provided for @chichenItzaLocationInfo2.
+  /// No description provided for @JagannathTempleLocationInfo2.
   ///
   /// In en, this message translates to:
   /// **'Puri is well-connected by road, rail, and air, with the temple serving as the spiritual and cultural heart of the city. The annual Rath Yatra procession moves through the Grand Road (Bada Danda) to the Gundicha Temple, covering a distance that becomes a sacred pathway for millions of devotees.'**
-  String get chichenItzaLocationInfo2;
+  String get JagannathTempleLocationInfo2;
 
-  /// No description provided for @chichenItza600ce.
+  /// No description provided for @JagannathTemple600ce.
   ///
   /// In en, this message translates to:
   /// **'Ancient period: Early establishment of Jagannath worship in the region, with roots in tribal and Vedic traditions.'**
-  String get chichenItza600ce;
+  String get JagannathTemple600ce;
 
-  /// No description provided for @chichenItza832ce.
+  /// No description provided for @JagannathTemple832ce.
   ///
   /// In en, this message translates to:
   /// **'Medieval period: Development of organized temple worship and construction of earlier temple structures on the site.'**
-  String get chichenItza832ce;
+  String get JagannathTemple832ce;
 
-  /// No description provided for @chichenItza998ce.
+  /// No description provided for @JagannathTemple998ce.
   ///
   /// In en, this message translates to:
   /// **'Continued expansion and establishment of the temple as a major pilgrimage center in eastern India.'**
-  String get chichenItza998ce;
+  String get JagannathTemple998ce;
 
-  /// No description provided for @chichenItza1100ce.
+  /// No description provided for @JagannathTemple1100ce.
   ///
   /// In en, this message translates to:
   /// **'12th century: Construction of the present temple structure begins under King Anantavarman Chodaganga Deva.'**
-  String get chichenItza1100ce;
+  String get JagannathTemple1100ce;
 
-  /// No description provided for @chichenItza1527ce.
+  /// No description provided for @JagannathTemple1527ce.
   ///
   /// In en, this message translates to:
   /// **'Mughal period: Temple faces challenges but maintains its religious significance and devotional practices.'**
-  String get chichenItza1527ce;
+  String get JagannathTemple1527ce;
 
-  /// No description provided for @chichenItza1535ce.
+  /// No description provided for @JagannathTemple1535ce.
   ///
   /// In en, this message translates to:
   /// **'1558 CE: First recorded Rath Yatra festival begins, establishing the annual chariot procession tradition that continues today.'**
-  String get chichenItza1535ce;
+  String get JagannathTemple1535ce;
 
-  /// No description provided for @chichenItzaCollectible1Title.
+  /// No description provided for @JagannathTempleCollectible1Title.
   ///
   /// In en, this message translates to:
   /// **'Sacred Tulsi Beads'**
-  String get chichenItzaCollectible1Title;
+  String get JagannathTempleCollectible1Title;
 
-  /// No description provided for @chichenItzaCollectible1Icon.
+  /// No description provided for @JagannathTempleCollectible1Icon.
   ///
   /// In en, this message translates to:
   /// **'jewelry'**
-  String get chichenItzaCollectible1Icon;
+  String get JagannathTempleCollectible1Icon;
 
-  /// No description provided for @chichenItzaCollectible2Title.
+  /// No description provided for @JagannathTempleCollectible2Title.
   ///
   /// In en, this message translates to:
   /// **'Temple Bell Ornament'**
-  String get chichenItzaCollectible2Title;
+  String get JagannathTempleCollectible2Title;
 
-  /// No description provided for @chichenItzaCollectible2Icon.
+  /// No description provided for @JagannathTempleCollectible2Icon.
   ///
   /// In en, this message translates to:
   /// **'jewelry'**
-  String get chichenItzaCollectible2Icon;
+  String get JagannathTempleCollectible2Icon;
 
-  /// No description provided for @chichenItzaCollectible3Title.
+  /// No description provided for @JagannathTempleCollectible3Title.
   ///
   /// In en, this message translates to:
   /// **'Pattachitra Painting'**
-  String get chichenItzaCollectible3Title;
+  String get JagannathTempleCollectible3Title;
 
-  /// No description provided for @chichenItzaCollectible3Icon.
+  /// No description provided for @JagannathTempleCollectible3Icon.
   ///
   /// In en, this message translates to:
   /// **'picture'**
-  String get chichenItzaCollectible3Icon;
+  String get JagannathTempleCollectible3Icon;
 
-  /// No description provided for @christRedeemerTitle.
+  /// No description provided for @BetlaNationalParkTitle.
   ///
   /// In en, this message translates to:
   /// **'Betla National Park'**
-  String get christRedeemerTitle;
+  String get BetlaNationalParkTitle;
 
-  /// No description provided for @christRedeemerSubTitle.
+  /// No description provided for @BetlaNationalParkSubTitle.
   ///
   /// In en, this message translates to:
   /// **'Wildlife Sanctuary and Tiger Reserve'**
-  String get christRedeemerSubTitle;
+  String get BetlaNationalParkSubTitle;
 
-  /// No description provided for @christRedeemerRegionTitle.
+  /// No description provided for @BetlaNationalParkRegionTitle.
   ///
   /// In en, this message translates to:
   /// **'Latehar District, Jharkhand'**
-  String get christRedeemerRegionTitle;
+  String get BetlaNationalParkRegionTitle;
 
-  /// No description provided for @christRedeemerArtifactGeolocation.
+  /// No description provided for @BetlaNationalParkArtifactGeolocation.
   ///
   /// In en, this message translates to:
   /// **'Eastern India'**
-  String get christRedeemerArtifactGeolocation;
+  String get BetlaNationalParkArtifactGeolocation;
 
-  /// No description provided for @christRedeemerPullQuote1Top.
+  /// No description provided for @BetlaNationalParkPullQuote1Top.
   ///
   /// In en, this message translates to:
   /// **'A Perfect Union Between'**
-  String get christRedeemerPullQuote1Top;
+  String get BetlaNationalParkPullQuote1Top;
 
-  /// No description provided for @christRedeemerPullQuote1Bottom.
+  /// No description provided for @BetlaNationalParkPullQuote1Bottom.
   ///
   /// In en, this message translates to:
   /// **'Wildlife and Conservation'**
-  String get christRedeemerPullQuote1Bottom;
+  String get BetlaNationalParkPullQuote1Bottom;
 
-  /// No description provided for @christRedeemerPullQuote2.
+  /// No description provided for @BetlaNationalParkPullQuote2.
   ///
   /// In en, this message translates to:
   /// **'Stepping into Betla is like entering a different realm where majestic predators like tigers, leopards, wolves, and wild dogs roam.'**
-  String get christRedeemerPullQuote2;
+  String get BetlaNationalParkPullQuote2;
 
-  /// No description provided for @christRedeemerPullQuote2Author.
+  /// No description provided for @BetlaNationalParkPullQuote2Author.
   ///
   /// In en, this message translates to:
   /// **'Wildlife Guide'**
-  String get christRedeemerPullQuote2Author;
+  String get BetlaNationalParkPullQuote2Author;
 
-  /// No description provided for @christRedeemerCallout1.
+  /// No description provided for @BetlaNationalParkCallout1.
   ///
   /// In en, this message translates to:
   /// **'Betla is an acronym for Bison, Elephant, Tiger, Leopard, and Axis-axis, representing the diverse wildlife found in the park.'**
-  String get christRedeemerCallout1;
+  String get BetlaNationalParkCallout1;
 
-  /// No description provided for @christRedeemerCallout2.
+  /// No description provided for @BetlaNationalParkCallout2.
   ///
   /// In en, this message translates to:
   /// **'It was one of the first nine tiger reserves created in India under Project Tiger in 1973, and declared a national park in 1986, spreading over 226.32 square kilometers.'**
-  String get christRedeemerCallout2;
+  String get BetlaNationalParkCallout2;
 
-  /// No description provided for @christRedeemerVideoCaption.
+  /// No description provided for @BetlaNationalParkVideoCaption.
   ///
   /// In en, this message translates to:
   /// **'Betla National Park: Wildlife Safari and Conservation in Jharkhand'**
-  String get christRedeemerVideoCaption;
+  String get BetlaNationalParkVideoCaption;
 
-  /// No description provided for @christRedeemerMapCaption.
+  /// No description provided for @BetlaNationalParkMapCaption.
   ///
   /// In en, this message translates to:
   /// **'Map showing location of Betla National Park in Latehar and Palamu districts, Jharkhand.'**
-  String get christRedeemerMapCaption;
+  String get BetlaNationalParkMapCaption;
 
-  /// No description provided for @christRedeemerHistoryInfo1.
+  /// No description provided for @BetlaNationalParkHistoryInfo1.
   ///
   /// In en, this message translates to:
   /// **'Betla National Park was originally established as Palamau Wildlife Sanctuary and later became part of the Palamau Tiger Reserve when Project Tiger was launched in 1973. The region has been inhabited for centuries by indigenous tribes like the Oraon and Munda, who have coexisted with the wildlife.'**
-  String get christRedeemerHistoryInfo1;
+  String get BetlaNationalParkHistoryInfo1;
 
-  /// No description provided for @christRedeemerHistoryInfo2.
+  /// No description provided for @BetlaNationalParkHistoryInfo2.
   ///
   /// In en, this message translates to:
   /// **'The park gained prominence as one of the first nine tiger reserves in India under Project Tiger initiative. It has the distinction of being the first sanctuary in the world where certain tiger conservation milestones were achieved. The area was upgraded from a wildlife sanctuary to a national park status in 1986.'**
-  String get christRedeemerHistoryInfo2;
+  String get BetlaNationalParkHistoryInfo2;
 
-  /// No description provided for @christRedeemerConstructionInfo1.
+  /// No description provided for @BetlaNationalParkConstructionInfo1.
   ///
   /// In en, this message translates to:
   /// **'The park is located on the Chota Nagpur Plateau with an average elevation of about 1000 feet. It falls within the Indo-Malayan biogeographic realm and boasts remarkable diversity of flora and fauna across its varied terrain of forests, hills, valleys, and grasslands.'**
-  String get christRedeemerConstructionInfo1;
+  String get BetlaNationalParkConstructionInfo1;
 
-  /// No description provided for @christRedeemerConstructionInfo2.
+  /// No description provided for @BetlaNationalParkConstructionInfo2.
   ///
   /// In en, this message translates to:
   /// **'Infrastructure within the park includes watch towers, ground hides for wildlife viewing, safari routes for jeeps and elephant rides, and visitor facilities. The park is designed to provide multiple opportunities for wildlife observation while maintaining conservation protocols.'**
-  String get christRedeemerConstructionInfo2;
+  String get BetlaNationalParkConstructionInfo2;
 
-  /// No description provided for @christRedeemerLocationInfo1.
+  /// No description provided for @BetlaNationalParkLocationInfo1.
   ///
   /// In en, this message translates to:
   /// **'Betla National Park is located in the Latehar and Palamu districts of Jharkhand, approximately 170 kilometers from Ranchi. It is situated in the Chota Nagpur Plateau region, surrounded by lush green forests, hills, valleys, and waterfalls.'**
-  String get christRedeemerLocationInfo1;
+  String get BetlaNationalParkLocationInfo1;
 
-  /// No description provided for @christRedeemerLocationInfo2.
+  /// No description provided for @BetlaNationalParkLocationInfo2.
   ///
   /// In en, this message translates to:
   /// **'The park forms the core area of the larger Palamau Tiger Reserve, which covers a total area of 1,129.93 square kilometers. The location provides a natural habitat for diverse wildlife in the heart of Jharkhand\'s tribal belt.'**
-  String get christRedeemerLocationInfo2;
+  String get BetlaNationalParkLocationInfo2;
 
-  /// No description provided for @christRedeemer1850ce.
+  /// No description provided for @BetlaNationalPark1850ce.
   ///
   /// In en, this message translates to:
   /// **'Indigenous tribes like Oraon and Munda have inhabited the region for centuries, living in harmony with the diverse wildlife of the area.'**
-  String get christRedeemer1850ce;
+  String get BetlaNationalPark1850ce;
 
-  /// No description provided for @christRedeemer1921ce.
+  /// No description provided for @BetlaNationalPark1921ce.
   ///
   /// In en, this message translates to:
   /// **'Early wildlife surveys and documentation of the region\'s biodiversity begin, recognizing the area\'s potential for conservation.'**
-  String get christRedeemer1921ce;
+  String get BetlaNationalPark1921ce;
 
-  /// No description provided for @christRedeemer1922ce.
+  /// No description provided for @BetlaNationalPark1922ce.
   ///
   /// In en, this message translates to:
   /// **'The region gains attention from colonial forest administration for its rich wildlife and forest resources.'**
-  String get christRedeemer1922ce;
+  String get BetlaNationalPark1922ce;
 
-  /// No description provided for @christRedeemer1926ce.
+  /// No description provided for @BetlaNationalPark1926ce.
   ///
   /// In en, this message translates to:
   /// **'Systematic wildlife management and protection measures begin to be implemented in the region.'**
-  String get christRedeemer1926ce;
+  String get BetlaNationalPark1926ce;
 
-  /// No description provided for @christRedeemer1931ce.
+  /// No description provided for @BetlaNationalPark1931ce.
   ///
   /// In en, this message translates to:
   /// **'The area is formally recognized as requiring special protection due to its unique ecosystem and wildlife population.'**
-  String get christRedeemer1931ce;
+  String get BetlaNationalPark1931ce;
 
-  /// No description provided for @christRedeemer2006ce.
+  /// No description provided for @BetlaNationalPark2006ce.
   ///
   /// In en, this message translates to:
   /// **'Continued conservation efforts and modernization of park facilities, including improved safari infrastructure and visitor amenities.'**
-  String get christRedeemer2006ce;
+  String get BetlaNationalPark2006ce;
 
-  /// No description provided for @christRedeemerCollectible1Title.
+  /// No description provided for @BetlaNationalParkCollectible1Title.
   ///
   /// In en, this message translates to:
   /// **'Tiger Pugmark Cast'**
-  String get christRedeemerCollectible1Title;
+  String get BetlaNationalParkCollectible1Title;
 
-  /// No description provided for @christRedeemerCollectible1Icon.
+  /// No description provided for @BetlaNationalParkCollectible1Icon.
   ///
   /// In en, this message translates to:
   /// **'statue'**
-  String get christRedeemerCollectible1Icon;
+  String get BetlaNationalParkCollectible1Icon;
 
-  /// No description provided for @christRedeemerCollectible2Title.
+  /// No description provided for @BetlaNationalParkCollectible2Title.
   ///
   /// In en, this message translates to:
   /// **'Medicinal Plant Collection'**
-  String get christRedeemerCollectible2Title;
+  String get BetlaNationalParkCollectible2Title;
 
-  /// No description provided for @christRedeemerCollectible2Icon.
+  /// No description provided for @BetlaNationalParkCollectible2Icon.
   ///
   /// In en, this message translates to:
   /// **'jewelry'**
-  String get christRedeemerCollectible2Icon;
+  String get BetlaNationalParkCollectible2Icon;
 
-  /// No description provided for @christRedeemerCollectible3Title.
+  /// No description provided for @BetlaNationalParkCollectible3Title.
   ///
   /// In en, this message translates to:
   /// **'Tribal Handicrafts'**
-  String get christRedeemerCollectible3Title;
+  String get BetlaNationalParkCollectible3Title;
 
-  /// No description provided for @christRedeemerCollectible3Icon.
+  /// No description provided for @BetlaNationalParkCollectible3Icon.
   ///
   /// In en, this message translates to:
   /// **'textile'**
-  String get christRedeemerCollectible3Icon;
+  String get BetlaNationalParkCollectible3Icon;
 
-  /// No description provided for @colosseumTitle.
+  /// No description provided for @ParasnathHillTitle.
   ///
   /// In en, this message translates to:
   /// **'Parasnath Hill'**
-  String get colosseumTitle;
+  String get ParasnathHillTitle;
 
-  /// No description provided for @colosseumSubTitle.
+  /// No description provided for @ParasnathHillSubTitle.
   ///
   /// In en, this message translates to:
   /// **'Sammed Shikhar'**
-  String get colosseumSubTitle;
+  String get ParasnathHillSubTitle;
 
-  /// No description provided for @colosseumRegionTitle.
+  /// No description provided for @ParasnathHillRegionTitle.
   ///
   /// In en, this message translates to:
   /// **'Giridih, Jharkhand'**
-  String get colosseumRegionTitle;
+  String get ParasnathHillRegionTitle;
 
-  /// No description provided for @colosseumArtifactCulture.
+  /// No description provided for @ParasnathHillArtifactCulture.
   ///
   /// In en, this message translates to:
   /// **'Jain'**
-  String get colosseumArtifactCulture;
+  String get ParasnathHillArtifactCulture;
 
-  /// No description provided for @colosseumArtifactGeolocation.
+  /// No description provided for @ParasnathHillArtifactGeolocation.
   ///
   /// In en, this message translates to:
   /// **'Eastern India'**
-  String get colosseumArtifactGeolocation;
+  String get ParasnathHillArtifactGeolocation;
 
-  /// No description provided for @colosseumPullQuote1Top.
+  /// No description provided for @ParasnathHillPullQuote1Top.
   ///
   /// In en, this message translates to:
   /// **'Sacred Peak Where Twenty'**
-  String get colosseumPullQuote1Top;
+  String get ParasnathHillPullQuote1Top;
 
-  /// No description provided for @colosseumPullQuote1Bottom.
+  /// No description provided for @ParasnathHillPullQuote1Bottom.
   ///
   /// In en, this message translates to:
   /// **'Tirthankaras Attained Moksha'**
-  String get colosseumPullQuote1Bottom;
+  String get ParasnathHillPullQuote1Bottom;
 
-  /// No description provided for @colosseumPullQuote2.
+  /// No description provided for @ParasnathHillPullQuote2.
   ///
   /// In en, this message translates to:
   /// **'Sammed Shikhar represents the ultimate spiritual destination where divine souls achieved liberation through meditation and detachment from worldly bonds.'**
-  String get colosseumPullQuote2;
+  String get ParasnathHillPullQuote2;
 
-  /// No description provided for @colosseumPullQuote2Author.
+  /// No description provided for @ParasnathHillPullQuote2Author.
   ///
   /// In en, this message translates to:
   /// **'Jain Scripture'**
-  String get colosseumPullQuote2Author;
+  String get ParasnathHillPullQuote2Author;
 
-  /// No description provided for @colosseumCallout1.
+  /// No description provided for @ParasnathHillCallout1.
   ///
   /// In en, this message translates to:
   /// **'It is the holiest pilgrimage site for Jains, where 20 out of 24 Tirthankaras attained Moksha (salvation), including the 23rd Tirthankara Lord Parshvanatha who achieved liberation here in 772 BCE.'**
-  String get colosseumCallout1;
+  String get ParasnathHillCallout1;
 
-  /// No description provided for @colosseumCallout2.
+  /// No description provided for @ParasnathHillCallout2.
   ///
   /// In en, this message translates to:
   /// **'At 1,370 meters (4,480 feet), it is the highest peak in Jharkhand state and houses 32 ancient temples with exquisite stone carvings depicting Jain spiritual teachings and mythology.'**
-  String get colosseumCallout2;
+  String get ParasnathHillCallout2;
 
-  /// No description provided for @colosseumVideoCaption.
+  /// No description provided for @ParasnathHillVideoCaption.
   ///
   /// In en, this message translates to:
   /// **'Sammed Shikhar: Sacred Journey to Jain Pilgrimage Site on Parasnath Hill'**
-  String get colosseumVideoCaption;
+  String get ParasnathHillVideoCaption;
 
-  /// No description provided for @colosseumMapCaption.
+  /// No description provided for @ParasnathHillMapCaption.
   ///
   /// In en, this message translates to:
   /// **'Map showing location of Parasnath Hill in Giridih district, Jharkhand, Eastern India'**
-  String get colosseumMapCaption;
+  String get ParasnathHillMapCaption;
 
-  /// No description provided for @colosseumHistoryInfo1.
+  /// No description provided for @ParasnathHillHistoryInfo1.
   ///
   /// In en, this message translates to:
   /// **'Parasnath Hill, also known as Sammed Shikhar (Peak of Concentration), is an ancient Jain pilgrimage site with archaeological evidence indicating Jain presence dating back to at least 1500 BCE. The earliest literary reference appears in the Jñātṛdhārmakātha, compiled in the 6th century BCE.'**
-  String get colosseumHistoryInfo1;
+  String get ParasnathHillHistoryInfo1;
 
-  /// No description provided for @colosseumHistoryInfo2.
+  /// No description provided for @ParasnathHillHistoryInfo2.
   ///
   /// In en, this message translates to:
   /// **'The site derives its name from Lord Parshvanatha, the 23rd Tirthankara, who attained Moksha here in 772 BCE. Throughout history, it has remained the most sacred Jain tirth (pilgrimage site), continuously drawing devotees seeking spiritual liberation and enlightenment.'**
-  String get colosseumHistoryInfo2;
+  String get ParasnathHillHistoryInfo2;
 
-  /// No description provided for @colosseumConstructionInfo1.
+  /// No description provided for @ParasnathHillConstructionInfo1.
   ///
   /// In en, this message translates to:
   /// **'The temple complex showcases magnificent Jain architecture built primarily in the 18th century, featuring 32 temples distributed across the hill. The structures display intricate stone carvings, beautiful murals on temple walls, and delicately carved sculptures that depict Jain religious tenets.'**
-  String get colosseumConstructionInfo1;
+  String get ParasnathHillConstructionInfo1;
 
-  /// No description provided for @colosseumConstructionInfo2.
+  /// No description provided for @ParasnathHillConstructionInfo2.
   ///
   /// In en, this message translates to:
   /// **'The temples feature distinctive arched gateway structures and elaborate wall carvings that narrate stories of spiritual Jain teachers. At the base in Madhuvan, there are eight main temples, two Dadawadis (pilgrimage rest houses), and the temple of Bhomiyaji Maharaja, creating a divine architectural ensemble.'**
-  String get colosseumConstructionInfo2;
+  String get ParasnathHillConstructionInfo2;
 
-  /// No description provided for @colosseumLocationInfo1.
+  /// No description provided for @ParasnathHillLocationInfo1.
   ///
   /// In en, this message translates to:
   /// **'Parasnath Hill is located in the Giridih district of Jharkhand state in eastern India, rising to 1,370 meters as the highest mountain in the state. It lies on the NH-2 Delhi-Kolkata highway section of the historic Grand Trunk Road.'**
-  String get colosseumLocationInfo1;
+  String get ParasnathHillLocationInfo1;
 
-  /// No description provided for @colosseumLocationInfo2.
+  /// No description provided for @ParasnathHillLocationInfo2.
   ///
   /// In en, this message translates to:
   /// **'The hill is part of the Parasnath Wildlife Sanctuary, a protected area that preserves both the natural ecosystem and sacred Jain heritage. The site is accessible to pilgrims from across India and internationally, serving as the spiritual heart of global Jainism.'**
-  String get colosseumLocationInfo2;
+  String get ParasnathHillLocationInfo2;
 
-  /// No description provided for @colosseum70ce.
+  /// No description provided for @ParasnathHill70ce.
   ///
   /// In en, this message translates to:
   /// **'1500 BCE: Archaeological evidence indicates the earliest Jain presence on Parasnath Hill, establishing it as an ancient center of Jain spirituality and meditation.'**
-  String get colosseum70ce;
+  String get ParasnathHill70ce;
 
-  /// No description provided for @colosseum82ce.
+  /// No description provided for @ParasnathHill82ce.
   ///
   /// In en, this message translates to:
   /// **'772 BCE: Lord Parshvanatha, the 23rd Tirthankara, attains Moksha (salvation) on the hill, giving the site its sacred name and establishing its supreme religious significance.'**
-  String get colosseum82ce;
+  String get ParasnathHill82ce;
 
-  /// No description provided for @colosseum1140ce.
+  /// No description provided for @ParasnathHill1140ce.
   ///
   /// In en, this message translates to:
   /// **'6th century BCE: The Jñātṛdhārmakātha, one of the twelve core Jain texts, makes the earliest literary reference to Shikharji as a sacred tirth (pilgrimage site).'**
-  String get colosseum1140ce;
+  String get ParasnathHill1140ce;
 
-  /// No description provided for @colosseum1490ce.
+  /// No description provided for @ParasnathHill1490ce.
   ///
   /// In en, this message translates to:
   /// **'12th century: Historical records indicate continued religious activities and temple maintenance, with the site serving as an established pilgrimage center.'**
-  String get colosseum1490ce;
+  String get ParasnathHill1490ce;
 
-  /// No description provided for @colosseum1829ce.
+  /// No description provided for @ParasnathHill1829ce.
   ///
   /// In en, this message translates to:
   /// **'18th century: Major temple construction period begins, with the current architectural complex of 32 temples being built, featuring the distinctive Jain architectural style with intricate carvings.'**
-  String get colosseum1829ce;
+  String get ParasnathHill1829ce;
 
-  /// No description provided for @colosseum1990ce.
+  /// No description provided for @ParasnathHill1990ce.
   ///
   /// In en, this message translates to:
   /// **'Modern era: The site continues to attract millions of Jain pilgrims annually and is recognized as a protected wildlife sanctuary, balancing religious heritage with environmental conservation.'**
-  String get colosseum1990ce;
+  String get ParasnathHill1990ce;
 
-  /// No description provided for @colosseumCollectible1Title.
+  /// No description provided for @ParasnathHillCollectible1Title.
   ///
   /// In en, this message translates to:
   /// **'Jain Prayer Beads (Mala)'**
-  String get colosseumCollectible1Title;
+  String get ParasnathHillCollectible1Title;
 
-  /// No description provided for @colosseumCollectible1Icon.
+  /// No description provided for @ParasnathHillCollectible1Icon.
   ///
   /// In en, this message translates to:
   /// **'jewelry'**
-  String get colosseumCollectible1Icon;
+  String get ParasnathHillCollectible1Icon;
 
-  /// No description provided for @colosseumCollectible2Title.
+  /// No description provided for @ParasnathHillCollectible2Title.
   ///
   /// In en, this message translates to:
   /// **'Tirthankara Sculpture'**
-  String get colosseumCollectible2Title;
+  String get ParasnathHillCollectible2Title;
 
-  /// No description provided for @colosseumCollectible2Icon.
+  /// No description provided for @ParasnathHillCollectible2Icon.
   ///
   /// In en, this message translates to:
   /// **'statue'**
-  String get colosseumCollectible2Icon;
+  String get ParasnathHillCollectible2Icon;
 
-  /// No description provided for @colosseumCollectible3Title.
+  /// No description provided for @ParasnathHillCollectible3Title.
   ///
   /// In en, this message translates to:
   /// **'Jain Manuscript Palm Leaf'**
-  String get colosseumCollectible3Title;
+  String get ParasnathHillCollectible3Title;
 
-  /// No description provided for @colosseumCollectible3Icon.
+  /// No description provided for @ParasnathHillCollectible3Icon.
   ///
   /// In en, this message translates to:
   /// **'picture'**
-  String get colosseumCollectible3Icon;
+  String get ParasnathHillCollectible3Icon;
 
-  /// No description provided for @greatWallTitle.
+  /// No description provided for @PatratuValleyTitle.
   ///
   /// In en, this message translates to:
   /// **'Patratu Valley'**
-  String get greatWallTitle;
+  String get PatratuValleyTitle;
 
-  /// No description provided for @greatWallSubTitle.
+  /// No description provided for @PatratuValleySubTitle.
   ///
   /// In en, this message translates to:
   /// **'Industrial Heritage & Natural Beauty'**
-  String get greatWallSubTitle;
+  String get PatratuValleySubTitle;
 
-  /// No description provided for @greatWallRegionTitle.
+  /// No description provided for @PatratuValleyRegionTitle.
   ///
   /// In en, this message translates to:
   /// **'Ramgarh District, Jharkhand'**
-  String get greatWallRegionTitle;
+  String get PatratuValleyRegionTitle;
 
-  /// No description provided for @greatWallArtifactCulture.
+  /// No description provided for @PatratuValleyArtifactCulture.
   ///
   /// In en, this message translates to:
   /// **'Scenic Valley with Thermal Power Heritage '**
-  String get greatWallArtifactCulture;
+  String get PatratuValleyArtifactCulture;
 
-  /// No description provided for @greatWallArtifactGeolocation.
+  /// No description provided for @PatratuValleyArtifactGeolocation.
   ///
   /// In en, this message translates to:
   /// **'Eastern India'**
-  String get greatWallArtifactGeolocation;
+  String get PatratuValleyArtifactGeolocation;
 
-  /// No description provided for @greatWallPullQuote1Top.
+  /// No description provided for @PatratuValleyPullQuote1Top.
   ///
   /// In en, this message translates to:
   /// **'A Perfect Blend of'**
-  String get greatWallPullQuote1Top;
+  String get PatratuValleyPullQuote1Top;
 
-  /// No description provided for @greatWallPullQuote1Bottom.
+  /// No description provided for @PatratuValleyPullQuote1Bottom.
   ///
   /// In en, this message translates to:
   /// **'Nature and Industry'**
-  String get greatWallPullQuote1Bottom;
+  String get PatratuValleyPullQuote1Bottom;
 
-  /// No description provided for @greatWallPullQuote2.
+  /// No description provided for @PatratuValleyPullQuote2.
   ///
   /// In en, this message translates to:
   /// **'The journey from Ranchi is an adventure in itself with twisting ways providing you an unmatched scenery.'**
-  String get greatWallPullQuote2;
+  String get PatratuValleyPullQuote2;
 
-  /// No description provided for @greatWallPullQuote2Author.
+  /// No description provided for @PatratuValleyPullQuote2Author.
   ///
   /// In en, this message translates to:
   /// **'MakeMyTrip Travel Guide'**
-  String get greatWallPullQuote2Author;
+  String get PatratuValleyPullQuote2Author;
 
-  /// No description provided for @greatWallCallout1.
+  /// No description provided for @PatratuValleyCallout1.
   ///
   /// In en, this message translates to:
   /// **'The Patratu Thermal Power Station was built with Russian collaboration in 1962 and has a power generation capacity of 840MW.'**
-  String get greatWallCallout1;
+  String get PatratuValleyCallout1;
 
-  /// No description provided for @greatWallCallout2.
+  /// No description provided for @PatratuValleyCallout2.
   ///
   /// In en, this message translates to:
   /// **'The Patratu Dam was constructed on the Nalkari River with a total storage capacity of 81 square miles to supply water to the thermal power station.'**
-  String get greatWallCallout2;
+  String get PatratuValleyCallout2;
 
-  /// No description provided for @greatWallVideoCaption.
+  /// No description provided for @PatratuValleyVideoCaption.
   ///
   /// In en, this message translates to:
   /// **'Patratu Valley: Where Industry Meets Nature in Jharkhand\'s Beautiful Landscape'**
-  String get greatWallVideoCaption;
+  String get PatratuValleyVideoCaption;
 
-  /// No description provided for @greatWallMapCaption.
+  /// No description provided for @PatratuValleyMapCaption.
   ///
   /// In en, this message translates to:
   /// **'Map showing location of Patratu Valley in Ramgarh District, Jharkhand, about one hour from Ranchi.'**
-  String get greatWallMapCaption;
+  String get PatratuValleyMapCaption;
 
-  /// No description provided for @greatWallHistoryInfo1.
+  /// No description provided for @PatratuValleyHistoryInfo1.
   ///
   /// In en, this message translates to:
   /// **'Patratu Valley is located in Ramgarh district of Jharkhand state in eastern India. The area developed as a residential town for employees of the Patratu Thermal Power Station, which was established through Russian collaboration in 1962. The valley is known for its lush green terrains and the dam built upon the Nalkari River.'**
-  String get greatWallHistoryInfo1;
+  String get PatratuValleyHistoryInfo1;
 
-  /// No description provided for @greatWallHistoryInfo2.
+  /// No description provided for @PatratuValleyHistoryInfo2.
   ///
   /// In en, this message translates to:
   /// **'The thermal power station has four chimneys - two built by a Russian firm (called the Russian side) and two by an Indian firm (the Indian side). The dam serves as the main water reservoir for the power plant and has become a popular tourist destination, particularly during winter months when large numbers of visitors come for picnics.'**
-  String get greatWallHistoryInfo2;
+  String get PatratuValleyHistoryInfo2;
 
-  /// No description provided for @greatWallConstructionInfo1.
+  /// No description provided for @PatratuValleyConstructionInfo1.
   ///
   /// In en, this message translates to:
   /// **'The Patratu Dam was constructed in 1962 on the Nalkari River, located 30 km west of Ramgarh. Water from the river and from waterfalls of the surrounding hills is stored in this dam. The construction was specifically designed to supply water to the Patratu Thermal Power Station\'s operations.'**
-  String get greatWallConstructionInfo1;
+  String get PatratuValleyConstructionInfo1;
 
-  /// No description provided for @greatWallConstructionInfo2.
+  /// No description provided for @PatratuValleyConstructionInfo2.
   ///
   /// In en, this message translates to:
   /// **'The thermal power plant construction involved both Russian and Indian engineering expertise. The facility includes residential areas for employees and supporting infrastructure. A circuit house was built beside the dam, and the area features temples including the Panchawahini temple adjacent to the dam.'**
-  String get greatWallConstructionInfo2;
+  String get PatratuValleyConstructionInfo2;
 
-  /// No description provided for @greatWallLocationInfo1.
+  /// No description provided for @PatratuValleyLocationInfo1.
   ///
   /// In en, this message translates to:
   /// **'Patratu Valley lies in the Ramgarh district of Jharkhand, accessible via a scenic hour-long drive from Ranchi. The valley features twisting roads with hairpin bends that provide spectacular views, especially when seen from above. The location offers panoramic views of the surrounding hills and the expansive dam.'**
-  String get greatWallLocationInfo1;
+  String get PatratuValleyLocationInfo1;
 
-  /// No description provided for @greatWallLocationInfo2.
+  /// No description provided for @PatratuValleyLocationInfo2.
   ///
   /// In en, this message translates to:
   /// **'The valley serves multiple purposes beyond power generation - it has become a significant tourist destination offering boat rides, picnic spots, and temple visits. The area includes the Maa Panchwahini Mandir and Mata Rani Mandir temples, and provides access to local eateries serving traditional Jharkhandi cuisine.'**
-  String get greatWallLocationInfo2;
+  String get PatratuValleyLocationInfo2;
 
-  /// No description provided for @greatWall700bce.
+  /// No description provided for @PatratuValley700bce.
   ///
   /// In en, this message translates to:
   /// **'1962 CE: The foundation of modern Patratu was laid with the establishment of the thermal power station through Russian collaboration, marking the beginning of the area\'s transformation from a rural valley to an industrial township.'**
-  String get greatWall700bce;
+  String get PatratuValley700bce;
 
-  /// No description provided for @greatWall214bce.
+  /// No description provided for @PatratuValley214bce.
   ///
   /// In en, this message translates to:
   /// **'1962 CE: Construction of the Patratu Dam was completed on the Nalkari River, creating an 81 square mile water reservoir to supply the newly built thermal power station, fundamentally changing the landscape of the valley.'**
-  String get greatWall214bce;
+  String get PatratuValley214bce;
 
-  /// No description provided for @greatWall121bce.
+  /// No description provided for @PatratuValley121bce.
   ///
   /// In en, this message translates to:
   /// **'1970s CE: Development of residential areas for power plant employees led to the growth of Patratu as a planned township, with infrastructure including housing, schools, and community facilities being established over a 20-year period.'**
-  String get greatWall121bce;
+  String get PatratuValley121bce;
 
-  /// No description provided for @greatWall556ce.
+  /// No description provided for @PatratuValley556ce.
   ///
   /// In en, this message translates to:
   /// **'1980s-1990s CE: The area began gaining recognition as a tourist destination, with the Jharkhand Tourism Department developing facilities including the tourist complex at Patratu Lake and promoting it as a scenic getaway from urban centers.'**
-  String get greatWall556ce;
+  String get PatratuValley556ce;
 
-  /// No description provided for @greatWall618ce.
+  /// No description provided for @PatratuValley618ce.
   ///
   /// In en, this message translates to:
   /// **'2000s CE: Patratu Valley saw increased tourism development with improved road access and facilities, though the thermal power station faced periods of reduced operation and maintenance challenges in later decades.'**
-  String get greatWall618ce;
+  String get PatratuValley618ce;
 
-  /// No description provided for @greatWall1487ce.
+  /// No description provided for @PatratuValley1487ce.
   ///
   /// In en, this message translates to:
   /// **'2020s CE: Modern tourism initiatives by the Jharkhand government have focused on developing the waterfront and making the valley more attractive to visitors, while plans for expanding power generation capacity continue to be considered.'**
-  String get greatWall1487ce;
+  String get PatratuValley1487ce;
 
-  /// No description provided for @greatWallCollectible1Title.
+  /// No description provided for @PatratuValleyCollectible1Title.
   ///
   /// In en, this message translates to:
   /// **'Patratu Dam Waters'**
-  String get greatWallCollectible1Title;
+  String get PatratuValleyCollectible1Title;
 
-  /// No description provided for @greatWallCollectible1Icon.
+  /// No description provided for @PatratuValleyCollectible1Icon.
   ///
   /// In en, this message translates to:
   /// **'water'**
-  String get greatWallCollectible1Icon;
+  String get PatratuValleyCollectible1Icon;
 
-  /// No description provided for @greatWallCollectible2Title.
+  /// No description provided for @PatratuValleyCollectible2Title.
   ///
   /// In en, this message translates to:
   /// **'Thermal Power Station Model'**
-  String get greatWallCollectible2Title;
+  String get PatratuValleyCollectible2Title;
 
-  /// No description provided for @greatWallCollectible2Icon.
+  /// No description provided for @PatratuValleyCollectible2Icon.
   ///
   /// In en, this message translates to:
   /// **'industry'**
-  String get greatWallCollectible2Icon;
+  String get PatratuValleyCollectible2Icon;
 
-  /// No description provided for @greatWallCollectible3Title.
+  /// No description provided for @PatratuValleyCollectible3Title.
   ///
   /// In en, this message translates to:
   /// **'Panchawahini Temple Offering'**
-  String get greatWallCollectible3Title;
+  String get PatratuValleyCollectible3Title;
 
-  /// No description provided for @greatWallCollectible3Icon.
+  /// No description provided for @PatratuValleyCollectible3Icon.
   ///
   /// In en, this message translates to:
   /// **'temple'**
-  String get greatWallCollectible3Icon;
+  String get PatratuValleyCollectible3Icon;
 
-  /// No description provided for @machuPicchuTitle.
+  /// No description provided for @hundruFallsTitle.
   ///
   /// In en, this message translates to:
   /// **'Hundru Falls'**
-  String get machuPicchuTitle;
+  String get hundruFallsTitle;
 
-  /// No description provided for @machuPicchuSubTitle.
+  /// No description provided for @hundruFallsSubTitle.
   ///
   /// In en, this message translates to:
   /// **'Jharkhand\'s Highest Waterfall'**
-  String get machuPicchuSubTitle;
+  String get hundruFallsSubTitle;
 
-  /// No description provided for @machuPicchuRegionTitle.
+  /// No description provided for @hundruFallsRegionTitle.
   ///
   /// In en, this message translates to:
   /// **'Ranchi District, Jharkhand'**
-  String get machuPicchuRegionTitle;
+  String get hundruFallsRegionTitle;
 
-  /// No description provided for @machuPicchuArtifactCulture.
+  /// No description provided for @hundruFallsArtifactCulture.
   ///
   /// In en, this message translates to:
   /// **'Natural Wonder'**
-  String get machuPicchuArtifactCulture;
+  String get hundruFallsArtifactCulture;
 
-  /// No description provided for @machuPicchuArtifactGeolocation.
+  /// No description provided for @hundruFallsArtifactGeolocation.
   ///
   /// In en, this message translates to:
   /// **'Eastern India'**
-  String get machuPicchuArtifactGeolocation;
+  String get hundruFallsArtifactGeolocation;
 
-  /// No description provided for @machuPicchuPullQuote1Top.
+  /// No description provided for @hundruFallsPullQuote1Top.
   ///
   /// In en, this message translates to:
   /// **'A Spectacular Scene of Water'**
-  String get machuPicchuPullQuote1Top;
+  String get hundruFallsPullQuote1Top;
 
-  /// No description provided for @machuPicchuPullQuote1Bottom.
+  /// No description provided for @hundruFallsPullQuote1Bottom.
   ///
   /// In en, this message translates to:
   /// **'Falling from Great Height'**
-  String get machuPicchuPullQuote1Bottom;
+  String get hundruFallsPullQuote1Bottom;
 
-  /// No description provided for @machuPicchuPullQuote1Author.
+  /// No description provided for @hundruFallsPullQuote1Author.
   ///
   /// In en, this message translates to:
   /// **'Government of Jharkhand'**
-  String get machuPicchuPullQuote1Author;
+  String get hundruFallsPullQuote1Author;
 
-  /// No description provided for @machuPicchuPullQuote2.
+  /// No description provided for @hundruFallsPullQuote2.
   ///
   /// In en, this message translates to:
   /// **'The cascading water creates a misty ambience and forms a frothy pool at the base, which is an exhilarating sight for visitors.'**
-  String get machuPicchuPullQuote2;
+  String get hundruFallsPullQuote2;
 
-  /// No description provided for @machuPicchuPullQuote2Author.
+  /// No description provided for @hundruFallsPullQuote2Author.
   ///
   /// In en, this message translates to:
   /// **'Travel Guide'**
-  String get machuPicchuPullQuote2Author;
+  String get hundruFallsPullQuote2Author;
 
-  /// No description provided for @machuPicchuCallout1.
+  /// No description provided for @hundruFallsCallout1.
   ///
   /// In en, this message translates to:
   /// **'The waterfall falls from a height of 98 metres (322 feet), making it one of the highest waterfalls in Jharkhand state and the 34th highest waterfall in India.'**
-  String get machuPicchuCallout1;
+  String get hundruFallsCallout1;
 
-  /// No description provided for @machuPicchuCallout2.
+  /// No description provided for @hundruFallsCallout2.
   ///
   /// In en, this message translates to:
   /// **'The different formations of rock due to water erosion create various shapes and niches, lending an almost otherworldly feel to the landscape.'**
-  String get machuPicchuCallout2;
+  String get hundruFallsCallout2;
 
-  /// No description provided for @machuPicchuVideoCaption.
+  /// No description provided for @hundruFallsVideoCaption.
   ///
   /// In en, this message translates to:
   /// **'Hundru Falls: Nature\'s Spectacular Display in Jharkhand'**
-  String get machuPicchuVideoCaption;
+  String get hundruFallsVideoCaption;
 
-  /// No description provided for @machuPicchuMapCaption.
+  /// No description provided for @hundruFallsMapCaption.
   ///
   /// In en, this message translates to:
   /// **'Map showing location of Hundru Falls on the Subarnarekha River in Ranchi District, Jharkhand.'**
-  String get machuPicchuMapCaption;
+  String get hundruFallsMapCaption;
 
-  /// No description provided for @machuPicchuHistoryInfo1.
+  /// No description provided for @hundruFallsHistoryInfo1.
   ///
   /// In en, this message translates to:
   /// **'Hundru Falls is a natural waterfall located in Ranchi district of Jharkhand state in eastern India. The waterfall is formed by the Subarnarekha River, which originates near Piska/Nagri and flows through several districts before joining the Bay of Bengal.'**
-  String get machuPicchuHistoryInfo1;
+  String get hundruFallsHistoryInfo1;
 
-  /// No description provided for @machuPicchuHistoryInfo2.
+  /// No description provided for @hundruFallsHistoryInfo2.
   ///
   /// In en, this message translates to:
   /// **'The waterfall represents a geological feature called a knickpoint, caused by rejuvenation. This break in the river\'s gradient allows water to fall vertically, creating the spectacular waterfall that has become one of Jharkhand\'s most popular tourist destinations.'**
-  String get machuPicchuHistoryInfo2;
+  String get hundruFallsHistoryInfo2;
 
-  /// No description provided for @machuPicchuConstructionInfo1.
+  /// No description provided for @hundruFallsConstructionInfo1.
   ///
   /// In en, this message translates to:
   /// **'The waterfall is a natural geological formation created by the erosion patterns of the Subarnarekha River over thousands of years. The rocky terrain around the falls has been shaped by continuous water flow, creating unique rock formations and natural pools.'**
-  String get machuPicchuConstructionInfo1;
+  String get hundruFallsConstructionInfo1;
 
-  /// No description provided for @machuPicchuConstructionInfo2.
+  /// No description provided for @hundruFallsConstructionInfo2.
   ///
   /// In en, this message translates to:
   /// **'The base of the waterfall features a natural pool that serves as both a scenic attraction and a popular bathing spot for visitors. The surrounding landscape is characterized by lush forests and rocky terrain that provides natural beauty and biodiversity.'**
-  String get machuPicchuConstructionInfo2;
+  String get hundruFallsConstructionInfo2;
 
-  /// No description provided for @machuPicchuLocationInfo1.
+  /// No description provided for @hundruFallsLocationInfo1.
   ///
   /// In en, this message translates to:
   /// **'Hundru Falls is situated in the Ranchi district of Jharkhand, approximately 45 kilometers from Ranchi city. The waterfall is easily accessible by road and is located in the village of Hundru, making it a popular destination for day trips and picnics.'**
-  String get machuPicchuLocationInfo1;
+  String get hundruFallsLocationInfo1;
 
-  /// No description provided for @machuPicchuLocationInfo2.
+  /// No description provided for @hundruFallsLocationInfo2.
   ///
   /// In en, this message translates to:
   /// **'The surrounding area is characterized by dense forests and rocky terrain. The Subarnarekha River continues its journey from here through multiple states including Jharkhand, West Bengal, and Odisha before ultimately reaching the Bay of Bengal at Talsari.'**
-  String get machuPicchuLocationInfo2;
+  String get hundruFallsLocationInfo2;
 
-  /// No description provided for @machuPicchu1438ce.
+  /// No description provided for @hundruFalls1438ce.
   ///
   /// In en, this message translates to:
   /// **'Natural formation of the waterfall begins through geological processes and river erosion over millennia.'**
-  String get machuPicchu1438ce;
+  String get hundruFalls1438ce;
 
-  /// No description provided for @machuPicchu1572ce.
+  /// No description provided for @hundruFalls1572ce.
   ///
   /// In en, this message translates to:
   /// **'Local tribal communities and residents of the region have known about the waterfall for generations, using it as a water source and gathering place.'**
-  String get machuPicchu1572ce;
+  String get hundruFalls1572ce;
 
-  /// No description provided for @machuPicchu1867ce.
+  /// No description provided for @hundruFalls1867ce.
   ///
   /// In en, this message translates to:
   /// **'The waterfall begins to gain recognition beyond local communities as transportation and communication improve in the region.'**
-  String get machuPicchu1867ce;
+  String get hundruFalls1867ce;
 
-  /// No description provided for @machuPicchu1911ce.
+  /// No description provided for @hundruFalls1911ce.
   ///
   /// In en, this message translates to:
   /// **'Post-independence development of Jharkhand region brings increased awareness of natural attractions like Hundru Falls.'**
-  String get machuPicchu1911ce;
+  String get hundruFalls1911ce;
 
-  /// No description provided for @machuPicchu1964ce.
+  /// No description provided for @hundruFalls1964ce.
   ///
   /// In en, this message translates to:
   /// **'Tourism infrastructure begins to develop around the waterfall, making it more accessible to visitors from other regions.'**
-  String get machuPicchu1964ce;
+  String get hundruFalls1964ce;
 
-  /// No description provided for @machuPicchu1997ce.
+  /// No description provided for @hundruFalls1997ce.
   ///
   /// In en, this message translates to:
   /// **'Hundru Falls becomes established as one of Jharkhand\'s premier tourist destinations, attracting nature lovers and adventure seekers from across India.'**
-  String get machuPicchu1997ce;
+  String get hundruFalls1997ce;
 
-  /// No description provided for @machuPicchuCollectible1Title.
+  /// No description provided for @hundruFallsCollectible1Title.
   ///
   /// In en, this message translates to:
   /// **'River Stone Collection'**
-  String get machuPicchuCollectible1Title;
+  String get hundruFallsCollectible1Title;
 
-  /// No description provided for @machuPicchuCollectible1Icon.
+  /// No description provided for @hundruFallsCollectible1Icon.
   ///
   /// In en, this message translates to:
   /// **'stone'**
-  String get machuPicchuCollectible1Icon;
+  String get hundruFallsCollectible1Icon;
 
-  /// No description provided for @machuPicchuCollectible2Title.
+  /// No description provided for @hundruFallsCollectible2Title.
   ///
   /// In en, this message translates to:
   /// **'Forest Flora Sample'**
-  String get machuPicchuCollectible2Title;
+  String get hundruFallsCollectible2Title;
 
-  /// No description provided for @machuPicchuCollectible2Icon.
+  /// No description provided for @hundruFallsCollectible2Icon.
   ///
   /// In en, this message translates to:
   /// **'leaf'**
-  String get machuPicchuCollectible2Icon;
+  String get hundruFallsCollectible2Icon;
 
-  /// No description provided for @machuPicchuCollectible3Title.
+  /// No description provided for @hundruFallsCollectible3Title.
   ///
   /// In en, this message translates to:
   /// **'Water Crystal Formation'**
-  String get machuPicchuCollectible3Title;
+  String get hundruFallsCollectible3Title;
 
-  /// No description provided for @machuPicchuCollectible3Icon.
+  /// No description provided for @hundruFallsCollectible3Icon.
   ///
   /// In en, this message translates to:
   /// **'crystal'**
-  String get machuPicchuCollectible3Icon;
+  String get hundruFallsCollectible3Icon;
 
-  /// No description provided for @petraTitle.
+  /// No description provided for @TapovanCavesTitle.
   ///
   /// In en, this message translates to:
   /// **'Tapovan Caves'**
-  String get petraTitle;
+  String get TapovanCavesTitle;
 
-  /// No description provided for @petraSubTitle.
+  /// No description provided for @TapovanCavesSubTitle.
   ///
   /// In en, this message translates to:
   /// **'Forest of Meditation'**
-  String get petraSubTitle;
+  String get TapovanCavesSubTitle;
 
-  /// No description provided for @petraRegionTitle.
+  /// No description provided for @TapovanCavesRegionTitle.
   ///
   /// In en, this message translates to:
   /// **'Deoghar, Jharkhand'**
-  String get petraRegionTitle;
+  String get TapovanCavesRegionTitle;
 
-  /// No description provided for @petraArtifactCulture.
+  /// No description provided for @TapovanCavesArtifactCulture.
   ///
   /// In en, this message translates to:
   /// **'Hindu'**
-  String get petraArtifactCulture;
+  String get TapovanCavesArtifactCulture;
 
-  /// No description provided for @petraArtifactGeolocation.
+  /// No description provided for @TapovanCavesArtifactGeolocation.
   ///
   /// In en, this message translates to:
   /// **'Eastern India'**
-  String get petraArtifactGeolocation;
+  String get TapovanCavesArtifactGeolocation;
 
-  /// No description provided for @petraPullQuote1Top.
+  /// No description provided for @TapovanCavesPullQuote1Top.
   ///
   /// In en, this message translates to:
   /// **'Sacred Caves Where Sage'**
-  String get petraPullQuote1Top;
+  String get TapovanCavesPullQuote1Top;
 
-  /// No description provided for @petraPullQuote1Bottom.
+  /// No description provided for @TapovanCavesPullQuote1Bottom.
   ///
   /// In en, this message translates to:
   /// **'Valmiki Found Divine Solitude'**
-  String get petraPullQuote1Bottom;
+  String get TapovanCavesPullQuote1Bottom;
 
-  /// No description provided for @petraPullQuote1Author.
+  /// No description provided for @TapovanCavesPullQuote1Author.
   ///
   /// In en, this message translates to:
   /// **'Ancient Hindu Tradition'**
-  String get petraPullQuote1Author;
+  String get TapovanCavesPullQuote1Author;
 
-  /// No description provided for @petraPullQuote2.
+  /// No description provided for @TapovanCavesPullQuote2.
   ///
   /// In en, this message translates to:
   /// **'Tapovan represents the eternal quest for spiritual enlightenment, where meditation transforms the seeker into the divine.'**
-  String get petraPullQuote2;
+  String get TapovanCavesPullQuote2;
 
-  /// No description provided for @petraPullQuote2Author.
+  /// No description provided for @TapovanCavesPullQuote2Author.
   ///
   /// In en, this message translates to:
   /// **'Hindu Scripture'**
-  String get petraPullQuote2Author;
+  String get TapovanCavesPullQuote2Author;
 
-  /// No description provided for @petraCallout1.
+  /// No description provided for @TapovanCavesCallout1.
   ///
   /// In en, this message translates to:
   /// **'The name \'Tapovan\' translates to \'forest of meditation\' in Sanskrit, reflecting the spiritual aura permeating this sacred site where ancient sages sought enlightenment.'**
-  String get petraCallout1;
+  String get TapovanCavesCallout1;
 
-  /// No description provided for @petraCallout2.
+  /// No description provided for @TapovanCavesCallout2.
   ///
   /// In en, this message translates to:
   /// **'These historic caves carved into the hills feature intricate sculptures and quiet interiors, providing fascinating insights into the region\'s rich spiritual heritage and meditative traditions.'**
-  String get petraCallout2;
+  String get TapovanCavesCallout2;
 
-  /// No description provided for @petraVideoCaption.
+  /// No description provided for @TapovanCavesVideoCaption.
   ///
   /// In en, this message translates to:
   /// **'Tapovan Caves: Sacred Meditation Retreat in the Hills of Deoghar, Jharkhand'**
-  String get petraVideoCaption;
+  String get TapovanCavesVideoCaption;
 
-  /// No description provided for @petraMapCaption.
+  /// No description provided for @TapovanCavesMapCaption.
   ///
   /// In en, this message translates to:
   /// **'Map showing location of Tapovan Caves, 10 kilometers from Deoghar in Jharkhand, Eastern India'**
-  String get petraMapCaption;
+  String get TapovanCavesMapCaption;
 
-  /// No description provided for @petraHistoryInfo1.
+  /// No description provided for @TapovanCavesHistoryInfo1.
   ///
   /// In en, this message translates to:
   /// **'Tapovan Caves have been a spiritual sanctuary for thousands of years, with legends dating back to the Treta Yuga when Lord Rama, Sita, and Lakshmana are believed to have stayed here during their 14-year exile. The caves derive their sacred significance from being the meditation retreat of Sage Valmiki, the composer of the Ramayana.'**
-  String get petraHistoryInfo1;
+  String get TapovanCavesHistoryInfo1;
 
-  /// No description provided for @petraHistoryInfo2.
+  /// No description provided for @TapovanCavesHistoryInfo2.
   ///
   /// In en, this message translates to:
   /// **'The site gained prominence as a center for intense spiritual practice (tapas) when Sage Valmiki came here to do penance for his past wrongdoings and later composed parts of the Ramayana in these very caves. Throughout history, numerous saints and ascetics have found solitude and enlightenment in these tranquil surroundings.'**
-  String get petraHistoryInfo2;
+  String get TapovanCavesHistoryInfo2;
 
-  /// No description provided for @petraConstructionInfo1.
+  /// No description provided for @TapovanCavesConstructionInfo1.
   ///
   /// In en, this message translates to:
   /// **'The Tapovan Caves are naturally formed caverns enhanced with carved elements, featuring the sacred Taponath Mahadeva temple at the summit. Inside one of the main caves, a naturally formed Shiva lingam has been installed, creating a powerful spiritual focal point for devotees and pilgrims.'**
-  String get petraConstructionInfo1;
+  String get TapovanCavesConstructionInfo1;
 
-  /// No description provided for @petraConstructionInfo2.
+  /// No description provided for @TapovanCavesConstructionInfo2.
   ///
   /// In en, this message translates to:
   /// **'The cave complex showcases intricate stone sculptures and carvings that depict various Hindu deities and spiritual symbols. The architectural elements blend natural rock formations with human craftsmanship, creating spaces perfectly suited for meditation and spiritual contemplation amidst the hill\'s serene environment.'**
-  String get petraConstructionInfo2;
+  String get TapovanCavesConstructionInfo2;
 
-  /// No description provided for @petraLocationInfo1.
+  /// No description provided for @TapovanCavesLocationInfo1.
   ///
   /// In en, this message translates to:
   /// **'Tapovan Caves are located 10 kilometers from Deoghar in Jharkhand state, Eastern India. The site is nestled in the hills surrounding the holy city of Deoghar, which is famous for the Baidyanath Temple, one of the twelve Jyotirlingas.'**
-  String get petraLocationInfo1;
+  String get TapovanCavesLocationInfo1;
 
-  /// No description provided for @petraLocationInfo2.
+  /// No description provided for @TapovanCavesLocationInfo2.
   ///
   /// In en, this message translates to:
   /// **'The caves are situated on a hill that can be reached by a 30-minute trek from the base, making them a popular destination for both pilgrims seeking spiritual solace and adventure enthusiasts. The location offers panoramic views of the surrounding landscape and maintains its ancient atmosphere of tranquility.'**
-  String get petraLocationInfo2;
+  String get TapovanCavesLocationInfo2;
 
-  /// No description provided for @petra1200bce.
+  /// No description provided for @TapovanCaves1200bce.
   ///
   /// In en, this message translates to:
   /// **'Treta Yuga: According to Hindu tradition, Lord Rama, Sita, and Lakshmana stayed in these caves during their 14-year exile, establishing the site\'s initial sacred significance.'**
-  String get petra1200bce;
+  String get TapovanCaves1200bce;
 
-  /// No description provided for @petra106bce.
+  /// No description provided for @TapovanCaves106bce.
   ///
   /// In en, this message translates to:
   /// **'Ancient Period: Sage Valmiki arrives at Tapovan to perform penance for his past deeds, later composing portions of the Ramayana while meditating in these caves.'**
-  String get petra106bce;
+  String get TapovanCaves106bce;
 
-  /// No description provided for @petra551ce.
+  /// No description provided for @TapovanCaves551ce.
   ///
   /// In en, this message translates to:
   /// **'Medieval Period: The caves continue to attract saints and ascetics, with various spiritual masters using the site for intense meditation and tapas (spiritual austerities).'**
-  String get petra551ce;
+  String get TapovanCaves551ce;
 
-  /// No description provided for @petra1812ce.
+  /// No description provided for @TapovanCaves1812ce.
   ///
   /// In en, this message translates to:
   /// **'19th Century: Saint Balananda Brahmachari performs intense tapas for more than 50 years at Tapovan, achieving spiritual siddhis (supernatural powers) through his dedication.'**
-  String get petra1812ce;
+  String get TapovanCaves1812ce;
 
-  /// No description provided for @petra1958ce.
+  /// No description provided for @TapovanCaves1958ce.
   ///
   /// In en, this message translates to:
   /// **'Modern Era: Sri Balananda Brahmachari and other spiritual masters establish the site\'s reputation as a powerful center for achieving spiritual enlightenment and divine realization.'**
-  String get petra1958ce;
+  String get TapovanCaves1958ce;
 
-  /// No description provided for @petra1989ce.
+  /// No description provided for @TapovanCaves1989ce.
   ///
   /// In en, this message translates to:
   /// **'Contemporary Period: The site becomes recognized as an important pilgrimage destination, attracting devotees from across India while maintaining its pristine spiritual atmosphere.'**
-  String get petra1989ce;
+  String get TapovanCaves1989ce;
 
-  /// No description provided for @petraCollectible1Title.
+  /// No description provided for @TapovanCavesCollectible1Title.
   ///
   /// In en, this message translates to:
   /// **'Sacred Rudraksha Beads'**
-  String get petraCollectible1Title;
+  String get TapovanCavesCollectible1Title;
 
-  /// No description provided for @petraCollectible1Icon.
+  /// No description provided for @TapovanCavesCollectible1Icon.
   ///
   /// In en, this message translates to:
   /// **'jewelry'**
-  String get petraCollectible1Icon;
+  String get TapovanCavesCollectible1Icon;
 
-  /// No description provided for @petraCollectible2Title.
+  /// No description provided for @TapovanCavesCollectible2Title.
   ///
   /// In en, this message translates to:
   /// **'Shiva Lingam Stone'**
-  String get petraCollectible2Title;
+  String get TapovanCavesCollectible2Title;
 
-  /// No description provided for @petraCollectible2Icon.
+  /// No description provided for @TapovanCavesCollectible2Icon.
   ///
   /// In en, this message translates to:
   /// **'statue'**
-  String get petraCollectible2Icon;
+  String get TapovanCavesCollectible2Icon;
 
-  /// No description provided for @petraCollectible3Title.
+  /// No description provided for @TapovanCavesCollectible3Title.
   ///
   /// In en, this message translates to:
   /// **'Palm Leaf Sanskrit Manuscript'**
-  String get petraCollectible3Title;
+  String get TapovanCavesCollectible3Title;
 
-  /// No description provided for @petraCollectible3Icon.
+  /// No description provided for @TapovanCavesCollectible3Icon.
   ///
   /// In en, this message translates to:
   /// **'picture'**
-  String get petraCollectible3Icon;
+  String get TapovanCavesCollectible3Icon;
 
-  /// No description provided for @pyramidsGizaTitle.
+  /// No description provided for @HargaddiChokahatuTitle.
   ///
   /// In en, this message translates to:
   /// **'Tagore Hill'**
-  String get pyramidsGizaTitle;
+  String get HargaddiChokahatuTitle;
 
-  /// No description provided for @pyramidsGizaSubTitle.
+  /// No description provided for @HargaddiChokahatuSubTitle.
   ///
   /// In en, this message translates to:
   /// **'Morabadi Hill of Literary Heritage'**
-  String get pyramidsGizaSubTitle;
+  String get HargaddiChokahatuSubTitle;
 
-  /// No description provided for @pyramidsGizaRegionTitle.
+  /// No description provided for @HargaddiChokahatuRegionTitle.
   ///
   /// In en, this message translates to:
   /// **'Ranchi, Jharkhand'**
-  String get pyramidsGizaRegionTitle;
+  String get HargaddiChokahatuRegionTitle;
 
-  /// No description provided for @pyramidsGizaArtifactCulture.
+  /// No description provided for @HargaddiChokahatuArtifactCulture.
   ///
   /// In en, this message translates to:
   /// **'Bengali Literary'**
-  String get pyramidsGizaArtifactCulture;
+  String get HargaddiChokahatuArtifactCulture;
 
-  /// No description provided for @pyramidsGizaArtifactGeolocation.
+  /// No description provided for @HargaddiChokahatuArtifactGeolocation.
   ///
   /// In en, this message translates to:
   /// **'Eastern India'**
-  String get pyramidsGizaArtifactGeolocation;
+  String get HargaddiChokahatuArtifactGeolocation;
 
-  /// No description provided for @pyramidsGizaPullQuote1Top.
+  /// No description provided for @HargaddiChokahatuPullQuote1Top.
   ///
   /// In en, this message translates to:
   /// **'Where Nature\'s Beauty Inspired'**
-  String get pyramidsGizaPullQuote1Top;
+  String get HargaddiChokahatuPullQuote1Top;
 
-  /// No description provided for @pyramidsGizaPullQuote1Bottom.
+  /// No description provided for @HargaddiChokahatuPullQuote1Bottom.
   ///
   /// In en, this message translates to:
   /// **'The Tagore Family\'s Literary Spirit'**
-  String get pyramidsGizaPullQuote1Bottom;
+  String get HargaddiChokahatuPullQuote1Bottom;
 
-  /// No description provided for @pyramidsGizaPullQuote2.
+  /// No description provided for @HargaddiChokahatuPullQuote2.
   ///
   /// In en, this message translates to:
   /// **'The serene hilltop became a sanctuary where literary genius found solace amidst nature\'s grandeur, creating a lasting bond between art and landscape.'**
-  String get pyramidsGizaPullQuote2;
+  String get HargaddiChokahatuPullQuote2;
 
-  /// No description provided for @pyramidsGizaPullQuote2Author.
+  /// No description provided for @HargaddiChokahatuPullQuote2Author.
   ///
   /// In en, this message translates to:
   /// **'Literary Heritage'**
-  String get pyramidsGizaPullQuote2Author;
+  String get HargaddiChokahatuPullQuote2Author;
 
-  /// No description provided for @pyramidsGizaCallout1.
+  /// No description provided for @HargaddiChokahatuCallout1.
   ///
   /// In en, this message translates to:
   /// **'Standing 300 meters (900 feet) high and located just 4 kilometers from Albert Ekka Chowk, this scenic hilltop offers breathtaking sunrise and sunset views that captivated the Tagore family.'**
-  String get pyramidsGizaCallout1;
+  String get HargaddiChokahatuCallout1;
 
-  /// No description provided for @pyramidsGizaCallout2.
+  /// No description provided for @HargaddiChokahatuCallout2.
   ///
   /// In en, this message translates to:
   /// **'The hill houses the historic Shanti Dham residence and Brahma Sthal monument built by Jyotirindranath Tagore, along with the Ramakrishna Mission Ashram and educational institutions that continue the legacy of learning.'**
-  String get pyramidsGizaCallout2;
+  String get HargaddiChokahatuCallout2;
 
-  /// No description provided for @pyramidsGizaVideoCaption.
+  /// No description provided for @HargaddiChokahatuVideoCaption.
   ///
   /// In en, this message translates to:
   /// **'Tagore Hill: Literary Heritage and Natural Beauty in Ranchi, Jharkhand'**
-  String get pyramidsGizaVideoCaption;
+  String get HargaddiChokahatuVideoCaption;
 
-  /// No description provided for @pyramidsGizaMapCaption.
+  /// No description provided for @HargaddiChokahatuMapCaption.
   ///
   /// In en, this message translates to:
   /// **'Map showing location of Tagore Hill in Morabadi area, Ranchi, Jharkhand'**
-  String get pyramidsGizaMapCaption;
+  String get HargaddiChokahatuMapCaption;
 
-  /// No description provided for @pyramidsGizaHistoryInfo1.
+  /// No description provided for @HargaddiChokahatuHistoryInfo1.
   ///
   /// In en, this message translates to:
   /// **'Tagore Hill, also known as Morabadi Hill, gained historical significance when Jyotirindranath and Satyendranath Tagore first visited Ranchi in 1898, captivated by the natural beauty of the region. Jyotirindranath Tagore visited again in 1908 and was so enamored by the captivating beauty of Morabadi Hill that he set up his camp home on the hillock.'**
-  String get pyramidsGizaHistoryInfo1;
+  String get HargaddiChokahatuHistoryInfo1;
 
-  /// No description provided for @pyramidsGizaHistoryInfo2.
+  /// No description provided for @HargaddiChokahatuHistoryInfo2.
   ///
   /// In en, this message translates to:
   /// **'After the death of his wife Kadambari Devi,rindranath Tagore settled here in 1912, building a house named Shanti Dham and a monument named Brahma Sthal. He lived here until his death in 1925, making the hill a place of literary pilgrimage and cultural heritage.'**
-  String get pyramidsGizaHistoryInfo2;
+  String get HargaddiChokahatuHistoryInfo2;
 
-  /// No description provided for @pyramidsGizaConstructionInfo1.
+  /// No description provided for @HargaddiChokahatuConstructionInfo1.
   ///
   /// In en, this message translates to:
   /// **'The hill features the historic Shanti Dham house built by Jyotirindranath Tagore as his residence, designed to harmonize with the natural landscape. The architecture reflects the Bengali style adapted to the local climate and terrain, creating spaces for contemplation and creative work.'**
-  String get pyramidsGizaConstructionInfo1;
+  String get HargaddiChokahatuConstructionInfo1;
 
-  /// No description provided for @pyramidsGizaConstructionInfo2.
+  /// No description provided for @HargaddiChokahatuConstructionInfo2.
   ///
   /// In en, this message translates to:
   /// **'The Brahma Sthal monument stands as a spiritual focal point on the hilltop, representing the philosophical and religious inclinations of the Tagore family. The site also houses the Ramakrishna Mission Ashram and educational institutions including the Centre of Divyayan and Agrarian Vocational Institute, continuing the tradition of learning and spiritual development.'**
-  String get pyramidsGizaConstructionInfo2;
+  String get HargaddiChokahatuConstructionInfo2;
 
-  /// No description provided for @pyramidsGizaLocationInfo1.
+  /// No description provided for @HargaddiChokahatuLocationInfo1.
   ///
   /// In en, this message translates to:
   /// **'Tagore Hill is situated in Morabadi, Ranchi, Jharkhand, standing approximately 300 meters high (900 feet) and located 4 kilometers from Albert Ekka Chowk. The scenic locality of Morabadi offers spectacular views of sunrise and sunset from the hilltop.'**
-  String get pyramidsGizaLocationInfo1;
+  String get HargaddiChokahatuLocationInfo1;
 
-  /// No description provided for @pyramidsGizaLocationInfo2.
+  /// No description provided for @HargaddiChokahatuLocationInfo2.
   ///
   /// In en, this message translates to:
   /// **'The hill serves as both a historical landmark and a popular tourist destination, attracting nature lovers, literature enthusiasts, and those seeking peaceful retreats. The destination is popular among adventure lovers for activities like rock climbing, while also serving as inspiration for creative works.'**
-  String get pyramidsGizaLocationInfo2;
+  String get HargaddiChokahatuLocationInfo2;
 
-  /// No description provided for @pyramidsGiza2575bce.
+  /// No description provided for @HargaddiChokahatu2575bce.
   ///
   /// In en, this message translates to:
   /// **'1898 CE: Jyotirindranath and Satyendranath Tagore first visit Ranchi and discover the natural beauty of Morabadi Hill, beginning the Tagore family\'s connection with the region.'**
-  String get pyramidsGiza2575bce;
+  String get HargaddiChokahatu2575bce;
 
-  /// No description provided for @pyramidsGiza2465bce.
+  /// No description provided for @HargaddiChokahatu2465bce.
   ///
   /// In en, this message translates to:
   /// **'1908 CE: Jyotirindranath Tagore returns to the hill and establishes his camp home, deeply moved by the captivating beauty and tranquil environment of the hilltop location.'**
-  String get pyramidsGiza2465bce;
+  String get HargaddiChokahatu2465bce;
 
-  /// No description provided for @pyramidsGiza443bce.
+  /// No description provided for @HargaddiChokahatu443bce.
   ///
   /// In en, this message translates to:
   /// **'1912 CE: Following the death of his wife Kadambari Devi, Jyotirindranath Tagore permanently settles on the hill, constructing Shanti Dham residence and Brahma Sthal monument.'**
-  String get pyramidsGiza443bce;
+  String get HargaddiChokahatu443bce;
 
-  /// No description provided for @pyramidsGiza1925ce.
+  /// No description provided for @HargaddiChokahatu1925ce.
   ///
   /// In en, this message translates to:
   /// **'1925 CE: Jyotirindranath Tagore passes away on the hill, leaving behind a legacy of literary and spiritual heritage that transforms the location into a place of cultural pilgrimage.'**
-  String get pyramidsGiza1925ce;
+  String get HargaddiChokahatu1925ce;
 
-  /// No description provided for @pyramidsGiza1979ce.
+  /// No description provided for @HargaddiChokahatu1979ce.
   ///
   /// In en, this message translates to:
   /// **'Mid-20th Century: The Ramakrishna Mission Ashram is established on the hill, continuing the tradition of spiritual learning and community service initiated by the Tagore family.'**
-  String get pyramidsGiza1979ce;
+  String get HargaddiChokahatu1979ce;
 
-  /// No description provided for @pyramidsGiza1990ce.
+  /// No description provided for @HargaddiChokahatu1990ce.
   ///
   /// In en, this message translates to:
   /// **'Contemporary Period: Tagore Hill becomes a recognized tourist destination managed by Jharkhand Tourism, attracting visitors interested in literary heritage, natural beauty, and spiritual retreats.'**
-  String get pyramidsGiza1990ce;
+  String get HargaddiChokahatu1990ce;
 
-  /// No description provided for @pyramidsGizaCollectible1Title.
+  /// No description provided for @HargaddiChokahatuCollectible1Title.
   ///
   /// In en, this message translates to:
   /// **'Tagore Family Manuscript'**
-  String get pyramidsGizaCollectible1Title;
+  String get HargaddiChokahatuCollectible1Title;
 
-  /// No description provided for @pyramidsGizaCollectible1Icon.
+  /// No description provided for @HargaddiChokahatuCollectible1Icon.
   ///
   /// In en, this message translates to:
   /// **'scroll'**
-  String get pyramidsGizaCollectible1Icon;
+  String get HargaddiChokahatuCollectible1Icon;
 
-  /// No description provided for @pyramidsGizaCollectible2Title.
+  /// No description provided for @HargaddiChokahatuCollectible2Title.
   ///
   /// In en, this message translates to:
   /// **'Brahma Sthal Stone Carving'**
-  String get pyramidsGizaCollectible2Title;
+  String get HargaddiChokahatuCollectible2Title;
 
-  /// No description provided for @pyramidsGizaCollectible2Icon.
+  /// No description provided for @HargaddiChokahatuCollectible2Icon.
   ///
   /// In en, this message translates to:
   /// **'statue'**
-  String get pyramidsGizaCollectible2Icon;
+  String get HargaddiChokahatuCollectible2Icon;
 
-  /// No description provided for @pyramidsGizaCollectible3Title.
+  /// No description provided for @HargaddiChokahatuCollectible3Title.
   ///
   /// In en, this message translates to:
   /// **'Shanti Dham Architectural Element'**
-  String get pyramidsGizaCollectible3Title;
+  String get HargaddiChokahatuCollectible3Title;
 
-  /// No description provided for @pyramidsGizaCollectible3Icon.
+  /// No description provided for @HargaddiChokahatuCollectible3Icon.
   ///
   /// In en, this message translates to:
   /// **'jewelry'**
-  String get pyramidsGizaCollectible3Icon;
+  String get HargaddiChokahatuCollectible3Icon;
 
-  /// No description provided for @tajMahalTitle.
+  /// No description provided for @DeogharTitle.
   ///
   /// In en, this message translates to:
   /// **'Deoghar District'**
-  String get tajMahalTitle;
+  String get DeogharTitle;
 
-  /// No description provided for @tajMahalSubTitle.
+  /// No description provided for @DeogharSubTitle.
   ///
   /// In en, this message translates to:
   /// **'Land of the Gods'**
-  String get tajMahalSubTitle;
+  String get DeogharSubTitle;
 
-  /// No description provided for @tajMahalRegionTitle.
+  /// No description provided for @DeogharRegionTitle.
   ///
   /// In en, this message translates to:
   /// **'Santhal Parganas Division, Jharkhand'**
-  String get tajMahalRegionTitle;
+  String get DeogharRegionTitle;
 
-  /// No description provided for @tajMahalArtifactCulture.
+  /// No description provided for @DeogharArtifactCulture.
   ///
   /// In en, this message translates to:
   /// **'Hindu Pilgrimage'**
-  String get tajMahalArtifactCulture;
+  String get DeogharArtifactCulture;
 
-  /// No description provided for @tajMahalArtifactGeolocation.
+  /// No description provided for @DeogharArtifactGeolocation.
   ///
   /// In en, this message translates to:
   /// **'Eastern India'**
-  String get tajMahalArtifactGeolocation;
+  String get DeogharArtifactGeolocation;
 
-  /// No description provided for @tajMahalPullQuote1Top.
+  /// No description provided for @DeogharPullQuote1Top.
   ///
   /// In en, this message translates to:
   /// **'Not just a District,'**
-  String get tajMahalPullQuote1Top;
+  String get DeogharPullQuote1Top;
 
-  /// No description provided for @tajMahalPullQuote1Bottom.
+  /// No description provided for @DeogharPullQuote1Bottom.
   ///
   /// In en, this message translates to:
   /// **'but a Sacred Pilgrimage.'**
-  String get tajMahalPullQuote1Bottom;
+  String get DeogharPullQuote1Bottom;
 
-  /// No description provided for @tajMahalPullQuote1Author.
+  /// No description provided for @DeogharPullQuote1Author.
   ///
   /// In en, this message translates to:
   /// **'Devotees of Baba Baidyanath'**
-  String get tajMahalPullQuote1Author;
+  String get DeogharPullQuote1Author;
 
-  /// No description provided for @tajMahalPullQuote2.
+  /// No description provided for @DeogharPullQuote2.
   ///
   /// In en, this message translates to:
   /// **'For devotees, a pilgrimage to Baba Baidyanath Dham is a sacred journey of self-discovery and spiritual awakening.'**
-  String get tajMahalPullQuote2;
+  String get DeogharPullQuote2;
 
-  /// No description provided for @tajMahalPullQuote2Author.
+  /// No description provided for @DeogharPullQuote2Author.
   ///
   /// In en, this message translates to:
   /// **'Incredible India'**
-  String get tajMahalPullQuote2Author;
+  String get DeogharPullQuote2Author;
 
-  /// No description provided for @tajMahalCallout1.
+  /// No description provided for @DeogharCallout1.
   ///
   /// In en, this message translates to:
   /// **'Deoghar is home to the Baidyanath Temple, one of the twelve sacred Jyotirlingas of Lord Shiva and one of the 51 Shakti Peethas in India.'**
-  String get tajMahalCallout1;
+  String get DeogharCallout1;
 
-  /// No description provided for @tajMahalCallout2.
+  /// No description provided for @DeogharCallout2.
   ///
   /// In en, this message translates to:
   /// **'The Shrawani Mela is the longest religious fair in the world, attracting countless devotees who undertake a rigorous 100 km pilgrimage on foot.'**
-  String get tajMahalCallout2;
+  String get DeogharCallout2;
 
-  /// No description provided for @tajMahalVideoCaption.
+  /// No description provided for @DeogharVideoCaption.
   ///
   /// In en, this message translates to:
   /// **'Deoghar District: Sacred Pilgrimage and Cultural Heritage of Jharkhand'**
-  String get tajMahalVideoCaption;
+  String get DeogharVideoCaption;
 
-  /// No description provided for @tajMahalMapCaption.
+  /// No description provided for @DeogharMapCaption.
   ///
   /// In en, this message translates to:
   /// **'Map showing location of Deoghar District in Santhal Parganas Division, Jharkhand.'**
-  String get tajMahalMapCaption;
+  String get DeogharMapCaption;
 
-  /// No description provided for @tajMahalHistoryInfo1.
+  /// No description provided for @DeogharHistoryInfo1.
   ///
   /// In en, this message translates to:
   /// **'Deoghar, meaning \'Abode of Gods\', is the main city of Deoghar District in the Santhal Parganas division of Jharkhand state. The district is renowned for the ancient Baidyanath Temple, which according to legend was built after Lord Shiva appeared to cure the demon king Ravana, earning the name \'Baidyanath\' meaning \'Doctor of Doctors\'.'**
-  String get tajMahalHistoryInfo1;
+  String get DeogharHistoryInfo1;
 
-  /// No description provided for @tajMahalHistoryInfo2.
+  /// No description provided for @DeogharHistoryInfo2.
   ///
   /// In en, this message translates to:
   /// **'The district has deep historical and mythological significance, with the Baidyanath Temple complex comprising the central shrine along with 21 additional temples. The region has been a major pilgrimage center for centuries, attracting devotees from across India who believe that visiting this sacred site provides spiritual liberation and fulfills their wishes.'**
-  String get tajMahalHistoryInfo2;
+  String get DeogharHistoryInfo2;
 
-  /// No description provided for @tajMahalConstructionInfo1.
+  /// No description provided for @DeogharConstructionInfo1.
   ///
   /// In en, this message translates to:
   /// **'The Baidyanath Temple was constructed in the mid-16th century by Puran Mal, an ancestor of Maharastra Giddhour. The temple complex showcases traditional Hindu temple architecture with intricate stone carvings and multiple shrines dedicated to various deities. The main temple stands 72 feet tall and follows classical North Indian temple architectural style.'**
-  String get tajMahalConstructionInfo1;
+  String get DeogharConstructionInfo1;
 
-  /// No description provided for @tajMahalConstructionInfo2.
+  /// No description provided for @DeogharConstructionInfo2.
   ///
   /// In en, this message translates to:
   /// **'The district covers an area of 2,479 square kilometers with diverse topography including high and low lands, hills, and fertile plains. The landscape consists of several clusters of rocky hills covered with forests, but also features long ridges and valleys. About 28% of the land is very fertile and suitable for cultivation.'**
-  String get tajMahalConstructionInfo2;
+  String get DeogharConstructionInfo2;
 
-  /// No description provided for @tajMahalLocationInfo1.
+  /// No description provided for @DeogharLocationInfo1.
   ///
   /// In en, this message translates to:
   /// **'Deoghar district is located in the Santhal Parganas division of Jharkhand state, positioned at 24°49\'N latitude and 86°70\'E longitude. The district is well-connected by road, rail, and air, with Deoghar Airport providing connectivity to major cities like Delhi, Kolkata, and Patna.'**
-  String get tajMahalLocationInfo1;
+  String get DeogharLocationInfo1;
 
-  /// No description provided for @tajMahalLocationInfo2.
+  /// No description provided for @DeogharLocationInfo2.
   ///
   /// In en, this message translates to:
   /// **'The district is strategically located in eastern Jharkhand and serves as the cultural capital of the state due to its religious and cultural significance. It borders several other districts and is easily accessible for the millions of pilgrims who visit annually, particularly during the monsoon season.'**
-  String get tajMahalLocationInfo2;
+  String get DeogharLocationInfo2;
 
-  /// No description provided for @tajMahal1631ce.
+  /// No description provided for @Deoghar1631ce.
   ///
   /// In en, this message translates to:
   /// **'Ancient period: The region has been inhabited for centuries with rich tribal heritage and early Hindu settlements establishing the area\'s spiritual significance.'**
-  String get tajMahal1631ce;
+  String get Deoghar1631ce;
 
-  /// No description provided for @tajMahal1647ce.
+  /// No description provided for @Deoghar1647ce.
   ///
   /// In en, this message translates to:
   /// **'Medieval period: Construction of the main Baidyanath Temple complex is completed in the mid-16th century, establishing it as a major pilgrimage center.'**
-  String get tajMahal1647ce;
+  String get Deoghar1647ce;
 
-  /// No description provided for @tajMahal1658ce.
+  /// No description provided for @Deoghar1658ce.
   ///
   /// In en, this message translates to:
   /// **'The temple complex gains prominence as one of the twelve Jyotirlingas, attracting pilgrims from across the Indian subcontinent.'**
-  String get tajMahal1658ce;
+  String get Deoghar1658ce;
 
-  /// No description provided for @tajMahal1901ce.
+  /// No description provided for @Deoghar1901ce.
   ///
   /// In en, this message translates to:
   /// **'British colonial period: The region becomes part of the Santhal Parganas district, with administrative structures established for governance.'**
-  String get tajMahal1901ce;
+  String get Deoghar1901ce;
 
-  /// No description provided for @tajMahal1984ce.
+  /// No description provided for @Deoghar1984ce.
   ///
   /// In en, this message translates to:
   /// **'Modern infrastructure development begins with improved transportation and facilities for the growing number of pilgrims visiting the district.'**
-  String get tajMahal1984ce;
+  String get Deoghar1984ce;
 
-  /// No description provided for @tajMahal1998ce.
+  /// No description provided for @Deoghar1998ce.
   ///
   /// In en, this message translates to:
   /// **'Post-Jharkhand statehood: Deoghar becomes a separate district with enhanced administrative focus on pilgrimage tourism and cultural preservation.'**
-  String get tajMahal1998ce;
+  String get Deoghar1998ce;
 
-  /// No description provided for @tajMahalCollectible1Title.
+  /// No description provided for @DeogharCollectible1Title.
   ///
   /// In en, this message translates to:
   /// **'Sacred Rudraksha Beads'**
-  String get tajMahalCollectible1Title;
+  String get DeogharCollectible1Title;
 
-  /// No description provided for @tajMahalCollectible1Icon.
+  /// No description provided for @DeogharCollectible1Icon.
   ///
   /// In en, this message translates to:
   /// **'jewelry'**
-  String get tajMahalCollectible1Icon;
+  String get DeogharCollectible1Icon;
 
-  /// No description provided for @tajMahalCollectible2Title.
+  /// No description provided for @DeogharCollectible2Title.
   ///
   /// In en, this message translates to:
   /// **'Temple Architecture Model'**
-  String get tajMahalCollectible2Title;
+  String get DeogharCollectible2Title;
 
-  /// No description provided for @tajMahalCollectible2Icon.
+  /// No description provided for @DeogharCollectible2Icon.
   ///
   /// In en, this message translates to:
   /// **'picture'**
-  String get tajMahalCollectible2Icon;
+  String get DeogharCollectible2Icon;
 
-  /// No description provided for @tajMahalCollectible3Title.
+  /// No description provided for @DeogharCollectible3Title.
   ///
   /// In en, this message translates to:
   /// **'Sanskrit Manuscript'**
-  String get tajMahalCollectible3Title;
+  String get DeogharCollectible3Title;
 
-  /// No description provided for @tajMahalCollectible3Icon.
+  /// No description provided for @DeogharCollectible3Icon.
   ///
   /// In en, this message translates to:
   /// **'scroll'**
-  String get tajMahalCollectible3Icon;
+  String get DeogharCollectible3Icon;
 
   /// No description provided for @timelineEvent2900bce.
   ///
@@ -2867,8 +2860,7 @@ abstract class AppLocalizations {
   String get loginRoleAdmin;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -2877,8 +2869,7 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'hi', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'hi', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

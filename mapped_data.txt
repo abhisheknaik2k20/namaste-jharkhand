@@ -1,8 +1,8 @@
-machuPicchu -> hundruFalls
-christRedeemer -> BetlaNationalPark
+hundruFalls -> hundruFalls
+BetlaNationalPark -> BetlaNationalPark
 taj Mahal -> Deoghar
-chichenItza -> Jagannath Temple
-greatWall -> Patratu Valley
-colosseum -> Parasnath Hill
-petra -> Tapovan caves
-pyramidsGiza -> Hargaddi Chokahatu
+JagannathTemple -> Jagannath Temple
+PatratuValley -> Patratu Valley
+ParasnathHill -> Parasnath Hill
+TapovanCaves -> Tapovan caves
+HargaddiChokahatu -> Hargaddi Chokahatu

@@ -4,60 +4,49 @@ import 'package:namste_jharkhand/logic/data/wonders_data/search/search_data.dart
 
 part 'search/chichen_itza_search_data.dart';
 
-class ChichenItzaData extends WonderData {
-  ChichenItzaData()
-      : super(
-          searchData: _searchData, // included as a part from ./search/
-          searchSuggestions: _searchSuggestions, // included as a part from ./search/
-          type: WonderType.chichenItza,
-          title: $strings.chichenItzaTitle,
-          subTitle: $strings.chichenItzaSubTitle,
-          regionTitle: $strings.chichenItzaRegionTitle,
-          videoId: 'Q6eBJjdca14',
-          startYr: 550,
-          endYr: 1550,
-          artifactStartYr: 500,
-          artifactEndYr: 1600,
-          artifactCulture: $strings.chichenItzaArtifactCulture,
-          artifactGeolocation: $strings.chichenItzaArtifactGeolocation,
-          lat: 19.8049379,
-          lng: 85.8179386,
-          unsplashCollectionId: 'SUK0tuMnLLw',
-          pullQuote1Top: $strings.chichenItzaPullQuote1Top,
-          pullQuote1Bottom: $strings.chichenItzaPullQuote1Bottom,
-          pullQuote1Author: '',
-          pullQuote2: $strings.chichenItzaPullQuote2,
-          pullQuote2Author: $strings.chichenItzaPullQuote2Author,
-          callout1: $strings.chichenItzaCallout1,
-          callout2: $strings.chichenItzaCallout2,
-          videoCaption: $strings.chichenItzaVideoCaption,
-          mapCaption: $strings.chichenItzaMapCaption,
-          historyInfo1: $strings.chichenItzaHistoryInfo1,
-          historyInfo2: $strings.chichenItzaHistoryInfo2,
-          constructionInfo1: $strings.chichenItzaConstructionInfo1,
-          constructionInfo2: $strings.chichenItzaConstructionInfo2,
-          locationInfo1: $strings.chichenItzaLocationInfo1,
-          locationInfo2: $strings.chichenItzaLocationInfo2,
-          highlightArtifacts: const [
-            '503940',
-            '312595',
-            '310551',
-            '316304',
-            '313151',
-            '313256',
-          ],
-          hiddenArtifacts: const [
-            '701645',
-            '310555',
-            '286467',
-          ],
-          events: {
-            600: $strings.chichenItza600ce,
-            832: $strings.chichenItza832ce,
-            998: $strings.chichenItza998ce,
-            1100: $strings.chichenItza1100ce,
-            1527: $strings.chichenItza1527ce,
-            1535: $strings.chichenItza1535ce,
-          },
-        );
+class JagannathTempleData extends WonderData {
+  JagannathTempleData()
+    : super(
+        searchData: _searchData, // included as a part from ./search/
+        searchSuggestions: _searchSuggestions, // included as a part from ./search/
+        type: WonderType.JagannathTemple,
+        title: $strings.JagannathTempleTitle,
+        subTitle: $strings.JagannathTempleSubTitle,
+        regionTitle: $strings.JagannathTempleRegionTitle,
+        videoId: 'Q6eBJjdca14',
+        startYr: 550,
+        endYr: 1550,
+        artifactStartYr: 500,
+        artifactEndYr: 1600,
+        artifactCulture: $strings.JagannathTempleArtifactCulture,
+        artifactGeolocation: $strings.JagannathTempleArtifactGeolocation,
+        lat: 19.8049379,
+        lng: 85.8179386,
+        unsplashCollectionId: 'SUK0tuMnLLw',
+        pullQuote1Top: $strings.JagannathTemplePullQuote1Top,
+        pullQuote1Bottom: $strings.JagannathTemplePullQuote1Bottom,
+        pullQuote1Author: '',
+        pullQuote2: $strings.JagannathTemplePullQuote2,
+        pullQuote2Author: $strings.JagannathTemplePullQuote2Author,
+        callout1: $strings.JagannathTempleCallout1,
+        callout2: $strings.JagannathTempleCallout2,
+        videoCaption: $strings.JagannathTempleVideoCaption,
+        mapCaption: $strings.JagannathTempleMapCaption,
+        historyInfo1: $strings.JagannathTempleHistoryInfo1,
+        historyInfo2: $strings.JagannathTempleHistoryInfo2,
+        constructionInfo1: $strings.JagannathTempleConstructionInfo1,
+        constructionInfo2: $strings.JagannathTempleConstructionInfo2,
+        locationInfo1: $strings.JagannathTempleLocationInfo1,
+        locationInfo2: $strings.JagannathTempleLocationInfo2,
+        highlightArtifacts: const ['503940', '312595', '310551', '316304', '313151', '313256'],
+        hiddenArtifacts: const ['701645', '310555', '286467'],
+        events: {
+          600: $strings.JagannathTemple600ce,
+          832: $strings.JagannathTemple832ce,
+          998: $strings.JagannathTemple998ce,
+          1100: $strings.JagannathTemple1100ce,
+          1527: $strings.JagannathTemple1527ce,
+          1535: $strings.JagannathTemple1535ce,
+        },
+      );
 }

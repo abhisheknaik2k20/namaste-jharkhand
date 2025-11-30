@@ -42,14 +42,14 @@ class SvgPaths {
 extension WonderAssetExtensions on WonderType {
   String get assetPath {
     return switch (this) {
-      WonderType.pyramidsGiza => '${ImagePaths.root}/pyramids',
-      WonderType.greatWall => '${ImagePaths.root}/great_wall_of_china',
-      WonderType.petra => '${ImagePaths.root}/petra',
-      WonderType.colosseum => '${ImagePaths.root}/colosseum',
-      WonderType.chichenItza => '${ImagePaths.root}/chichen_itza',
-      WonderType.machuPicchu => '${ImagePaths.root}/machu_picchu',
-      WonderType.tajMahal => '${ImagePaths.root}/taj_mahal',
-      WonderType.christRedeemer => '${ImagePaths.root}/christ_the_redeemer'
+      WonderType.HargaddiChokahatu => '${ImagePaths.root}/pyramids',
+      WonderType.PatratuValley => '${ImagePaths.root}/great_wall_of_china',
+      WonderType.TapovanCaves => '${ImagePaths.root}/TapovanCaves',
+      WonderType.ParasnathHill => '${ImagePaths.root}/ParasnathHill',
+      WonderType.JagannathTemple => '${ImagePaths.root}/chichen_itza',
+      WonderType.hundruFalls => '${ImagePaths.root}/machu_picchu',
+      WonderType.Deoghar => '${ImagePaths.root}/taj_mahal',
+      WonderType.BetlaNationalPark => '${ImagePaths.root}/christ_the_redeemer',
     };
   }
 

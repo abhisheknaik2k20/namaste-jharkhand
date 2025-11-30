@@ -5,12 +5,12 @@ import 'package:namste_jharkhand/ui/wonder_illustrations/common/paint_textures.d
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_config.dart';
 
-class PetraIllustration extends StatelessWidget {
-  PetraIllustration({super.key, required this.config});
+class TapovanCavesIllustration extends StatelessWidget {
+  TapovanCavesIllustration({super.key, required this.config});
   final WonderIllustrationConfig config;
-  final String assetPath = WonderType.petra.assetPath;
-  final fgColor = WonderType.petra.fgColor;
-  final bgColor = WonderType.petra.bgColor;
+  final String assetPath = WonderType.TapovanCaves.assetPath;
+  final fgColor = WonderType.TapovanCaves.fgColor;
+  final bgColor = WonderType.TapovanCaves.bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class PetraIllustration extends StatelessWidget {
       bgBuilder: _buildBg,
       mgBuilder: _buildMg,
       fgBuilder: _buildFg,
-      wonderType: WonderType.petra,
+      wonderType: WonderType.TapovanCaves,
     );
   }
 
@@ -29,7 +29,7 @@ class PetraIllustration extends StatelessWidget {
       Positioned.fill(
         child: IllustrationTexture(
           ImagePaths.roller1,
-          color: WonderType.petra.bgColor,
+          color: WonderType.TapovanCaves.bgColor,
           flipX: true,
           opacity: anim.drive(Tween(begin: 0, end: 1)),
           scale: config.shortMode ? 4 : 1.15,
@@ -47,50 +47,60 @@ class PetraIllustration extends StatelessWidget {
   }
 
   List<Widget> _buildMg(BuildContext context, Animation<double> anim) => [
-        FractionallySizedBox(
-            heightFactor: config.shortMode ? 1 : .8,
-            alignment: Alignment.bottomCenter,
-            child: IllustrationPiece(
-                fileName: 'petra.png',
-                heightFactor: .3,
-                minHeight: 500,
-                zoomAmt: config.shortMode ? -0.1 : -0.3,
-                enableHero: true,
-                fractionalOffset: Offset(.15, config.shortMode ? .025 : 0.1)))
-      ];
+    FractionallySizedBox(
+      heightFactor: config.shortMode ? 1 : .8,
+      alignment: Alignment.bottomCenter,
+      child: IllustrationPiece(
+        fileName: 'TapovanCaves.png',
+        heightFactor: .3,
+        minHeight: 500,
+        zoomAmt: config.shortMode ? -0.1 : -0.3,
+        enableHero: true,
+        fractionalOffset: Offset(.15, config.shortMode ? .025 : 0.1),
+      ),
+    ),
+  ];
 
   List<Widget> _buildFg(BuildContext context, Animation<double> anim) {
     return [
       IllustrationPiece(
-          fileName: 'foreground-left.png',
-          alignment: Alignment.bottomCenter,
-          initialOffset: Offset(-80, 0),
-          heightFactor: 1,
-          fractionalOffset: Offset(-.6, 0),
-          zoomAmt: .03,
-          dynamicHzOffset: -130,
-          bottom: (_) {
-            const double scaleX = 5;
-            return FractionalTranslation(
-                translation: Offset(-1 - scaleX / 2, 0),
-                child: Transform.scale(
-                    scaleX: 5, child: Container(color: WonderType.petra.fgColor.withOpacity(anim.value))));
-          }),
+        fileName: 'foreground-left.png',
+        alignment: Alignment.bottomCenter,
+        initialOffset: Offset(-80, 0),
+        heightFactor: 1,
+        fractionalOffset: Offset(-.6, 0),
+        zoomAmt: .03,
+        dynamicHzOffset: -130,
+        bottom: (_) {
+          const double scaleX = 5;
+          return FractionalTranslation(
+            translation: Offset(-1 - scaleX / 2, 0),
+            child: Transform.scale(
+              scaleX: 5,
+              child: Container(color: WonderType.TapovanCaves.fgColor.withOpacity(anim.value)),
+            ),
+          );
+        },
+      ),
       IllustrationPiece(
-          fileName: 'foreground-right.png',
-          alignment: Alignment.bottomCenter,
-          initialOffset: Offset(80, 00),
-          heightFactor: 1,
-          fractionalOffset: Offset(.55, 0),
-          zoomAmt: .12,
-          dynamicHzOffset: 130,
-          bottom: (_) {
-            const double scaleX = 5;
-            return FractionalTranslation(
-                translation: Offset(1 + scaleX / 2, 0),
-                child: Transform.scale(
-                    scaleX: 5, child: Container(color: WonderType.petra.fgColor.withOpacity(anim.value))));
-          })
+        fileName: 'foreground-right.png',
+        alignment: Alignment.bottomCenter,
+        initialOffset: Offset(80, 00),
+        heightFactor: 1,
+        fractionalOffset: Offset(.55, 0),
+        zoomAmt: .12,
+        dynamicHzOffset: 130,
+        bottom: (_) {
+          const double scaleX = 5;
+          return FractionalTranslation(
+            translation: Offset(1 + scaleX / 2, 0),
+            child: Transform.scale(
+              scaleX: 5,
+              child: Container(color: WonderType.TapovanCaves.fgColor.withOpacity(anim.value)),
+            ),
+          );
+        },
+      ),
     ];
   }
 }

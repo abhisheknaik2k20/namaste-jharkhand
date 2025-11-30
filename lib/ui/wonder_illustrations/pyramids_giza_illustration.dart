@@ -5,17 +5,17 @@ import 'package:namste_jharkhand/ui/wonder_illustrations/common/paint_textures.d
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_config.dart';
 
-class PyramidsGizaIllustration extends StatelessWidget {
-  PyramidsGizaIllustration({super.key, required this.config});
+class HargaddiChokahatuIllustration extends StatelessWidget {
+  HargaddiChokahatuIllustration({super.key, required this.config});
   final WonderIllustrationConfig config;
-  final String assetPath = WonderType.pyramidsGiza.assetPath;
-  final fgColor = WonderType.pyramidsGiza.fgColor;
-  final bgColor = WonderType.pyramidsGiza.bgColor;
+  final String assetPath = WonderType.HargaddiChokahatu.assetPath;
+  final fgColor = WonderType.HargaddiChokahatu.fgColor;
+  final bgColor = WonderType.HargaddiChokahatu.bgColor;
 
   @override
   Widget build(BuildContext context) {
     return WonderIllustrationBuilder(
-      wonderType: WonderType.pyramidsGiza,
+      wonderType: WonderType.HargaddiChokahatu,
       config: config,
       bgBuilder: _buildBg,
       mgBuilder: _buildMg,
@@ -56,7 +56,7 @@ class PyramidsGizaIllustration extends StatelessWidget {
         minHeight: 300,
         zoomAmt: config.shortMode ? -.2 : -2,
         fractionalOffset: Offset(0, -0.1),
-      )
+      ),
     ];
   }
 

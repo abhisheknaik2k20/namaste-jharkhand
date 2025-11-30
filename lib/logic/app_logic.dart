@@ -53,16 +53,10 @@ class AppLogic {
     final axisList = _supportedOrientationsOverride ?? supportedOrientations;
     final orientations = <DeviceOrientation>[];
     if (axisList.contains(Axis.vertical)) {
-      orientations.addAll([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
+      orientations.addAll([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     }
     if (axisList.contains(Axis.horizontal)) {
-      orientations.addAll([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
+      orientations.addAll([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     }
     SystemChrome.setPreferredOrientations(orientations);
   }
@@ -76,24 +70,24 @@ class AppLogic {
       'assets/images/christ_the_redeemer/redeemer.png',
       'assets/images/christ_the_redeemer/foreground-left.png',
       'assets/images/christ_the_redeemer/foreground-right.png',
-      'assets/images/colosseum/colosseum.png',
-      'assets/images/colosseum/foreground-left.png',
-      'assets/images/colosseum/foreground-right.png',
+      'assets/images/ParasnathHill/ParasnathHill.png',
+      'assets/images/ParasnathHill/foreground-left.png',
+      'assets/images/ParasnathHill/foreground-right.png',
       'assets/images/great_wall_of_china/great-wall.png',
       'assets/images/great_wall_of_china/foreground-left.png',
       'assets/images/great_wall_of_china/foreground-right.png',
       'assets/images/machu_picchu/machu-picchu.png',
       'assets/images/machu_picchu/foreground-back.png',
       'assets/images/machu_picchu/foreground-front.png',
-      'assets/images/petra/petra.png',
-      'assets/images/petra/foreground-left.png',
-      'assets/images/petra/foreground-right.png',
+      'assets/images/TapovanCaves/TapovanCaves.png',
+      'assets/images/TapovanCaves/foreground-left.png',
+      'assets/images/TapovanCaves/foreground-right.png',
       'assets/images/pyramids/pyramids.png',
       'assets/images/pyramids/foreground-back.png',
       'assets/images/pyramids/foreground-front.png',
       'assets/images/taj_mahal/taj-mahal.png',
       'assets/images/taj_mahal/foreground-left.png',
-      'assets/images/taj_mahal/foreground-right.png'
+      'assets/images/taj_mahal/foreground-right.png',
     ];
     for (var url in urls) {
       precacheImage(AssetImage(url), context, onError: (error, stackTrace) {});

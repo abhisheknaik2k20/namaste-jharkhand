@@ -1,10 +1,10 @@
 enum WonderType {
-  chichenItza,
-  christRedeemer,
-  colosseum,
-  greatWall,
-  machuPicchu,
-  petra,
-  pyramidsGiza,
-  tajMahal,
+  JagannathTemple,
+  BetlaNationalPark,
+  ParasnathHill,
+  PatratuValley,
+  hundruFalls,
+  TapovanCaves,
+  HargaddiChokahatu,
+  Deoghar,
 }

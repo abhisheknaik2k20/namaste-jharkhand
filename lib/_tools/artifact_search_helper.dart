@@ -47,10 +47,7 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(32.0),
-          child: _buildContent(context),
-        ),
+        body: Padding(padding: EdgeInsets.all(32.0), child: _buildContent(context)),
       ),
     );
   }
@@ -179,13 +176,7 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
     if (checkImages) aspectRatio = await _getAspectRatio(imageUrlSmall);
     if (aspectRatio == null) return _logError(id, 'image failed to load');
 
-    SearchData entry = SearchData(
-      year,
-      id,
-      _escape(json['title']),
-      _getKeywords(json),
-      aspectRatio,
-    );
+    SearchData entry = SearchData(year, id, _escape(json['title']), _getKeywords(json), aspectRatio);
 
     entries.add(entry);
   }
@@ -194,10 +185,12 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
     Completer<double?> completer = Completer<double?>();
     NetworkImage image = NetworkImage(imagePath);
     ImageStream stream = image.resolve(ImageConfiguration());
-    stream.addListener(ImageStreamListener(
-      (info, _) => completer.complete(info.image.width / info.image.height),
-      onError: (_, __) => completer.complete(null),
-    ));
+    stream.addListener(
+      ImageStreamListener(
+        (info, _) => completer.complete(info.image.width / info.image.height),
+        onError: (_, __) => completer.complete(null),
+      ),
+    );
     return completer.future;
   }
 
@@ -233,14 +226,14 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
     String suggestions = _getSuggestions(entries);
 
     const fileNames = {
-      WonderType.chichenItza: 'chichen_itza',
-      WonderType.christRedeemer: 'christ_redeemer',
-      WonderType.colosseum: 'colosseum',
-      WonderType.greatWall: 'great_wall',
-      WonderType.machuPicchu: 'machu_picchu',
-      WonderType.petra: 'petra',
-      WonderType.pyramidsGiza: 'pyramids_giza',
-      WonderType.tajMahal: 'taj_mahal',
+      WonderType.JagannathTemple: 'chichen_itza',
+      WonderType.BetlaNationalPark: 'christ_redeemer',
+      WonderType.ParasnathHill: 'ParasnathHill',
+      WonderType.PatratuValley: 'great_wall',
+      WonderType.hundruFalls: 'machu_picchu',
+      WonderType.TapovanCaves: 'TapovanCaves',
+      WonderType.HargaddiChokahatu: 'pyramids_giza',
+      WonderType.Deoghar: 'taj_mahal',
     };
     Directory dir = await getApplicationDocumentsDirectory();
     String name = '${fileNames[wonder!.type]}_search_data.dart';
@@ -308,7 +301,7 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
         'four',
         'part',
         'called',
-        'over'
+        'over',
       ]);
       SearchData o = data[i];
       RegExp re = RegExp(r'\b\w{3,}\b');
@@ -341,35 +334,35 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
         // input:
         SizedBox(
           width: 200,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('Wonder to run:'),
-            _buildWonderPicker(context),
-            Gap(16),
-            Text('Max items:'),
-            TextFormField(
-              initialValue: maxIds.toString(),
-              onChanged: (s) => setState(() => maxIds = int.parse(s)),
-            ),
-            Gap(16),
-            Text('Max priority items:'),
-            TextFormField(
-              initialValue: maxPriority.toString(),
-              onChanged: (s) => setState(() => maxPriority = int.parse(s)),
-            ),
-            Gap(16),
-            CheckboxListTile(
-                title: Text('check images'), value: checkImages, onChanged: (b) => setState(() => checkImages = b!)),
-            Gap(32),
-            MaterialButton(onPressed: () => _run(), child: Text('RUN')),
-          ]),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Wonder to run:'),
+              _buildWonderPicker(context),
+              Gap(16),
+              Text('Max items:'),
+              TextFormField(initialValue: maxIds.toString(), onChanged: (s) => setState(() => maxIds = int.parse(s))),
+              Gap(16),
+              Text('Max priority items:'),
+              TextFormField(
+                initialValue: maxPriority.toString(),
+                onChanged: (s) => setState(() => maxPriority = int.parse(s)),
+              ),
+              Gap(16),
+              CheckboxListTile(
+                title: Text('check images'),
+                value: checkImages,
+                onChanged: (b) => setState(() => checkImages = b!),
+              ),
+              Gap(32),
+              MaterialButton(onPressed: () => _run(), child: Text('RUN')),
+            ],
+          ),
         ),
         Gap(40),
 
         // output:
-        Expanded(
-            child: ListView(
-          children: log.map<Widget>((o) => Text(o)).toList(growable: false),
-        )),
+        Expanded(child: ListView(children: log.map<Widget>((o) => Text(o)).toList(growable: false))),
       ],
     );
   }
@@ -383,20 +376,14 @@ class _ArtifactSearchHelperState extends State<ArtifactSearchHelper> {
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
       style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
+      underline: Container(height: 2, color: Colors.deepPurpleAccent),
       onChanged: (String? newValue) {
         setState(() {
           selectedWonder = newValue!;
         });
       },
       items: items.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
+        return DropdownMenuItem<String>(value: value, child: Text(value));
       }).toList(),
     );
   }
@@ -407,45 +394,45 @@ const String _baseArtifactUri = 'https://collectionapi.metmuseum.org/public/coll
 // ! as first char indicates a priority query
 const String _baseQueryUri = 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&';
 const Map<WonderType, List<String>> queries = {
-  WonderType.chichenItza: [
+  WonderType.JagannathTemple: [
     // 550 1550
     'artistOrCulture=true&q=maya', // 137
     'geoLocation=North and Central America&q=maya', // 193
   ],
-  WonderType.christRedeemer: [
+  WonderType.BetlaNationalPark: [
     // 1800 1950
     'geoLocation=Brazil&q=brazil', // 69
   ],
-  WonderType.colosseum: [
+  WonderType.ParasnathHill: [
     // 1 500
     //'!geoLocation=Rome&q=Rome',
     //'geoLocation=Roman Empire&q=roman', // 408
-    //'!q=colosseum',
+    //'!q=ParasnathHill',
     'artistOrCulture=true&q=roman', // 6068
     //'!dateBegin=-&dateEnd=500&geoLocation=Roman Empire&q=imperial rome', // 408
   ],
-  WonderType.greatWall: [
+  WonderType.PatratuValley: [
     // -700 1650
     '!dateBegin=-700&dateEnd=1650&artistOrCulture=true&q=china', // 4540
     'geolocation=china&artistOrCulture=true&q=china', // 14181
   ],
-  WonderType.machuPicchu: [
+  WonderType.hundruFalls: [
     // 1400 1600
     '!artistOrCulture=true&geoLocation=Peru&q=quechua',
     'geoLocation=South%20America&q=inca', // 344
   ],
-  WonderType.petra: [
+  WonderType.TapovanCaves: [
     // -500 500
     '!artistOrCulture=true&q=nabataean', // 50
     '!geoLocation=Levant&q=levant', // 346
     'geoLocation=Asia&q=Arabia',
   ],
-  WonderType.pyramidsGiza: [
+  WonderType.HargaddiChokahatu: [
     // -2600 -2500
     '!dateBegin=-2650&dateEnd=-2450&geoLocation=Egypt&q=egypt', // 205
     'geoLocation=Egypt&q=egypt', // 16668
   ],
-  WonderType.tajMahal: [
+  WonderType.Deoghar: [
     // 1600 1700
     '!geoLocation=India&q=mughal', // 399,
     'geoLocation=India&q=India',

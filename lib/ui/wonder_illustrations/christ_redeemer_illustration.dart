@@ -5,11 +5,11 @@ import 'package:namste_jharkhand/ui/wonder_illustrations/common/paint_textures.d
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_builder.dart';
 import 'package:namste_jharkhand/ui/wonder_illustrations/common/wonder_illustration_config.dart';
 
-class ChristRedeemerIllustration extends StatelessWidget {
-  ChristRedeemerIllustration({super.key, required this.config});
+class BetlaNationalParkIllustration extends StatelessWidget {
+  BetlaNationalParkIllustration({super.key, required this.config});
   final WonderIllustrationConfig config;
-  final String assetPath = WonderType.christRedeemer.assetPath;
-  final fgColor = WonderType.christRedeemer.fgColor;
+  final String assetPath = WonderType.BetlaNationalPark.assetPath;
+  final fgColor = WonderType.BetlaNationalPark.fgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ChristRedeemerIllustration extends StatelessWidget {
       bgBuilder: _buildBg,
       mgBuilder: _buildMg,
       fgBuilder: _buildFg,
-      wonderType: WonderType.christRedeemer,
+      wonderType: WonderType.BetlaNationalPark,
     );
   }
 
@@ -57,7 +57,7 @@ class ChristRedeemerIllustration extends StatelessWidget {
           fractionalOffset: Offset(0, config.shortMode ? .5 : .1),
           zoomAmt: .7,
         ),
-      )
+      ),
       //
     ];
   }
